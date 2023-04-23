@@ -1,5 +1,3 @@
-*.dae binary
-
 # Defold Protocol Buffer Text Files (https://github.com/github/linguist/issues/5091)
 *.animationset linguist-language=JSON5
 *.atlas linguist-language=JSON5

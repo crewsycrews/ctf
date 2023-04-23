@@ -632,7 +632,7 @@ layers {
 }
 layers {
   id: "decoration2"
-  z: 0.3
+  z: 0.4
   is_visible: 1
   cell {
     x: 8
