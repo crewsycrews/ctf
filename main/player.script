@@ -1,41 +1,51 @@
+---@class Player
+---@field moving bool
+---@field input vector3
+---@field dir quaternion|vector3|vector4
+---@field speed number
 go.property('speed', 300)
+
+---@param self Player
 function init(self)
-	msg.post(".", "acquire_input_focus")
-	msg.post("camera", "follow") 
-	self.moving = false
-	self.input = vmath.vector3()
-	self.dir = vmath.vector3(0, 1, 0)
+  msg.post(".", "acquire_input_focus")
+  msg.post("camera", "follow")
+  self.moving = false
+  self.input = vmath.vector3()
+  self.dir = vmath.vector3(1, 0, 0)
 end
 
-function final(self)
-	msg.post(".", "release_input_focus")
-end
+---@param self Player
+function final(self) msg.post(".", "release_input_focus") end
 
+---@param self Player
 function update(self, dt)
-	if self.moving then
-		local pos = go.get_position()
-		pos = pos + self.dir * self.speed * dt
-		go.set_position(pos)
-	end
+  if self.moving then
+    local target_position = go.get_position()
+    target_position = target_position + self.dir * self.speed * dt
+    go.set_position(target_position)
+  end
 
-	self.input.x = 0
-	self.input.y = 0
-	self.moving = false
+  self.input.x = 0
+  self.input.y = 0
+  self.moving = false
 end
 
+---@param self Player
 function on_input(self, action_id, action)
-	if action_id == hash("up") then
-		self.input.y = 1
-	elseif action_id == hash("down") then
-		self.input.y = -1
-	elseif action_id == hash("left") then
-		self.input.x = -1
-	elseif action_id == hash("right") then
-		self.input.x = 1
-	end
+  if action_id == hash("up") then
+    self.input.y = 1
+  elseif action_id == hash("down") then
+    self.input.y = -1
+  elseif action_id == hash("left") then
+    self.input.x = -1
+  elseif action_id == hash("right") then
+    self.input.x = 1
+  end
 
-	if vmath.length(self.input) > 0 then
-		self.moving = true
-		self.dir = vmath.normalize(self.input)
-	end
+  
+  if vmath.length(self.input) > 0 then
+    self.moving = true
+    self.dir = vmath.normalize(self.input)
+    msg.post('/sprite', "look_at", { dir = self.dir })
+  end
 end

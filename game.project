@@ -19,4 +19,12 @@ max_tile_count = 10000
 
 [display]
 display_device_info = 1
+width = 640
+height = 360
+
+[render]
+clear_color_alpha = 1.0
+clear_color_red = 0.15
+clear_color_green = 0.68
+clear_color_blue = 0.38
 

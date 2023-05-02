@@ -8,7 +8,7 @@
 # - MacOS: "/Applications/Defold.app"
 # - Linux: "/usr/bin/Defold"
 # - Windows: "C:/Program Files/Defold"
-defold_editor_path="C:/Program Files/Defold"
+defold_editor_path="/Applications/Defold.app"
 
 # Open the output folder after completing the bundle.
 open_bundle_folder=true
@@ -71,7 +71,6 @@ then
     defold_recources_path="$defold_recources_path/Contents/Resources"
 fi
 
-echo $defold_recources_path
 defold_config_path="$defold_recources_path/config"
 
 ls "$defold_config_path"

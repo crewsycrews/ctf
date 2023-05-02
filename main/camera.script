@@ -9,7 +9,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("follow") then
 		go.set_parent(".", sender)
-		go.set_position(vmath.vector3(-480, -320, 0))
+		go.set_position(vmath.vector3(-320, -185, 0))
 	elseif message_id == hash("unfollow") then
 		go.set_parent("camera", nil, true)
 	end
