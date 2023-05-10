@@ -14,3 +14,23 @@ key_trigger {
   input: KEY_RIGHT
   action: "right"
 }
+key_trigger {
+  input: KEY_SPACE
+  action: "head_action_1"
+}
+key_trigger {
+  input: KEY_Q
+  action: "head_action_2"
+}
+key_trigger {
+  input: KEY_E
+  action: "head_action_3"
+}
+key_trigger {
+  input: KEY_R
+  action: "head_action_4"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_1
+  action: "tail_action_1"
+}

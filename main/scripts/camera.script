@@ -1,3 +1,5 @@
+local screen_width = 480
+local screen_height = 320
 function init(self)
 	msg.post("#camera", "acquire_camera_focus")
 end
@@ -9,9 +11,9 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("follow") then
 		go.set_parent(".", sender)
-		go.set_position(vmath.vector3(-320, -185, 0))
+		go.set_position(vmath.vector3(-screen_width, -screen_height, 0))
 	elseif message_id == hash("unfollow") then
-		go.set_parent("camera", nil, true)
+		go.set_parent("camera")
 	end
 end
 

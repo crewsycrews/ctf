@@ -6,6 +6,7 @@
     "editor.suggest.showWords": false,
     "vscode-lua-format.configPath": ".vscode/lua-format.config",
     
+    "workbench.iconTheme": "material-icon-theme",
     // Lua tab size
     "[lua]": {
         "editor.defaultFormatter": "Koihik.vscode-lua-format",
@@ -79,8 +80,6 @@
 
     // Lua Language Server
     "Lua.runtime.version": "Lua 5.1",
-    "Lua.intelliSense.searchDepth": 10,
-    "Lua.color.mode": "Grammar",
     "Lua.completion.callSnippet": "Replace",
     "Lua.completion.displayContext": 0,
     "Lua.completion.workspaceWord": false,

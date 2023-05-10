@@ -18,9 +18,9 @@
 ---@alias quat quaternion
 
 ---@class url
----@field socket
----@field path
----@field fragment
+---@field socket string
+---@field path string
+---@field fragment string
 
 ---@alias hash userdata
 ---@alias constant userdata

@@ -1,0 +1,11 @@
+local function look_at(dir)
+  local angle = math.atan2(dir.y, dir.x)
+  ---@diagnostic disable-next-line: param-type-mismatch
+  local rot = vmath.quat_rotation_z(angle)
+  go.animate(".", "rotation", go.PLAYBACK_ONCE_FORWARD, rot, go.EASING_OUTBOUNCE, 0.05)
+  -- go.set_rotation(rot)
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == hash("look_at") then look_at(message.dir) end
+end

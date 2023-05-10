@@ -1,0 +1,49 @@
+---@class Follower
+---@field speed number
+---@field dir quaternion|vector3|vector4
+---@field max_distance number
+---@field parent url
+local camera = require("orthographic.camera")
+go.property('speed', 290)
+go.property('parent', msg.url())
+go.property('max_distance', 30)
+
+---@param self Follower
+function init(self)
+  self.dir = vmath.vector3(1, 0, 0)
+  msg.post(".", "acquire_input_focus")
+end
+
+---@param self Follower
+local function check_distance(self, dt)
+  local currentPosition = go.get_position()
+  self.speed = go.get(self.parent, "speed")
+  local whoToFollow = go.get_world_position(self.parent)
+  local distance = vmath.length(currentPosition - whoToFollow)
+  if distance > self.max_distance then
+    local direction = vmath.normalize(whoToFollow - currentPosition) *
+                          ((distance - self.max_distance) / 10)
+    local target_position = currentPosition + direction * self.speed * dt
+    go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
+               go.EASING_OUTBOUNCE, 0.05)
+  end
+end
+
+---@param self Follower
+function update(self, dt) check_distance(self, dt) end
+
+local function look_at(x, y)
+  -- the position to look at (mouse/finger)
+  local cursor_world = camera.screen_to_world(go.get_id("camera"),
+                                              vmath.vector3(x, y, 0))
+  local player_world = go.get_world_position()
+  local angle = math.atan2(player_world.x - cursor_world.x,
+                           cursor_world.y - player_world.y)
+  local rotation = vmath.quat_rotation_z(angle)
+  go.set_rotation(rotation)
+end
+
+function on_input(self, action_id, action)
+  if not action_id then look_at(action.x, action.y) end
+end
+
