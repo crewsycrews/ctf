@@ -78,6 +78,8 @@
         ".vp": "vert"
     },
 
+    "editor.formatOnSave": true,
+
     // Lua Language Server
     "Lua.runtime.version": "Lua 5.1",
     "Lua.completion.callSnippet": "Replace",

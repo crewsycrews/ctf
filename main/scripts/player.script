@@ -38,10 +38,9 @@ function update(self, dt)
   local target_position = go.get_position()
   if self.dashing then self.speed = self.speed * 10 end
   target_position = target_position + self.dir * self.speed * dt
-  go.set_position(target_position)
-  -- go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-  --            go.EASING_OUTBOUNCE, 0.05)
-  followersManipulator.look_at_holders_dir(self)
+  -- go.set_position(target_position)
+  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
+             go.EASING_OUTBOUNCE, 0.05)
   self.speed = DEFAULT_SPEED
   self.input.x = 0
   self.input.y = 0

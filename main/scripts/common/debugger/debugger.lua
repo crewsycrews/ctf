@@ -1,11 +1,12 @@
-local dummy = { }
+local dummy = {}
 dummy.error = ''
 dummy.start = function()
   print('VSCode debugger hasn\'t started. ' .. dummy.error)
 end
 
 if os.getenv('LOCAL_LUA_DEBUGGER_VSCODE') ~= '1' then
-  dummy.error = 'This is not the VSCode environment or the lldebugger extension is not installed'
+  dummy.error =
+      'This is not the VSCode environment or the lldebugger extension is not installed'
   return dummy
 end
 
@@ -32,7 +33,7 @@ else
   return dummy
 end
 
-local debugger = { }
+local debugger = {}
 local module, error = loadfile(debugger_path)
 
 if module then
