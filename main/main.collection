@@ -24,6 +24,7 @@ embedded_instances {
   id: "player"
   children: "HeadSpellMenu"
   children: "TailSpellMenu"
+  children: "ice-spell"
   children: "sprite"
   data: "components {\n"
   "  id: \"main\"\n"
@@ -139,7 +140,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: 0.0
+    y: 1.0
     z: 0.0
   }
   rotation {
@@ -196,10 +197,10 @@ embedded_instances {
 embedded_instances {
   id: "HeadSpellMenu"
   data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
+  "  id: \"ice-spell\"\n"
   "  type: \"sprite\"\n"
   "  data: \"tile_set: \\\"/assets/spell.atlas\\\"\\n"
-  "default_animation: \\\"spell-border\\\"\\n"
+  "default_animation: \\\"ice-spell-icon\\\"\\n"
   "material: \\\"/builtins/materials/sprite.material\\\"\\n"
   "blend_mode: BLEND_MODE_ALPHA\\n"
   "\"\n"
@@ -215,8 +216,8 @@ embedded_instances {
   "    w: 1.0\n"
   "  }\n"
   "  scale {\n"
-  "    x: 0.2\n"
-  "    y: 0.2\n"
+  "    x: 0.5\n"
+  "    y: 0.5\n"
   "    z: 1.0\n"
   "  }\n"
   "}\n"
@@ -420,6 +421,63 @@ embedded_instances {
     x: -258.0
     y: -256.0
     z: 0.2
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "ice-spell"
+  data: "components {\n"
+  "  id: \"look_at\"\n"
+  "  component: \"/main/scripts/spell-look-at.script\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "  property_decls {\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"ice-wind\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"tile_set: \\\"/assets/ice-spell.atlas\\\"\\n"
+  "default_animation: \\\"ice-animation\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 158.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
   }
   rotation {
     x: 0.0
