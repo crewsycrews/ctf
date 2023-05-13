@@ -7,8 +7,8 @@ local camera = require("orthographic.camera")
 go.property('speed', 290)
 go.property('parent', msg.url())
 go.property('max_distance', 30)
-go.property("IceTime", 5) -- in seconds
-go.property("IceTimeCooldown", 10) -- in seconds
+go.property("IceTime", 10) -- in seconds
+go.property("IceTimeCooldown", 5) -- in seconds
 
 iceObj = nil
 
