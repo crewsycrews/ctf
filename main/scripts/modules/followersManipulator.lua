@@ -39,4 +39,12 @@ followerManipulator.look_at_holders_dir = function(holder)
                                           { dir = holder.dir })
 end
 
+---@param holder { followers: table }
+followerManipulator.animate_jump = function(holder)
+  for index, follower in ipairs(holder.followers) do
+    go.animate(msg.url(nil, follower, nil), 'scale', go.PLAYBACK_ONCE_PINGPONG,
+               go.get_scale() * 2, go.EASING_LINEAR, 0.8, 0.06 * index)
+  end
+end
+
 return followerManipulator
