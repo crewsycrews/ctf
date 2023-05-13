@@ -10,4 +10,8 @@ function on_message(self, message_id, message, sender)
     msg.post("/ice-spell#sprite", "play_animation",
              { id = hash("ice-spell-icon-cooldown") })
   end
+  if message_id == hash('activated') then
+    msg.post("/ice-spell#sprite", "play_animation",
+             { id = hash("ice-spell-icon-activated") })
+  end
 end
