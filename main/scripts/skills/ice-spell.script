@@ -1,6 +1,8 @@
 go.property("CooldownTime", 2)
 go.property("ActiveTime", 5)
 local spellStatus = 'normal'
+local spellDuration
+local spellGO = nil
 
 function on_message(self, message_id, message, sender)
   if message_id == hash('create_spell') then
