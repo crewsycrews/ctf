@@ -1,0 +1,68 @@
+go.property("CooldownTime", 0.5)
+go.property("ActiveTime", 3)
+go.property("Speed", 500)
+
+local camera = require("orthographic.camera")
+
+local spellStatus = 'normal'
+local spellDuration = 0
+local spellGO = nil
+
+local speed = vmath.vector3(0, 0, 0)
+
+local function activate()
+  if spellStatus ~= 'normal' then return end
+  spellStatus = 'active'
+  spellDuration = 0
+  msg.post("/fireball-spell#sprite", "play_animation",
+  { id = hash("fireball-spell-icon-activated") })
+end
+
+local function create( targetRotation, targetPosition)
+  spellGO = factory.create("#fireball-spell-factory")
+  local position = go.get_position(spellGO)
+  dx = targetPosition.x - position.x
+  dy = targetPosition.y - position.y
+  local dPath = math.sqrt(dx * dx + dy * dy)
+  local speedX = (dx / dPath) 
+  local speedY = (dy / dPath) 
+  speed.x = speedX
+  speed.y = speedY
+  activate()
+end
+
+local function reset_spell()
+  spellStatus = 'normal'
+  msg.post("/fireball-spell#sprite", "play_animation",
+           { id = hash("fireball-spell-icon") })
+end
+
+local function stop()
+  if spellStatus ~= 'active' then return end
+  spellStatus = 'cooldown'
+  go.delete(spellGO)
+  msg.post("/fireball-spell#sprite", "play_animation",
+           { id = hash("fireball-spell-icon-cooldown") })
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == hash('create_spell') then
+    if spellStatus == 'normal' then create(message.rot, message.position) end
+  end
+end
+
+function update(self, dt)
+  if spellStatus == 'active' or spellStatus == 'cooldown' then
+    spellDuration = spellDuration + dt
+  end
+  if spellStatus == 'active' then
+    local position = go.get_position()  
+    print(speed)
+    go.set_position(position + speed * self.Speed * dt, spellGO)
+  end
+  if spellDuration > self.ActiveTime then stop() end
+  if spellDuration > self.ActiveTime + self.CooldownTime then
+    reset_spell()
+    spellDuration = 0
+  end
+end

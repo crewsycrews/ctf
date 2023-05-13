@@ -28,6 +28,21 @@ components {
     w: 1.0
   }
 }
+components {
+  id: "fireball-spell"
+  component: "/main/scripts/skills/fireball-spell.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
 embedded_components {
   id: "sprite"
   type: "sprite"
@@ -52,6 +67,25 @@ embedded_components {
   id: "ice-spell-factory"
   type: "factory"
   data: "prototype: \"/main/gameObjects/ice-spell.go\"\n"
+  "load_dynamically: false\n"
+  "dynamic_prototype: false\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+embedded_components {
+  id: "fireball-spell-factory"
+  type: "factory"
+  data: "prototype: \"/main/gameObjects/fireball-spell.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
