@@ -1,0 +1,13 @@
+function on_message(self, message_id, message, sender)
+  -- Add message-handling code here
+  -- Learn more: https://defold.com/manuals/message-passing/
+  -- Remove this function if not needed
+  if message_id == hash('normal') then
+    msg.post("/ice-spell#sprite", "play_animation",
+             { id = hash("ice-spell-icon") })
+  end
+  if message_id == hash('cooldown') then
+    msg.post("/ice-spell#sprite", "play_animation",
+             { id = hash("ice-spell-icon-cooldown") })
+  end
+end
