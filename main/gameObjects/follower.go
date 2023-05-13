@@ -13,6 +13,21 @@ components {
     w: 1.0
   }
 }
+components {
+  id: "ice-spell"
+  component: "/main/scripts/skills/ice-spell.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
 embedded_components {
   id: "sprite"
   type: "sprite"
@@ -31,5 +46,24 @@ embedded_components {
     y: 0.0
     z: 0.9190608
     w: 0.39411575
+  }
+}
+embedded_components {
+  id: "ice-spell-factory"
+  type: "factory"
+  data: "prototype: \"/main/gameObjects/ice-spell.go\"\n"
+  "load_dynamically: false\n"
+  "dynamic_prototype: false\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
   }
 }
