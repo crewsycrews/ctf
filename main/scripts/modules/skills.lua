@@ -25,6 +25,15 @@ skills.jump = function(performer)
   followersManipulator.animate_jump(performer)
 end
 
-skills.blink = function() end
+---Push unit backward from current direction
+---@param performer { buffs: table, dir: quaternion|vector3|vector4, dashing: bool, speed: number }
+skills.backward_dash = function(performer)
+  performer.dashing = true
+  local target_position = go.get_position()
+  target_position = target_position - performer.dir * performer.speed * 1.08
+  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
+             go.EASING_LINEAR, 0.4, 0,
+             function(self, url, property) self.dashing = false end)
+end
 
 return skills

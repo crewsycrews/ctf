@@ -58,7 +58,7 @@ function on_input(self, action_id, action)
   elseif action_id == hash("head_action_2") and action.pressed then
     skills.jump(self)
   elseif action_id == hash("head_action_3") and action.pressed then
-    skills.blink()
+    skills.backward_dash(self)
   end
 
   if vmath.length(self.input) > 0 then
