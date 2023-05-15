@@ -1,4 +1,4 @@
----@class Player
+---@class Head
 ---@field moving bool
 ---@field dashing bool
 ---@field input quaternion|vector3|vector4
@@ -12,11 +12,9 @@ local followersManipulator =
     require('main.scripts.modules.followersManipulator')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
-go.property('speed', 300)
+go.property('speed', 200)
 
-local DEFAULT_SPEED = 300
-
----@param self Player
+---@param self Head
 function init(self)
   msg.post(".", "acquire_input_focus")
   camera.follow(nil, go.get_id())
@@ -30,25 +28,22 @@ function init(self)
   followersManipulator.spawn_followers(self)
 end
 
----@param self Player
+---@param self Head
 function final(self) msg.post(".", "release_input_focus") end
 
----@param self Player
+---@param self Head
 function update(self, dt)
-  local target_position = go.get_position()
-  if self.dashing then self.speed = self.speed * 10 end
-  target_position = target_position + self.dir * self.speed * dt
-  -- go.set_position(target_position)
-  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_OUTBOUNCE, 0.05)
-  self.speed = DEFAULT_SPEED
+  if not self.dashing then
+    local target_position = go.get_position()
+    target_position = target_position + self.dir * self.speed * dt
+    go.set_position(target_position)
+  end
   self.input.x = 0
   self.input.y = 0
   self.dir = vmath.normalize(self.dir)
-  self.dashing = false
 end
 
----@param self Player
+---@param self Head
 function on_input(self, action_id, action)
   if action_id == hash("up") then
     self.input.y = 1
@@ -60,6 +55,10 @@ function on_input(self, action_id, action)
     self.input.x = 1
   elseif action_id == hash("head_action_1") and action.pressed then
     skills.dash(self)
+  elseif action_id == hash("head_action_2") and action.pressed then
+    skills.jump(self)
+  elseif action_id == hash("head_action_3") and action.pressed then
+    skills.backward_dash(self)
   end
 
   if vmath.length(self.input) > 0 then

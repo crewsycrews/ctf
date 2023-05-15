@@ -10,9 +10,19 @@ buffs.statuses = STATUSES
 ---@param status statuses
 ---@return bool
 buffs.check_status = function(statusHolder, status)
-  return foldr(function(buff, is_presented)
-    return status == buff or is_presented
-  end, false, statusHolder.buffs)
+  return statusHolder[status] ~= nil or false
+end
+
+---@param statusHolder {buffs: table}
+---@param status statuses
+buffs.add_status = function(statusHolder, status)
+  statusHolder.buffs[status] = status
+end
+
+---@param statusHolder {buffs: table}
+---@param status statuses
+buffs.remove_status = function(statusHolder, status)
+  statusHolder.buffs[status] = nil
 end
 
 return buffs
