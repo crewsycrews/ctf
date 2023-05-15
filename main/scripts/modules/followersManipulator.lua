@@ -3,7 +3,7 @@ local followerManipulator = {}
 ---Deploy followers that will go behind each others back
 ---@param holder {followers_amount: number, followers: table, dir: quaternion|vector3|vector4 }
 followerManipulator.spawn_followers = function(holder)
-  holder.followers_amount = 5
+  holder.followers_amount = 4
   if #holder.followers == holder.followers_amount then return end
   for i = 1, holder.followers_amount do
     if #holder.followers == 0 then
@@ -33,10 +33,12 @@ followerManipulator.send_message_to_all =
       end
     end
 
----@param holder { followers: table, dir: quaternion|vector3|vector4 }
-followerManipulator.look_at_holders_dir = function(holder)
-  followerManipulator.send_message_to_all(holder, "look_at",
-                                          { dir = holder.dir })
+---@param holder { followers: table }
+followerManipulator.animate_jump = function(holder)
+  for index, follower in ipairs(holder.followers) do
+    go.animate(msg.url(nil, follower, nil), 'scale', go.PLAYBACK_ONCE_PINGPONG,
+               go.get_scale() * 2, go.EASING_LINEAR, 0.8, 0.2 * index)
+  end
 end
 
 return followerManipulator

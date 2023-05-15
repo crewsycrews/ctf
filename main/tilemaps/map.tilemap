@@ -1,4 +1,4 @@
-tile_set: "/main/main.tilesource"
+tile_set: "/main/tilesources/main.tilesource"
 layers {
   id: "ground"
   z: 0.0

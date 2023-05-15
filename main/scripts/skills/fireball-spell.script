@@ -15,17 +15,17 @@ local function activate()
   spellStatus = 'active'
   spellDuration = 0
   msg.post("/fireball-spell#sprite", "play_animation",
-  { id = hash("fireball-spell-icon-activated") })
+           { id = hash("fireball-spell-icon-activated") })
 end
 
-local function create( targetRotation, targetPosition)
+local function create(targetRotation, targetPosition)
   spellGO = factory.create("#fireball-spell-factory")
   local position = go.get_position(spellGO)
   dx = targetPosition.x - position.x
   dy = targetPosition.y - position.y
   local dPath = math.sqrt(dx * dx + dy * dy)
-  local speedX = (dx / dPath) 
-  local speedY = (dy / dPath) 
+  local speedX = (dx / dPath)
+  local speedY = (dy / dPath)
   speed.x = speedX
   speed.y = speedY
   activate()
@@ -56,8 +56,7 @@ function update(self, dt)
     spellDuration = spellDuration + dt
   end
   if spellStatus == 'active' then
-    local position = go.get_position()  
-    print(speed)
+    local position = go.get_position()
     go.set_position(position + speed * self.Speed * dt, spellGO)
   end
   if spellDuration > self.ActiveTime then stop() end

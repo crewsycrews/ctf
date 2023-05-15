@@ -46,8 +46,8 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/main/characters.atlas\"\n"
-  "default_animation: \"follower1\"\n"
+  data: "tile_set: \"/main/atlases/characters.atlas\"\n"
+  "default_animation: \"green\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
@@ -59,8 +59,13 @@ embedded_components {
   rotation {
     x: 0.0
     y: 0.0
-    z: 0.9190608
-    w: 0.39411575
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+    z: 1.0
   }
 }
 embedded_components {
