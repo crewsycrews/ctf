@@ -1,0 +1,51 @@
+go.property("CooldownTime", 2)
+go.property("ActiveTime", 5)
+local spellStatus = 'normal'
+local spellDuration = 0
+local spellGO = nil
+
+local function activate()
+  if spellStatus ~= 'normal' then return end
+  spellStatus = 'active'
+  spellDuration = 0
+  msg.post("/ice-spell#sprite", "play_animation",
+           { id = hash("ice-spell-icon-activated") })
+end
+
+local function create(parent_id)
+  spellGO = factory.create("#ice-spell-factory")
+  msg.post(spellGO, "set_parent", { parent_id = parent_id })
+  activate()
+end
+
+local function reset_spell()
+  spellStatus = 'normal'
+  msg.post("/ice-spell#sprite", "play_animation",
+           { id = hash("ice-spell-icon") })
+end
+
+local function stop()
+  if spellStatus ~= 'active' then return end
+  spellStatus = 'cooldown'
+  go.delete(spellGO)
+  msg.post("/ice-spell#sprite", "play_animation",
+           { id = hash("ice-spell-icon-cooldown") })
+end
+
+function update(self, dt)
+  if spellStatus == 'active' or spellStatus == 'cooldown' then
+    spellDuration = spellDuration + dt
+  end
+  if spellDuration > self.ActiveTime then stop() end
+  if spellDuration > self.ActiveTime + self.CooldownTime then
+    reset_spell()
+    spellDuration = 0
+  end
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == hash('create_spell') then
+    if spellStatus == 'normal' then create(message.id) end
+  end
+
+end

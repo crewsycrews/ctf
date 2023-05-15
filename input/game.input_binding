@@ -34,3 +34,15 @@ mouse_trigger {
   input: MOUSE_BUTTON_1
   action: "tail_action_1"
 }
+mouse_trigger {
+  input: MOUSE_BUTTON_2
+  action: "tail_action_2"
+}
+mouse_trigger {
+  input: MOUSE_WHEEL_UP
+  action: "tail_action_3"
+}
+mouse_trigger {
+  input: MOUSE_WHEEL_DOWN
+  action: "tail_action_4"
+}
