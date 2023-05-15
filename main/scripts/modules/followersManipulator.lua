@@ -33,11 +33,6 @@ followerManipulator.send_message_to_all =
       end
     end
 
----@param holder { followers: table, dir: quaternion|vector3|vector4 }
-followerManipulator.look_at_holders_dir = function(holder)
-  followerManipulator.send_message_to_all(holder, "look_at",
-                                          { dir = holder.dir })
-end
 
 ---@param holder { followers: table }
 followerManipulator.animate_jump = function(holder)
