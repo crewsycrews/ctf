@@ -1696,7 +1696,7 @@ layers {
 }
 layers {
   id: "trees"
-  z: 0.1
+  z: 0.0
   is_visible: 1
   cell {
     x: 0
@@ -5925,7 +5925,7 @@ layers {
 }
 layers {
   id: "rocks"
-  z: 0.1
+  z: 0.0
   is_visible: 1
   cell {
     x: 4

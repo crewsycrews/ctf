@@ -1,24 +1,26 @@
-animations {
-  id: "player"
-  images {
-    image: "/assets/units/hitman1_stand.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  playback: PLAYBACK_LOOP_FORWARD
-  fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
+images {
+  image: "/assets/units/hand_made/black.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
-animations {
-  id: "follower1"
-  images {
-    image: "/assets/units/worker/side/1.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  playback: PLAYBACK_LOOP_FORWARD
-  fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
+images {
+  image: "/assets/units/hand_made/bolotniy.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/units/hand_made/green.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/units/hand_made/hulk.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/units/hand_made/persik.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/units/hand_made/purple.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0
 extrude_borders: 2

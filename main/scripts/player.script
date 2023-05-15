@@ -1,6 +1,7 @@
 ---@class Head
 ---@field moving bool
 ---@field dashing bool
+---@field jumping bool
 ---@field input quaternion|vector3|vector4
 ---@field dir quaternion|vector3|vector4
 ---@field speed number
@@ -55,7 +56,7 @@ function on_input(self, action_id, action)
     self.input.x = 1
   elseif action_id == hash("head_action_1") and action.pressed then
     skills.dash(self)
-  elseif action_id == hash("head_action_2") and action.pressed then
+  elseif action_id == hash("head_action_2") and action.pressed and not self.jumping then
     skills.jump(self)
   elseif action_id == hash("head_action_3") and action.pressed then
     skills.backward_dash(self)

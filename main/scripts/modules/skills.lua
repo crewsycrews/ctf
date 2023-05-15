@@ -20,8 +20,9 @@ end
 --- Animate scale increse and decrease
 ---@param performer { followers: table }
 skills.jump = function(performer)
+  performer.jumping = true
   go.animate(go.get_id(), 'scale', go.PLAYBACK_ONCE_PINGPONG,
-             go.get_scale() * 2, go.EASING_LINEAR, 0.8)
+             go.get_scale() * 2, go.EASING_LINEAR, 0.8, 0, function (self, url, property) self.jumping = false end)
   followersManipulator.animate_jump(performer)
 end
 

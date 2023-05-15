@@ -6,7 +6,7 @@
 local camera = require("orthographic.camera")
 go.property('speed', 290)
 go.property('parent', msg.url())
-go.property('max_distance', 30)
+go.property('max_distance', 40)
 
 ---@param self Follower
 function init(self)
