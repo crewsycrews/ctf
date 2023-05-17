@@ -1,25 +1,9 @@
 images {
-  image: "/assets/units/hand_made/black.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/units/hand_made/bolotniy.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/units/hand_made/green.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/units/hand_made/hulk.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/units/hand_made/persik.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/units/hand_made/purple.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 animations {
@@ -50,6 +34,50 @@ animations {
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "wind"
+  images {
+    image: "/assets/units/hand_made/black.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 60
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "fire"
+  images {
+    image: "/assets/units/hand_made/purple.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 60
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "earth"
+  images {
+    image: "/assets/units/hand_made/hulk.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 60
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "water"
+  images {
+    image: "/assets/units/hand_made/green.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 60
   flip_horizontal: 0
   flip_vertical: 0
 }

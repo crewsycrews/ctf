@@ -123,6 +123,7 @@ function math.rad(x) end
 ---integer in the range [m, n].
 ---@param m  
 ---@param n  
+---@return number
 function math.random(m, n) end
 
 ---Sets x as the "seed"

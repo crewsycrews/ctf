@@ -1,6 +1,6 @@
 local buffs = require("main.scripts.modules.buffs")
 local followersManipulator =
-    require('main.scripts.modules.followersManipulator')
+    require('main.scripts.modules.followers')
 
 local skills = {}
 
