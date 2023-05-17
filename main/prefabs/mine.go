@@ -13,17 +13,17 @@ components {
     w: 1.0
   }
   properties {
-    id: "Health"
+    id: "health"
     value: "50.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
-    id: "Speed"
-    value: "25.0"
+    id: "speed"
+    value: "2.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
-    id: "Damage"
+    id: "damage"
     value: "25.0"
     type: PROPERTY_TYPE_NUMBER
   }

@@ -1,0 +1,16 @@
+
+local speed = 10
+
+function init(self)
+	speed = go.get("#enemy-common", "speed")
+	print (speed)
+end
+
+
+function update(self, dt)
+	local oldpos = go.get_position()
+	local diff = go.get_position("/player") - oldpos
+	-- move 10% of the remaining distance each frame
+	local newpos = go.get_position() + diff * speed * dt
+	go.set_position(newpos)
+end

@@ -12,10 +12,15 @@ components {
     z: 0.0
     w: 1.0
   }
+  properties {
+    id: "speed"
+    value: "0.8"
+    type: PROPERTY_TYPE_NUMBER
+  }
 }
 components {
-  id: "enemy-common1"
-  component: "/main/scripts/enemy-common.script"
+  id: "bat"
+  component: "/main/scripts/units/bat.script"
   position {
     x: 0.0
     y: 0.0
@@ -26,21 +31,6 @@ components {
     y: 0.0
     z: 0.0
     w: 1.0
-  }
-  properties {
-    id: "Health"
-    value: "10.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "Speed"
-    value: "40.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "Damage"
-    value: "10.0"
-    type: PROPERTY_TYPE_NUMBER
   }
 }
 embedded_components {
