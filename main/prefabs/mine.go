@@ -1,3 +1,33 @@
+components {
+  id: "enemy-common"
+  component: "/main/scripts/enemy-common.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  properties {
+    id: "Health"
+    value: "50.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "Speed"
+    value: "25.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "Damage"
+    value: "25.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+}
 embedded_components {
   id: "sprite"
   type: "sprite"

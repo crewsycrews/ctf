@@ -1,0 +1,4 @@
+go.property("Health", 100)
+go.property("Speed", 10)
+go.property("Damage", 0)
+
