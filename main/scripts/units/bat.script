@@ -9,8 +9,7 @@ end
 
 function update(self, dt)
 	local oldpos = go.get_position()
-	local diff = go.get_position("/player") - oldpos
-	-- move 10% of the remaining distance each frame
+	local diff = vmath.normalize(go.get_position("/player") - oldpos)
 	local newpos = go.get_position() + diff * speed * dt
 	go.set_position(newpos)
 end

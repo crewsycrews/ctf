@@ -19,12 +19,32 @@ components {
   }
   properties {
     id: "speed"
-    value: "2.0"
+    value: "75.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "damage"
     value: "25.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+}
+components {
+  id: "mine"
+  component: "/main/scripts/units/mine.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  properties {
+    id: "horizontal"
+    value: "1.0"
     type: PROPERTY_TYPE_NUMBER
   }
 }
