@@ -1,18 +1,17 @@
 go.property("horizontal", 0)
 
 local speed = 10
-local sprite = nil
 local flip = 1
 
 function init(self)
 	speed = go.get("#enemy-common", "speed")
-	-- sprite = go.get("#sprite")
 end
 
 function update(self, dt)
 	local diff = vmath.vector3(flip * self.horizontal, flip * (1 - self.horizontal), 0)
 	local new_position = go.get_position() + diff * speed * dt
 	go.set_position(new_position)
+	sprite.set_hflip("#sprite", flip > 0)
 end
 
 function on_message(self, message_id, message, sender)
