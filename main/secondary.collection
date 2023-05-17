@@ -19,6 +19,66 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "bomber"
+  prototype: "/main/prefabs/bomber.go"
+  position {
+    x: 1268.0
+    y: 1030.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "bat"
+  prototype: "/main/prefabs/bat.go"
+  position {
+    x: 924.0
+    y: 856.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "mine"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 1310.0
+    y: 755.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.22
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "followers"
@@ -170,6 +230,7 @@ embedded_instances {
   "restitution: 1.0\\n"
   "group: \\\"head\\\"\\n"
   "mask: \\\"obstacles\\\"\\n"
+  "mask: \\\"enemies\\\"\\n"
   "embedded_collision_shape {\\n"
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
