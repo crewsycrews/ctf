@@ -1,10 +1,10 @@
 go.property("timeout", 1)
 
 function init(self)
-	timer.delay(self.timeout, true, function(self, handle, time_elapsed)
-		factory.create("#factory", go.get_position(), go.get_rotation(),{
-			parent = msg.url(nil, go.get_id(), 'main'),
-			type = typeIndex
-		})
-	end)
+  timer.delay(self.timeout, true, function(self, handle, time_elapsed)
+    factory.create("#factory", go.get_position(), go.get_rotation(), {
+      parent = msg.url(nil, go.get_id(), 'main'),
+      type = typeIndex
+    })
+  end)
 end
