@@ -8,8 +8,6 @@ local function activate()
   if spellStatus ~= 'normal' then return end
   spellStatus = 'active'
   spellDuration = 0
-  msg.post("/ice-spell#sprite", "play_animation",
-           { id = hash("ice-spell-icon-activated") })
 end
 
 local function create(parent_id)
@@ -18,18 +16,12 @@ local function create(parent_id)
   activate()
 end
 
-local function reset_spell()
-  spellStatus = 'normal'
-  msg.post("/ice-spell#sprite", "play_animation",
-           { id = hash("ice-spell-icon") })
-end
+local function reset_spell() spellStatus = 'normal' end
 
 local function stop()
   if spellStatus ~= 'active' then return end
   spellStatus = 'cooldown'
   go.delete(spellGO)
-  msg.post("/ice-spell#sprite", "play_animation",
-           { id = hash("ice-spell-icon-cooldown") })
 end
 
 function update(self, dt)

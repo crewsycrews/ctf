@@ -17,6 +17,5 @@ function on_message(self, message_id, message, sender)
     if message.other_group == hash("obstacles") then
       self.flip = self.flip * -1
     end
-    if message.other_group == hash('head') then end
   end
 end

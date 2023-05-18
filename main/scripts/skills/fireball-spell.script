@@ -14,8 +14,6 @@ local function activate()
   if spellStatus ~= 'normal' then return end
   spellStatus = 'active'
   spellDuration = 0
-  msg.post("/fireball-spell#sprite", "play_animation",
-           { id = hash("fireball-spell-icon-activated") })
 end
 
 local function create(targetRotation, targetPosition)
@@ -31,18 +29,12 @@ local function create(targetRotation, targetPosition)
   activate()
 end
 
-local function reset_spell()
-  spellStatus = 'normal'
-  msg.post("/fireball-spell#sprite", "play_animation",
-           { id = hash("fireball-spell-icon") })
-end
+local function reset_spell() spellStatus = 'normal' end
 
 local function stop()
   if spellStatus ~= 'active' then return end
   spellStatus = 'cooldown'
   go.delete(spellGO)
-  msg.post("/fireball-spell#sprite", "play_animation",
-           { id = hash("fireball-spell-icon-cooldown") })
 end
 
 function on_message(self, message_id, message, sender)
