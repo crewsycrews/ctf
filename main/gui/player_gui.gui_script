@@ -1,0 +1,15 @@
+function init(self)
+  self.fireball = gui.get_node("fireball")
+  self.ice = gui.get_node("ice")
+end
+
+local function handle_animation(message_id, node, animation)
+  if message_id == hash(animation) then gui.play_flipbook(node, animation) end
+end
+
+function on_message(self, message_id, message, sender)
+  handle_animation(message_id, self.fireball, "fireball")
+  handle_animation(message_id, self.fireball, "fireball_cooldown")
+  handle_animation(message_id, self.ice, "ice")
+  handle_animation(message_id, self.ice, "ice_cooldown")
+end
