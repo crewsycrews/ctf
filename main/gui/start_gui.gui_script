@@ -1,0 +1,46 @@
+function init(self)
+  msg.post(".", "acquire_input_focus")
+  self.play = gui.get_node("play")
+  self.home = gui.get_node("home")
+  self.is_over = false
+end
+
+function final(self) msg.post(".", "release_input_focus") end
+
+local function update_animation(is_over, node, up_animation, down_animation,
+                                action)
+  local result_over = is_over
+  if gui.pick_node(node, action.x, action.y) then
+    if not is_over then
+      gui.play_flipbook(node, up_animation)
+      result_over = true
+    end
+  else
+    if is_over then
+      gui.play_flipbook(node, down_animation)
+      result_over = false
+    end
+  end
+  return result_over
+end
+
+function on_input(self, action_id, action)
+
+  if action_id == nil then
+    self.is_over = update_animation(self.is_over, self.play, "play_up",
+                                    "play_down", action)
+    self.is_over = update_animation(self.is_over, self.home, "home_up",
+                                    "home_down", action)
+  end
+
+  if action_id == hash("tail_action_1") then
+    if gui.pick_node(self.play, action.x, action.y) then
+      if action.pressed then
+        print("clicked")
+        msg.post("main:/loader#script", "load_level", { level = 1 })
+      end
+    end
+
+  end
+end
+

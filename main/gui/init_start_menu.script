@@ -1,0 +1,3 @@
+function init(self)
+  msg.post("main:/loader#script", "load_level", { level = 'menu' })
+end
