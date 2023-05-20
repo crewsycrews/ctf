@@ -7,6 +7,10 @@ textures {
   name: "spell"
   texture: "/assets/ui/spells/spell.atlas"
 }
+textures {
+  name: "ui_elements"
+  texture: "/assets/ui/ui_elements.atlas"
+}
 background_color {
   x: 0.0
   y: 0.0
@@ -15,8 +19,8 @@ background_color {
 }
 nodes {
   position {
-    x: 70.0
-    y: 70.0
+    x: 20.0
+    y: 68.0
     z: 0.0
     w: 1.0
   }
@@ -27,8 +31,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.5
-    y: 0.5
+    x: 0.4
+    y: 0.4
     z: 1.0
     w: 1.0
   }
@@ -50,7 +54,7 @@ nodes {
   id: "fireball"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_W
   adjust_mode: ADJUST_MODE_FIT
   layer: ""
   inherit_alpha: true
@@ -72,8 +76,8 @@ nodes {
 }
 nodes {
   position {
-    x: 140.0
-    y: 70.0
+    x: 76.0
+    y: 68.0
     z: 0.0
     w: 1.0
   }
@@ -84,8 +88,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.5
-    y: 0.5
+    x: 0.4
+    y: 0.4
     z: 1.0
     w: 1.0
   }
@@ -107,7 +111,7 @@ nodes {
   id: "ice"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_W
   adjust_mode: ADJUST_MODE_FIT
   layer: ""
   inherit_alpha: true

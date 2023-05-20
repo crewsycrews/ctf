@@ -4,8 +4,8 @@ fonts {
   font: "/assets/fonts/PixelFont.font"
 }
 textures {
-  name: "start_ui"
-  texture: "/assets/ui/start_ui.atlas"
+  name: "ui_elements"
+  texture: "/assets/ui/ui_elements.atlas"
 }
 background_color {
   x: 0.0
@@ -46,7 +46,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "start_ui/background"
+  texture: "ui_elements/background"
   id: "background"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -103,7 +103,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "start_ui/button"
+  texture: "ui_elements/button"
   id: "play"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -226,7 +226,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "start_ui/button"
+  texture: "ui_elements/button"
   id: "quit"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
