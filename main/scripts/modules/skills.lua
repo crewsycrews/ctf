@@ -51,7 +51,7 @@ skills.ice_barrage = function(performer)
     performer.ice_barrage_on_cooldown = false
     msg.post("/gui/gui", "ice")
   end)
-  timer.delay(0.3, false, function(self, handle, time_elapsed)
+  timer.delay(3, false, function(self, handle, time_elapsed)
     performer.ice_barrage_active = false
     go.delete(spellGO)
 
