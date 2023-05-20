@@ -19,6 +19,258 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "bomber"
+  prototype: "/main/prefabs/bomber.go"
+  position {
+    x: 1268.0
+    y: 1030.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "mine"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 1506.0
+    y: 589.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.22
+  }
+}
+instances {
+  id: "mine1"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 691.0
+    y: 1228.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "mine2"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 1237.0
+    y: 1548.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "mine"
+    properties {
+      id: "horizontal"
+      value: "0.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "bat-spawn"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 292.0
+    y: 1806.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "mine3"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 1636.0
+    y: 1159.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "mine"
+    properties {
+      id: "horizontal"
+      value: "0.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.22
+  }
+}
+instances {
+  id: "mine4"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 1461.0
+    y: 1212.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.22
+  }
+}
+instances {
+  id: "mine5"
+  prototype: "/main/prefabs/mine.go"
+  position {
+    x: 1125.0
+    y: 818.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.22
+  }
+}
+instances {
+  id: "bat-spawn1"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 1992.0
+    y: 397.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "bat-spawn"
+    properties {
+      id: "timeout"
+      value: "2.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "bat-spawn2"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 409.0
+    y: 389.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "bat-spawn"
+    properties {
+      id: "timeout"
+      value: "4.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "bat-spawn3"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 1979.0
+    y: 1820.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "followers"
@@ -105,6 +357,7 @@ embedded_instances {
   "restitution: 1.0\\n"
   "group: \\\"\\\"\\n"
   "mask: \\\"head\\\"\\n"
+  "mask: \\\"enemies\\\"\\n"
   "linear_damping: 0.0\\n"
   "angular_damping: 0.0\\n"
   "locked_rotation: true\\n"
@@ -170,6 +423,7 @@ embedded_instances {
   "restitution: 1.0\\n"
   "group: \\\"head\\\"\\n"
   "mask: \\\"obstacles\\\"\\n"
+  "mask: \\\"enemies\\\"\\n"
   "embedded_collision_shape {\\n"
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
