@@ -1,13 +1,9 @@
 images {
-  image: "/assets/ui/Buttons Pixel Animation Pack/play/343px/play01.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/ui/Buttons Pixel Animation Pack/home/343px/home01.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/ui/background.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/ui/button.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

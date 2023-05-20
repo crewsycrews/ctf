@@ -4,13 +4,13 @@ local function play_click(self)
   msg.post("main:/loader#script", "load_level", { level = 1 })
 end
 
-local function home_click(self) msg.post("@system:", "exit", { code = 0 }) end
+local function quit_click(self) msg.post("@system:", "exit", { code = 0 }) end
 
 function init(self)
   msg.post(".", "acquire_input_focus")
   self.druid = druid.new(self)
   self.druid:new_button("play", play_click)
-  self.druid:new_button("home", home_click)
+  self.druid:new_button("quit", quit_click)
 end
 
 function final(self)
