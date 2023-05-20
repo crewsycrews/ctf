@@ -8,9 +8,9 @@
 ---@field followers table
 ---@field followers_amount number
 ---@field buffs table
-require('main.scripts.common.debugger.debugger').start()
+-- require('main.scripts.common.debugger.debugger').start()
 local followersManipulator =
-    require('main.scripts.modules.followersManipulator')
+    require('main.scripts.modules.followers')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
 go.property('speed', 200)

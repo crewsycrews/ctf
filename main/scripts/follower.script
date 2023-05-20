@@ -3,16 +3,20 @@
 ---@field dir quaternion|vector3|vector4
 ---@field max_distance number
 ---@field parent url
+---@field type string
+
+
 local camera = require("orthographic.camera")
 local followers = require("main.scripts.modules.followers")
-local skills = require("main.scripts.modules.skills")
 go.property('speed', 290)
 go.property('parent', msg.url())
+go.property('type', 1)
 go.property('max_distance', 40)
 
 ---@param self Follower
 function init(self)
   self.dir = vmath.vector3(1, 0, 0)
+  msg.post("#sprite", "play_animation", { id = hash(followers.TYPES[self.type]) })
   msg.post(".", "acquire_input_focus")
 end
 
