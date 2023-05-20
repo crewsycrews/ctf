@@ -1,6 +1,6 @@
 components {
-  id: "fireball-spell"
-  component: "/main/scripts/skills/fireball-spell.script"
+  id: "fireball"
+  component: "/main/scripts/skills/fireball.script"
   position {
     x: 0.0
     y: 0.0
