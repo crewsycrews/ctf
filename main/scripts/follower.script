@@ -8,6 +8,8 @@
 
 local camera = require("orthographic.camera")
 local followers = require("main.scripts.modules.followers")
+local skills = require("main.scripts.modules.skills")
+
 go.property('speed', 290)
 go.property('parent', msg.url())
 go.property('type', 1)
