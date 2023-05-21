@@ -1,12 +1,19 @@
-local healthbar_max_scale = 0.316
+local initial_healthbar_x = 100
 
 function init(self)
   self.fireball = gui.get_node("fireball")
   self.ice = gui.get_node("ice")
+  self.player_health = gui.get_node("player_health")
+  self.player_health_size = gui.get_size(self.player_health)
 end
 
 local function handle_animation(message_id, node, animation)
   if message_id == hash(animation) then gui.play_flipbook(node, animation) end
+end
+
+local function set_player_health(self, value)
+  gui.set_size(self.player_health, vmath.vector3(value * initial_healthbar_x,
+                                                 self.player_health_size.y, 0))
 end
 
 function on_message(self, message_id, message, sender)
@@ -16,6 +23,7 @@ function on_message(self, message_id, message, sender)
   handle_animation(message_id, self.ice, "ice_cooldown")
 
   if message_id == hash("player_health") then
-    -- set_player_health(self, message.health)
+    set_player_health(self.player_health, message.health_percent)
   end
 end
+
