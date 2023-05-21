@@ -13,6 +13,7 @@ local followersManipulator = require('main.scripts.modules.followers')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
 go.property('speed', 200)
+go.property("health", 100)
 
 ---@param self Head
 function init(self)
@@ -25,6 +26,8 @@ function init(self)
   self.buffs = {}
   self.input = vmath.vector3(0, 0, 0)
   self.dir = vmath.vector3(1, 0, 0)
+
+  self.current_health = self.health
   followersManipulator.spawn_followers(self)
 end
 
@@ -65,5 +68,14 @@ function on_input(self, action_id, action)
   if vmath.length(self.input) > 0 then
     self.dir = vmath.normalize(self.input)
     msg.post('/sprite', "look_at", { dir = self.dir })
+  end
+end
+
+function on_message(self, message_id, message)
+  if message_id == hash("take_damage") then
+    local damage = message.damage
+    self.current_health = self.current_health - damage
+    msg.post("/gui/gui", "set_player_health",
+    { health_percent = self.current_health })
   end
 end
