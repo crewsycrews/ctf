@@ -1,3 +1,4 @@
+require("main.scripts.modules.messages")
 function init(self) msg.post(".", "acquire_input_focus") end
 
 -- start level
@@ -6,7 +7,6 @@ local current_level = nil
 local function get_proxy(level)
   if level == 'menu' then return "/loader#menu" end
   if level == 1 then return "/loader#level1" end
-  return nil
 end
 
 local function unload_level(level)
@@ -22,7 +22,7 @@ function on_message(self, message_id, message, sender)
     msg.post(sender, "enable")
   end
 
-  if message_id == hash("load_level") then
+  if message_id == hash(MESSAGES.LOAD_LEVEL) then
     msg.post(get_proxy(message.level), "load")
     if current_level ~= nil then unload_level(current_level) end
     current_level = message.level

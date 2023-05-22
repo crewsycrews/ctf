@@ -9,6 +9,7 @@
 ---@field followers_amount number
 ---@field buffs table
 -- require('main.scripts.common.debugger.debugger').start()
+require("main.scripts.modules.messages")
 local followersManipulator = require('main.scripts.modules.followers')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
@@ -72,10 +73,10 @@ function on_input(self, action_id, action)
 end
 
 function on_message(self, message_id, message)
-  if message_id == hash("take_damage") then
+  if message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
     local damage = message.damage
     self.current_health = self.current_health - damage
-    msg.post("/gui/gui", "set_player_health",
-    { health_percent = self.current_health })
+    msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
+             { health_percent = self.current_health })
   end
 end

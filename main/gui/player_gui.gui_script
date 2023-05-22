@@ -1,3 +1,5 @@
+require("main.scripts.modules.messages")
+
 function init(self)
   self.fireball = gui.get_node("fireball")
   self.ice = gui.get_node("ice")
@@ -14,12 +16,12 @@ local function set_player_health(self, value)
 end
 
 function on_message(self, message_id, message, sender)
-  handle_animation(message_id, self.fireball, "fireball")
-  handle_animation(message_id, self.fireball, "fireball_cooldown")
-  handle_animation(message_id, self.ice, "ice")
-  handle_animation(message_id, self.ice, "ice_cooldown")
+  handle_animation(message_id, self.fireball, MESSAGES.SKILLS.FIREBALL.NORMAL)
+  handle_animation(message_id, self.fireball, MESSAGES.SKILLS.FIREBALL.COOLDOWN)
+  handle_animation(message_id, self.ice, MESSAGES.SKILLS.ICE.NORMAL)
+  handle_animation(message_id, self.ice, MESSAGES.SKILLS.ICE.COOLDOWN)
 
-  if message_id == hash("set_player_health") then
+  if message_id == hash(MESSAGES.PLAYER.SET_HEALTH) then
     set_player_health(self, message.health_percent)
   end
 end

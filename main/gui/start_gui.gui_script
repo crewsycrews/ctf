@@ -1,7 +1,8 @@
+require("main.scripts.modules.messages")
 local druid = require("druid.druid")
 
 local function play_click(self)
-  msg.post("main:/loader#script", "load_level", { level = 1 })
+  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = 1 })
 end
 
 local function quit_click(self) msg.post("@system:", "exit", { code = 0 }) end

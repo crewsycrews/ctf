@@ -1,3 +1,4 @@
+require("main.scripts.modules.messages")
 local buffs = require("main.scripts.modules.buffs")
 local followersManipulator = require('main.scripts.modules.followers')
 
@@ -42,14 +43,14 @@ skills.ice_barrage = function(performer)
     return
   end
 
-  msg.post("/gui/gui", "ice_cooldown")
+  msg.post("/gui/gui", MESSAGES.SKILLS.ICE.COOLDOWN)
   local spellGO = factory.create("#ice-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
   performer.ice_barrage_on_cooldown = true
   performer.ice_barrage_active = true
   timer.delay(6, false, function(self, handle, time_elapsed)
     performer.ice_barrage_on_cooldown = false
-    msg.post("/gui/gui", "ice")
+    msg.post("/gui/gui", MESSAGES.SKILLS.ICE.NORMAL)
   end)
   timer.delay(3, false, function(self, handle, time_elapsed)
     performer.ice_barrage_active = false
@@ -61,12 +62,12 @@ end
 skills.fireball = function(performer)
   if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
-  msg.post("/gui/gui", "fireball_cooldown")
+  msg.post("/gui/gui", MESSAGES.SKILLS.FIREBALL.COOLDOWN)
   local spellGO = factory.create("#fireball-spell-factory")
   go.set_rotation(go.get_rotation(), spellGO)
   timer.delay(0.5, false, function(self, handle, time_elapsed)
     performer.fireball_on_cooldown = false
-    msg.post("/gui/gui", "fireball")
+    msg.post("/gui/gui", MESSAGES.SKILLS.FIREBALL.NORMAL)
   end)
 end
 
