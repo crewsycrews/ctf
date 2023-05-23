@@ -12,11 +12,13 @@ function init(self)
   self.druid = druid.new(self)
   self.druid:new_button("play", play_click)
   self.druid:new_button("quit", quit_click)
+  sound.play("title#sound")
 end
 
 function final(self)
   msg.post(".", "release_input_focus")
   self.druid:final()
+  sound.stop("title#sound")
 end
 
 function on_message(self, message_id, message, sender)
