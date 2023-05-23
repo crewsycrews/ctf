@@ -1,0 +1,8 @@
+
+function init(self)
+	sound.play("/music#sound")
+end
+
+function final(self)
+	sound.stop("/music#sound")
+end
