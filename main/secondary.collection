@@ -334,8 +334,8 @@ embedded_instances {
   "  id: \"trees\"\n"
   "  component: \"/main/tilemaps/third.tilemap\"\n"
   "  position {\n"
-  "    x: -11.524\n"
-  "    y: -69.142\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
   "    z: 0.0\n"
   "  }\n"
   "  rotation {\n"
@@ -377,8 +377,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 104.0
-    y: 101.0
+    x: 106.0
+    y: 106.0
     z: 0.0
   }
   rotation {

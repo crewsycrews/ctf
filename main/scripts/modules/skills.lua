@@ -1,6 +1,5 @@
 local buffs = require("main.scripts.modules.buffs")
-local followersManipulator =
-    require('main.scripts.modules.followers')
+local followersManipulator = require('main.scripts.modules.followers')
 
 local skills = {}
 
@@ -56,14 +55,30 @@ skills.ice_barrage = function(performer)
 end
 
 skills.fireball = function(performer)
-  if performer.fireball_on_cooldown then
-    return
-  end
+  if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
   local spellGO = factory.create("#fireball-spell-factory")
   go.set_rotation(go.get_rotation(), spellGO)
   timer.delay(0.5, false, function(self, handle, time_elapsed)
     performer.fireball_on_cooldown = false
+  end)
+end
+
+skills.thunderclap = function(performer)
+  if performer.thunderclap_on_cooldown or performer.thunderclap_active then
+    return
+  end
+  performer.thunderclap_on_cooldown = true
+  performer.thunderclap_active = true
+
+  local spellGO = factory.create("#thunderclap-spell-factory")
+  msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
+  timer.delay(0.5, false, function(self, handle, time_elapsed)
+    performer.thunderclap_active = false
+    go.delete(spellGO)
+  end)
+  timer.delay(5, false, function(self, handle, time_elapsed)
+    performer.thunderclap_on_cooldown = false
   end)
 end
 

@@ -273,7 +273,7 @@ convex_hulls {
 convex_hulls {
   index: 386
   count: 7
-  collision_group: ""
+  collision_group: "obstacles"
 }
 convex_hulls {
   index: 393
@@ -318,7 +318,7 @@ convex_hulls {
 convex_hulls {
   index: 454
   count: 10
-  collision_group: ""
+  collision_group: "obstacles"
 }
 convex_hulls {
   index: 464
@@ -338,7 +338,7 @@ convex_hulls {
 convex_hulls {
   index: 474
   count: 11
-  collision_group: "obstacles"
+  collision_group: ""
 }
 convex_hulls {
   index: 485
@@ -1093,7 +1093,7 @@ convex_hulls {
 convex_hulls {
   index: 1388
   count: 8
-  collision_group: "trees"
+  collision_group: ""
 }
 convex_hulls {
   index: 1396
@@ -1223,7 +1223,7 @@ convex_hulls {
 convex_hulls {
   index: 1506
   count: 8
-  collision_group: "trees"
+  collision_group: ""
 }
 convex_hulls {
   index: 1514
@@ -1956,7 +1956,6 @@ convex_hulls {
   collision_group: ""
 }
 collision_groups: "obstacles"
-collision_groups: "trees"
 animations {
   id: "anim"
   start_tile: 1
@@ -1968,4 +1967,4 @@ animations {
 }
 extrude_borders: 2
 inner_padding: 0
-sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+sprite_trim_mode: SPRITE_TRIM_MODE_4
