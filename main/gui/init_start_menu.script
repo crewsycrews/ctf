@@ -1,0 +1,5 @@
+require("main.scripts.modules.messages")
+
+function init(self)
+  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = 'menu' })
+end
