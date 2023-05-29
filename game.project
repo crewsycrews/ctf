@@ -13,6 +13,8 @@ game_binding = /input/game.input_bindingc
 [physics]
 scale = 0.02
 gravity_y = 0.0
+max_collision_object_count = 10240
+debug = 0
 
 [script]
 shared_state = 1
