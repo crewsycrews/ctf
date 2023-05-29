@@ -60,7 +60,7 @@ animations {
   flip_vertical: 0
 }
 animations {
-  id: "earth"
+  id: "earth-old"
   images {
     image: "/assets/units/hand_made/hulk.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
@@ -78,6 +78,68 @@ animations {
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "earth"
+  images {
+    image: "/assets/units/hand_made/oak/oak animation1.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation2.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation3.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation4.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation5.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation6.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "oak-legs"
+  images {
+    image: "/assets/units/hand_made/oak/oak animation1 (2).png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation2 (2).png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation3 (2).png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation4 (2).png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation5 (2).png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/units/hand_made/oak/oak animation6 (2).png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
   flip_horizontal: 0
   flip_vertical: 0
 }

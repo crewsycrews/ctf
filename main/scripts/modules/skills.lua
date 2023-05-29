@@ -5,7 +5,7 @@ local followersManipulator = require('main.scripts.modules.followers')
 local skills = {}
 
 ---Push unit forward in current direction
----@param performer { buffs: table, dir: quaternion|vector3|vector4, dashing: bool, speed: number }
+---@param performer Head
 skills.dash = function(performer)
   performer.dashing = true
   local target_position = go.get_position()
@@ -28,7 +28,7 @@ skills.jump = function(performer)
 end
 
 ---Push unit backward from current direction
----@param performer { buffs: table, dir: quaternion|vector3|vector4, dashing: bool, speed: number }
+---@param performer Head
 skills.backward_dash = function(performer)
   performer.dashing = true
   local target_position = go.get_position()
@@ -38,6 +38,7 @@ skills.backward_dash = function(performer)
              function(self, url, property) self.dashing = false end)
 end
 
+---@param performer Follower
 skills.ice_barrage = function(performer)
   if performer.ice_barrage_on_cooldown or performer.ice_barrage_active then
     return
@@ -59,6 +60,7 @@ skills.ice_barrage = function(performer)
   end)
 end
 
+---@param performer Follower
 skills.fireball = function(performer)
   if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
@@ -69,6 +71,44 @@ skills.fireball = function(performer)
     performer.fireball_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.FIREBALL.NORMAL)
   end)
+end
+
+---@param performer Follower
+skills.thunderclap = function(performer)
+  if performer.thunderclap_on_cooldown or performer.thunderclap_active then
+    return
+  end
+  performer.thunderclap_on_cooldown = true
+  performer.thunderclap_active = true
+
+  local spellGO = factory.create("#thunderclap-spell-factory")
+  msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
+  timer.delay(0.5, false, function(self, handle, time_elapsed)
+    performer.thunderclap_active = false
+    go.delete(spellGO)
+  end)
+  timer.delay(5, false, function(self, handle, time_elapsed)
+    performer.thunderclap_on_cooldown = false
+  end)
+end
+
+---@param performer Follower
+skills.windwalk = function(performer)
+  if performer.windwalk_on_cooldown or performer.windwalk_active then return end
+  performer.windwalk_on_cooldown = true
+  local spellGO = factory.create("#windwalk-spell-factory")
+
+  go.set_rotation(go.get_rotation(), spellGO)
+  go.set_scale(1.6, spellGO)
+  timer.delay(1, false, function(self, handle, time_elapsed)
+    performer.windwalk_active = false
+    go.set_scale(1)
+    go.delete(spellGO)
+  end)
+  timer.delay(3, false, function(self, handle, time_elapsed)
+    performer.windwalk_on_cooldown = false
+  end)
+  go.set_scale(0.0000001)
 end
 
 return skills
