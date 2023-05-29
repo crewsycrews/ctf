@@ -36,13 +36,13 @@ key_trigger {
 }
 mouse_trigger {
   input: MOUSE_BUTTON_1
-  action: "tail_action_1"
+  action: "touch"
 }
 mouse_trigger {
   input: MOUSE_WHEEL_UP
-  action: "tail_action_3"
+  action: "scroll_up"
 }
 mouse_trigger {
   input: MOUSE_WHEEL_DOWN
-  action: "tail_action_4"
+  action: "scroll_down"
 }

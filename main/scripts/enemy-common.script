@@ -1,4 +1,14 @@
+require("main.scripts.modules.messages")
 go.property("health", 100)
 go.property("speed", 10)
 go.property("damage", 0)
 
+function on_message(self, message_id, message, sender)
+  if message_id == hash("collision_response") then
+    if message.other_group == hash("head") then
+      msg.post("/player", MESSAGES.PLAYER.TAKE_DAMAGE, { damage = self.damage })
+      -- TODO explode animation
+      go.delete(go.get_id())
+    end
+  end
+end
