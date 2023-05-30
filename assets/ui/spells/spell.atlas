@@ -1,46 +1,18 @@
-animations {
-  id: "fireball_cooldown"
-  images {
-    image: "/assets/ui/spells/fireball/fireball-cooldown.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  playback: PLAYBACK_NONE
-  fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile000.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
-animations {
-  id: "fireball"
-  images {
-    image: "/assets/ui/spells/fireball/fireball.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  playback: PLAYBACK_NONE
-  fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile356.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
-animations {
-  id: "ice"
-  images {
-    image: "/assets/ui/spells/ice/ice.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  playback: PLAYBACK_NONE
-  fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile326.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
-animations {
-  id: "ice_cooldown"
-  images {
-    image: "/assets/ui/spells/ice/ice-cooldown.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  playback: PLAYBACK_NONE
-  fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile366.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0
 extrude_borders: 2
