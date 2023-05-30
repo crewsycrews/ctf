@@ -1,13 +1,19 @@
 require("main.scripts.modules.messages")
 
 function init(self)
-  self.fireball = gui.get_node("fireball")
-  self.ice = gui.get_node("ice")
+  self.fire = gui.get_node("fire")
+  self.water = gui.get_node("water")
+  self.wind = gui.get_node("wind")
+  self.earth = gui.get_node("earth")
   self.player_health = gui.get_node("player_health")
 end
 
-local function handle_animation(message_id, node, animation)
-  if message_id == hash(animation) then gui.play_flipbook(node, animation) end
+local function handle_animation(message_id, node)
+  if message_id == hash(MESSAGES.SKILLS.COOLDOWN) then
+    gui.set_color(node, vmath.vector3(0.5, 0.5, 0.5))
+  else
+    gui.set_color(node, vmath.vector3(1, 1, 1))
+  end
 end
 
 local function set_player_health(self, value)
@@ -16,10 +22,7 @@ local function set_player_health(self, value)
 end
 
 function on_message(self, message_id, message, sender)
-  handle_animation(message_id, self.fireball, MESSAGES.SKILLS.FIREBALL.NORMAL)
-  handle_animation(message_id, self.fireball, MESSAGES.SKILLS.FIREBALL.COOLDOWN)
-  handle_animation(message_id, self.ice, MESSAGES.SKILLS.ICE.NORMAL)
-  handle_animation(message_id, self.ice, MESSAGES.SKILLS.ICE.COOLDOWN)
+  handle_animation(message_id, self[message.type])
 
   if message_id == hash(MESSAGES.PLAYER.SET_HEALTH) then
     set_player_health(self, message.health_percent)
