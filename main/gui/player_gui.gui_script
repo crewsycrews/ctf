@@ -1,8 +1,5 @@
 require("main.scripts.modules.messages")
 
-local max_player_health = -1;
-local max_totem_health = -1;
-
 function init(self)
   self.fire = gui.get_node("fire")
   self.water = gui.get_node("water")
@@ -10,10 +7,6 @@ function init(self)
   self.earth = gui.get_node("earth")
   self.player_health = gui.get_node("player_health")
   self.totem_health = gui.get_node("totem_health")
-
-  max_player_health = gui.get_size(self.player_health).x
-  max_totem_health = gui.get_size(self.totem_health).x
-
 end
 
 local function handle_spell_animation(message_id, node)
@@ -25,15 +18,13 @@ local function handle_spell_animation(message_id, node)
 end
 
 local function set_player_health(self, percent)
-  local size = gui.get_size(self.player_health)
-  gui.set_size(self.player_health,
-               vmath.vector3(percent * max_player_health, size.y, 0))
+  gui.animate(self.player_health, "scale", vmath.vector3(percent, 1, 1),
+              gui.EASING_OUTCUBIC, 1)
 end
 
 local function set_totem_health(self, percent)
-  local size = gui.get_size(self.totem_health)
-  gui.set_size(self.totem_health,
-               vmath.vector3(percent * max_totem_health, size.y, 0))
+  gui.animate(self.totem_health, "scale", vmath.vector3(percent, 1, 1),
+              gui.EASING_OUTCUBIC, 1)
 end
 
 function on_message(self, message_id, message, sender)
