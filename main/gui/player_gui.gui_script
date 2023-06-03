@@ -22,7 +22,10 @@ local function set_player_health(self, value)
 end
 
 function on_message(self, message_id, message, sender)
-  handle_animation(message_id, self[message.type])
+  if message_id == hash(MESSAGES.SKILLS.COOLDOWN) or message_id ==
+      hash(MESSAGES.SKILLS.NORMAL) then
+    handle_animation(message_id, self[message.type])
+  end
 
   if message_id == hash(MESSAGES.PLAYER.SET_HEALTH) then
     set_player_health(self, message.health_percent)
