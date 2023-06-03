@@ -18,11 +18,6 @@ components {
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
-    id: "speed"
-    value: "20.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
     id: "damage"
     value: "40.0"
     type: PROPERTY_TYPE_NUMBER
@@ -84,6 +79,7 @@ embedded_components {
   "group: \"enemies\"\n"
   "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
+  "mask: \"totem\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

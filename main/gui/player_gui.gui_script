@@ -1,6 +1,7 @@
 require("main.scripts.modules.messages")
 
-local max_health_width = -1;
+local max_player_health = -1;
+local max_totem_health = -1;
 
 function init(self)
   self.fire = gui.get_node("fire")
@@ -8,12 +9,14 @@ function init(self)
   self.wind = gui.get_node("wind")
   self.earth = gui.get_node("earth")
   self.player_health = gui.get_node("player_health")
+  self.totem_health = gui.get_node("totem_health")
 
-  local size = gui.get_size(self.player_health)
-  max_health_width = size.x
+  max_player_health = gui.get_size(self.player_health).x
+  max_totem_health = gui.get_size(self.totem_health).x
+
 end
 
-local function handle_animation(message_id, node)
+local function handle_spell_animation(message_id, node)
   if message_id == hash(MESSAGES.SKILLS.COOLDOWN) then
     gui.set_color(node, vmath.vector3(0.5, 0.5, 0.5))
   else
@@ -24,17 +27,27 @@ end
 local function set_player_health(self, percent)
   local size = gui.get_size(self.player_health)
   gui.set_size(self.player_health,
-               vmath.vector3(percent * max_health_width, size.y, 0))
+               vmath.vector3(percent * max_player_health, size.y, 0))
+end
+
+local function set_totem_health(self, percent)
+  local size = gui.get_size(self.totem_health)
+  gui.set_size(self.totem_health,
+               vmath.vector3(percent * max_totem_health, size.y, 0))
 end
 
 function on_message(self, message_id, message, sender)
   if message_id == hash(MESSAGES.SKILLS.COOLDOWN) or message_id ==
       hash(MESSAGES.SKILLS.NORMAL) then
-    handle_animation(message_id, self[message.type])
+    handle_spell_animation(message_id, self[message.type])
   end
 
   if message_id == hash(MESSAGES.PLAYER.SET_HEALTH) then
     set_player_health(self, message.health_percent)
+  end
+
+  if message_id == hash(MESSAGES.TOTEM.SET_HEALTH) then
+    set_totem_health(self, message.health_percent)
   end
 end
 
