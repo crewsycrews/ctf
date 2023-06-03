@@ -7,7 +7,7 @@ embedded_components {
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
   position {
-    x: 0.0
+    x: -13.0
     y: 0.0
     z: 0.0
   }
@@ -37,7 +37,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 8.0\n"
+  "      x: -5.0\n"
   "      y: -113.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -53,7 +53,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
-  "      x: 9.0\n"
+  "      x: -4.0\n"
   "      y: -69.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -69,7 +69,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
-  "      x: 12.0\n"
+  "      x: -1.0\n"
   "      y: -10.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -85,7 +85,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
-  "      x: 11.0\n"
+  "      x: -2.0\n"
   "      y: 36.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -101,7 +101,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 12.0\n"
+  "      x: -1.0\n"
   "      y: 91.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -139,5 +139,58 @@ embedded_components {
     y: 0.0
     z: 0.0
     w: 1.0
+  }
+}
+embedded_components {
+  id: "hp"
+  type: "label"
+  data: "size {\n"
+  "  x: 128.0\n"
+  "  y: 32.0\n"
+  "  z: 0.0\n"
+  "  w: 0.0\n"
+  "}\n"
+  "color {\n"
+  "  x: 1.0\n"
+  "  y: 1.0\n"
+  "  z: 1.0\n"
+  "  w: 1.0\n"
+  "}\n"
+  "outline {\n"
+  "  x: 0.0\n"
+  "  y: 0.0\n"
+  "  z: 0.0\n"
+  "  w: 1.0\n"
+  "}\n"
+  "shadow {\n"
+  "  x: 0.0\n"
+  "  y: 0.0\n"
+  "  z: 0.0\n"
+  "  w: 1.0\n"
+  "}\n"
+  "leading: 1.0\n"
+  "tracking: 0.0\n"
+  "pivot: PIVOT_CENTER\n"
+  "blend_mode: BLEND_MODE_ALPHA\n"
+  "line_break: false\n"
+  "text: \"100 / 100\"\n"
+  "font: \"/builtins/fonts/system_font.font\"\n"
+  "material: \"/builtins/fonts/label.material\"\n"
+  ""
+  position {
+    x: 0.0
+    y: 151.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+    z: 1.0
   }
 }
