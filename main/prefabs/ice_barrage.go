@@ -1,7 +1,7 @@
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/assets/ice-spell.atlas\"\n"
+  data: "tile_set: \"/main/atlases/ice-spell.atlas\"\n"
   "default_animation: \"ice-animation\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"

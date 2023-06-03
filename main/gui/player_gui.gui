@@ -5,11 +5,11 @@ fonts {
 }
 textures {
   name: "spell"
-  texture: "/assets/ui/spells/spell.atlas"
+  texture: "/main/atlases/spell.atlas"
 }
 textures {
   name: "ui_elements"
-  texture: "/assets/ui/ui_elements.atlas"
+  texture: "/main/atlases/ui_elements.atlas"
 }
 background_color {
   x: 0.0
@@ -134,8 +134,8 @@ nodes {
 }
 nodes {
   position {
-    x: 1751.0
-    y: 60.0
+    x: 960.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -152,7 +152,7 @@ nodes {
     w: 1.0
   }
   size {
-    x: 300.0
+    x: 200.0
     y: 100.0
     z: 0.0
     w: 1.0
@@ -167,10 +167,10 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
   id: "right"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
-  adjust_mode: ADJUST_MODE_FIT
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
+  pivot: PIVOT_SE
+  adjust_mode: ADJUST_MODE_ZOOM
   layer: ""
   inherit_alpha: false
   slice9 {
@@ -182,17 +182,17 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.53
+  alpha: 0.0
   template_node_child: false
-  size_mode: SIZE_MODE_MANUAL
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
   enabled: true
   visible: true
 }
 nodes {
   position {
-    x: -2.0
-    y: 0.0
+    x: -220.0
+    y: 10.0
     z: 0.0
     w: 1.0
   }
@@ -226,7 +226,7 @@ nodes {
   id: "fire"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_W
+  pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
   parent: "right"
   layer: ""
@@ -249,8 +249,8 @@ nodes {
 }
 nodes {
   position {
-    x: 64.0
-    y: 0.0
+    x: -150.0
+    y: 10.0
     z: 0.0
     w: 1.0
   }
@@ -284,7 +284,7 @@ nodes {
   id: "water"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_W
+  pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
   parent: "right"
   layer: ""
@@ -307,8 +307,8 @@ nodes {
 }
 nodes {
   position {
-    x: -101.0
-    y: 0.0
+    x: -80.0
+    y: 10.0
     z: 0.0
     w: 1.0
   }
@@ -342,7 +342,7 @@ nodes {
   id: "earth"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
   parent: "right"
   layer: ""
@@ -365,8 +365,8 @@ nodes {
 }
 nodes {
   position {
-    x: -35.0
-    y: 0.0
+    x: -10.0
+    y: 10.0
     z: 0.0
     w: 1.0
   }
@@ -400,7 +400,7 @@ nodes {
   id: "wind"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
   parent: "right"
   layer: ""
@@ -427,6 +427,124 @@ layers {
 material: "/builtins/materials/gui.material"
 layouts {
   name: "Landscape"
+  nodes {
+    position {
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    }
+    rotation {
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    }
+    scale {
+      x: 1.0
+      y: 1.0
+      z: 1.0
+      w: 1.0
+    }
+    size {
+      x: 1.0
+      y: 1.0
+      z: 0.0
+      w: 1.0
+    }
+    color {
+      x: 1.0
+      y: 1.0
+      z: 1.0
+      w: 1.0
+    }
+    type: TYPE_BOX
+    blend_mode: BLEND_MODE_ALPHA
+    texture: ""
+    id: "left"
+    xanchor: XANCHOR_LEFT
+    yanchor: YANCHOR_BOTTOM
+    pivot: PIVOT_CENTER
+    adjust_mode: ADJUST_MODE_ZOOM
+    layer: ""
+    inherit_alpha: false
+    slice9 {
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 0.0
+    }
+    clipping_mode: CLIPPING_MODE_NONE
+    clipping_visible: true
+    clipping_inverted: false
+    alpha: 0.0
+    overridden_fields: 12
+    overridden_fields: 13
+    overridden_fields: 17
+    template_node_child: false
+    size_mode: SIZE_MODE_MANUAL
+    custom_type: 0
+    enabled: true
+    visible: true
+  }
+  nodes {
+    position {
+      x: 1280.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    }
+    rotation {
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    }
+    scale {
+      x: 1.0
+      y: 1.0
+      z: 1.0
+      w: 1.0
+    }
+    size {
+      x: 200.0
+      y: 100.0
+      z: 0.0
+      w: 1.0
+    }
+    color {
+      x: 0.5019608
+      y: 0.5019608
+      z: 0.5019608
+      w: 1.0
+    }
+    type: TYPE_BOX
+    blend_mode: BLEND_MODE_ALPHA
+    texture: ""
+    id: "right"
+    xanchor: XANCHOR_RIGHT
+    yanchor: YANCHOR_BOTTOM
+    pivot: PIVOT_SE
+    adjust_mode: ADJUST_MODE_ZOOM
+    layer: ""
+    inherit_alpha: false
+    slice9 {
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 0.0
+    }
+    clipping_mode: CLIPPING_MODE_NONE
+    clipping_visible: true
+    clipping_inverted: false
+    alpha: 0.0
+    overridden_fields: 1
+    template_node_child: false
+    size_mode: SIZE_MODE_AUTO
+    custom_type: 0
+    enabled: true
+    visible: true
+  }
 }
-adjust_reference: ADJUST_REFERENCE_DISABLED
+adjust_reference: ADJUST_REFERENCE_PARENT
 max_nodes: 512
