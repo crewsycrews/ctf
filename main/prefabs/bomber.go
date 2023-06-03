@@ -19,13 +19,33 @@ components {
   }
   properties {
     id: "speed"
-    value: "0.2"
+    value: "20.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "damage"
     value: "40.0"
     type: PROPERTY_TYPE_NUMBER
+  }
+}
+components {
+  id: "bomber"
+  component: "/main/scripts/units/bomber.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  properties {
+    id: "target_url"
+    value: "/totem"
+    type: PROPERTY_TYPE_URL
   }
 }
 embedded_components {
