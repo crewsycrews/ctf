@@ -134,8 +134,8 @@ nodes {
 }
 nodes {
   position {
-    x: 1751.0
-    y: 60.0
+    x: 822.0
+    y: 41.0
     z: 0.0
     w: 1.0
   }
@@ -182,7 +182,7 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.53
+  alpha: 0.0
   template_node_child: false
   size_mode: SIZE_MODE_MANUAL
   custom_type: 0
