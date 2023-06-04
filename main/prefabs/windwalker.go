@@ -1,5 +1,5 @@
 components {
-  id: "windwalker"
+  id: "script"
   component: "/main/scripts/skills/projectile.script"
   position {
     x: 0.0

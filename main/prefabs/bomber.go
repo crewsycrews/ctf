@@ -14,7 +14,7 @@ components {
   }
   properties {
     id: "health"
-    value: "25.0"
+    value: "30.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -64,6 +64,7 @@ embedded_components {
   "group: \"enemies\"\n"
   "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
+  "mask: \"projectiles\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

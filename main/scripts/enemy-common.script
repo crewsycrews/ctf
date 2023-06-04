@@ -11,4 +11,12 @@ function on_message(self, message_id, message, sender)
       go.delete(go.get_id())
     end
   end
+  if message_id == hash("trigger_response") then
+    if message.other_group == hash("projectiles") and message.enter then
+      local damage_done = go.get(msg.url(nil, message.other_id, 'script'),
+                                 'damage')  
+      self.health = self.health - damage_done
+    end
+  end
+  if self.health <= 0 then go.delete() end
 end
