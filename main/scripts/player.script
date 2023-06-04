@@ -46,6 +46,10 @@ function update(self, dt)
   self.input.x = 0
   self.input.y = 0
   self.dir = vmath.normalize(self.dir)
+
+  if self.current_health <= 0 then
+    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
+  end
 end
 
 ---@param self Head
