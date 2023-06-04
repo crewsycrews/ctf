@@ -1,0 +1,13 @@
+go.property("target_url", msg.url())
+
+local speed = 10
+
+function init(self) speed = go.get("#enemy-common", "speed") end
+
+function update(self, dt)
+  local oldpos = go.get_position()
+  local diff = vmath.normalize(go.get_position(self.target_url) - oldpos)
+  local newpos = go.get_position() + diff * speed * dt
+  go.set_position(newpos)
+  sprite.set_hflip("#sprite", diff.x > 0)
+end

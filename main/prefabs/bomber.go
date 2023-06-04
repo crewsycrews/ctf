@@ -18,14 +18,29 @@ components {
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
-    id: "speed"
-    value: "0.2"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
     id: "damage"
     value: "40.0"
     type: PROPERTY_TYPE_NUMBER
+  }
+}
+components {
+  id: "bomber"
+  component: "/main/scripts/units/bomber.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  properties {
+    id: "target_url"
+    value: "/totem"
+    type: PROPERTY_TYPE_URL
   }
 }
 embedded_components {
@@ -64,6 +79,7 @@ embedded_components {
   "group: \"enemies\"\n"
   "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
+  "mask: \"totem\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
