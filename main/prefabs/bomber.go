@@ -80,6 +80,7 @@ embedded_components {
   "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
   "mask: \"totem\"\n"
+  "mask: \"thunderclap\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
@@ -101,7 +102,7 @@ embedded_components {
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
-  "locked_rotation: false\n"
+  "locked_rotation: true\n"
   "bullet: false\n"
   ""
   position {

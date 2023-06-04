@@ -3,6 +3,18 @@ go.property("health", 100)
 go.property("speed", 10)
 go.property("damage", 0)
 
+local is_on_thunderclap = false
+local thunderclap_speed = 1500;
+local thunderclap_pos = nil
+
+function update(self, dt)
+  if is_on_thunderclap then
+    go.set_position(go.get_position() -
+                        vmath.normalize(thunderclap_pos - go.get_position()) *
+                        thunderclap_speed * dt)
+  end
+end
+
 function on_message(self, message_id, message, sender)
   if message_id == hash("collision_response") then
     if message.other_group == hash("head") then
@@ -15,5 +27,13 @@ function on_message(self, message_id, message, sender)
       msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
       go.delete(go.get_id())
     end
+
+    if message.other_group == hash("thunderclap") then
+      is_on_thunderclap = true
+      thunderclap_pos = go.get_position("/player")
+      timer.delay(0.15, false, function() is_on_thunderclap = false; end)
+    end
+
   end
+
 end
