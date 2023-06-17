@@ -65,6 +65,7 @@ embedded_components {
   "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
   "mask: \"projectiles\"\n"
+  "mask: \"ice_barrage\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

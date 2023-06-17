@@ -1,5 +1,20 @@
 components {
   id: "script"
+  component: "/main/scripts/skills/basic_spell.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+components {
+  id: "projectile"
   component: "/main/scripts/skills/projectile.script"
   position {
     x: 0.0

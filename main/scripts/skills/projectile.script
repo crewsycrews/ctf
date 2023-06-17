@@ -1,5 +1,4 @@
 go.property("speed", 600)
-go.property("damage", 25)
 
 function update(self, dt)
   local pos = go.get_position()

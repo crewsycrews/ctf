@@ -12,9 +12,10 @@ function on_message(self, message_id, message, sender)
     end
   end
   if message_id == hash("trigger_response") then
-    if message.other_group == hash("projectiles") and message.enter then
+    if (message.other_group == hash("projectiles") or message.other_group ==
+        hash("ice_barrage")) and message.enter then
       local damage_done = go.get(msg.url(nil, message.other_id, 'script'),
-                                 'damage')  
+                                 'damage')
       self.health = self.health - damage_done
     end
   end

@@ -56,7 +56,6 @@ skills.ice_barrage = function(performer)
   timer.delay(3, false, function(self, handle, time_elapsed)
     performer.ice_barrage_active = false
     go.delete(spellGO)
-
   end)
 end
 
@@ -112,6 +111,7 @@ skills.windwalk = function(performer)
     performer.windwalk_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL, { type = followersManipulator.TYPES[performer.type] })
   end)
+  -- making the walker small, like he's disappeared
   go.set_scale(0.0000001)
 end
 
