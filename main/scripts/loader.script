@@ -6,6 +6,7 @@ local current_level = nil
 
 local function get_proxy(level)
   if level == 'menu' then return "/loader#menu" end
+  if level == 'game_over' then return "/loader#game_over" end
   if level == 1 then return "/loader#level1" end
 end
 

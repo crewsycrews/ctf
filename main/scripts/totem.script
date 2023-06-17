@@ -12,3 +12,9 @@ function on_message(self, message_id, message)
              { health_percent = self.current_health / self.health })
   end
 end
+
+function update(self, dt)
+  if self.current_health <= 0 then
+    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
+  end
+end
