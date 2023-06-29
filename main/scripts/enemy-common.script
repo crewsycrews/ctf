@@ -10,6 +10,11 @@ function on_message(self, message_id, message, sender)
       -- TODO explode animation
       go.delete(go.get_id())
     end
+
+    if message.other_group == hash("totem") then
+      msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
+      go.delete(go.get_id())
+    end
   end
   if message_id == hash("trigger_response") then
     if (message.other_group == hash("projectiles") or message.other_group ==

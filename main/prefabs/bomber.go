@@ -14,7 +14,7 @@ components {
   }
   properties {
     id: "health"
-    value: "30.0"
+    value: "25.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -28,10 +28,30 @@ components {
     type: PROPERTY_TYPE_NUMBER
   }
 }
+components {
+  id: "bomber"
+  component: "/main/scripts/units/bomber.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  properties {
+    id: "target_url"
+    value: "/totem"
+    type: PROPERTY_TYPE_URL
+  }
+}
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/assets/units/bomber/bomber.atlas\"\n"
+  data: "tile_set: \"/main/atlases/bomber.atlas\"\n"
   "default_animation: \"walking\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
@@ -66,6 +86,7 @@ embedded_components {
   "mask: \"obstacles\"\n"
   "mask: \"projectiles\"\n"
   "mask: \"ice_barrage\"\n"
+  "mask: \"totem\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

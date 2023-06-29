@@ -6,9 +6,10 @@ function init(self)
   self.wind = gui.get_node("wind")
   self.earth = gui.get_node("earth")
   self.player_health = gui.get_node("player_health")
+  self.totem_health = gui.get_node("totem_health")
 end
 
-local function handle_animation(message_id, node)
+local function handle_spell_animation(message_id, node)
   if message_id == hash(MESSAGES.SKILLS.COOLDOWN) then
     gui.set_color(node, vmath.vector3(0.5, 0.5, 0.5))
   else
@@ -16,16 +17,28 @@ local function handle_animation(message_id, node)
   end
 end
 
-local function set_player_health(self, value)
-  local size = gui.get_size(self.player_health)
-  gui.set_size(self.player_health, vmath.vector3(value, size.y, 0))
+local function set_player_health(self, percent)
+  gui.animate(self.player_health, "scale", vmath.vector3(percent, 1, 1),
+              gui.EASING_OUTCUBIC, 1)
+end
+
+local function set_totem_health(self, percent)
+  gui.animate(self.totem_health, "scale", vmath.vector3(percent, 1, 1),
+              gui.EASING_OUTCUBIC, 1)
 end
 
 function on_message(self, message_id, message, sender)
+  if message_id == hash(MESSAGES.SKILLS.COOLDOWN) or message_id ==
+      hash(MESSAGES.SKILLS.NORMAL) then
+    handle_spell_animation(message_id, self[message.type])
+  end
+
   if message_id == hash(MESSAGES.PLAYER.SET_HEALTH) then
     set_player_health(self, message.health_percent)
-  else
-    handle_animation(message_id, self[message.type])
+  end
+
+  if message_id == hash(MESSAGES.TOTEM.SET_HEALTH) then
+    set_totem_health(self, message.health_percent)
   end
 end
 

@@ -10,8 +10,7 @@
 ---@field buffs table
 -- require('main.scripts.common.debugger.debugger').start()
 go.property('speed', 200)
-local followersManipulator =
-    require('main.scripts.modules.followers')
+local followersManipulator = require('main.scripts.modules.followers')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
 require("main.scripts.modules.messages")
@@ -47,6 +46,10 @@ function update(self, dt)
   self.input.x = 0
   self.input.y = 0
   self.dir = vmath.normalize(self.dir)
+
+  if self.current_health <= 0 then
+    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
+  end
 end
 
 ---@param self Head
@@ -79,6 +82,6 @@ function on_message(self, message_id, message)
     local damage = message.damage
     self.current_health = self.current_health - damage
     msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
-             { health_percent = self.current_health })
+             { health_percent = self.current_health / self.health })
   end
 end

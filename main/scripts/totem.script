@@ -1,0 +1,20 @@
+require("main.scripts.modules.messages")
+
+go.property("health", 500)
+
+function init(self) self.current_health = self.health end
+
+function on_message(self, message_id, message)
+  if message_id == hash(MESSAGES.TOTEM.TAKE_DAMAGE) then
+    local damage = message.damage
+    self.current_health = self.current_health - damage
+    msg.post("/gui/gui", MESSAGES.TOTEM.SET_HEALTH,
+             { health_percent = self.current_health / self.health })
+  end
+end
+
+function update(self, dt)
+  if self.current_health <= 0 then
+    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
+  end
+end
