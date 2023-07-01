@@ -18,6 +18,21 @@ components {
     type: PROPERTY_TYPE_NUMBER
   }
 }
+components {
+  id: "one_time_buff_applier"
+  component: "/main/scripts/skills/one_time_buff_applier.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
 embedded_components {
   id: "sprite"
   type: "sprite"

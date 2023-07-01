@@ -1,17 +1,17 @@
 key_trigger {
-  input: KEY_UP
+  input: KEY_W
   action: "up"
 }
 key_trigger {
-  input: KEY_DOWN
+  input: KEY_S
   action: "down"
 }
 key_trigger {
-  input: KEY_LEFT
+  input: KEY_A
   action: "left"
 }
 key_trigger {
-  input: KEY_RIGHT
+  input: KEY_D
   action: "right"
 }
 key_trigger {
@@ -31,7 +31,7 @@ key_trigger {
   action: "head_action_4"
 }
 key_trigger {
-  input: KEY_RSHIFT
+  input: KEY_LSHIFT
   action: "tail_action_2"
 }
 mouse_trigger {

@@ -1,4 +1,4 @@
-require("main.scripts.modules.messages")
+require("main.scripts.modules.constants")
 function init(self) msg.post(".", "acquire_input_focus") end
 
 -- start level

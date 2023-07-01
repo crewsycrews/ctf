@@ -1,27 +1,47 @@
-require("main.scripts.modules.messages")
+local buffs = require("main.scripts.modules.buffs")
 go.property("health", 100)
 go.property("speed", 10)
 go.property("damage", 0)
 
+function init(self) self.buffs = {} end
+local function handle_damage_input(self, message)
+  local damage_done = go.get(msg.url(nil, message.other_id, 'script'), 'damage')
+  self.health = self.health - damage_done
+end
+
+local function handle_one_time_buff_apply(self, message, buff)
+  pprint(buffs.check_status(self, buff))
+  if (not buffs.check_status(self, buff)) then
+    handle_damage_input(self, message)
+    buffs.add_status(self, buff)
+    local buff_duration = go.get(msg.url(nil, message.other_id,
+                                         'one_time_buff_applier'),
+                                 'buff_duration')
+    timer.delay(buff_duration, false, function(self, handle, time_elapsed)
+      buffs.remove_status(self, buff)
+    end)
+  end
+end
+
 function on_message(self, message_id, message, sender)
   if message_id == hash("collision_response") then
-    if message.other_group == hash("head") then
+    if message.other_group == COLLISION_GROUPS.head then
       msg.post("/player", MESSAGES.PLAYER.TAKE_DAMAGE, { damage = self.damage })
       -- TODO explode animation
       go.delete(go.get_id())
     end
 
-    if message.other_group == hash("totem") then
+    if message.other_group == COLLISION_GROUPS.totem then
       msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
       go.delete(go.get_id())
     end
   end
   if message_id == hash("trigger_response") then
-    if (message.other_group == hash("projectiles") or message.other_group ==
-        hash("ice_barrage")) and message.enter then
-      local damage_done = go.get(msg.url(nil, message.other_id, 'script'),
-                                 'damage')
-      self.health = self.health - damage_done
+    if message.other_group == COLLISION_GROUPS.projectiles and message.enter then
+      handle_damage_input(self, message)
+    end
+    if message.other_group == COLLISION_GROUPS.ice_barrage and message.enter then
+      handle_one_time_buff_apply(self, message, STATUSES.frozen)
     end
   end
   if self.health <= 0 then go.delete() end

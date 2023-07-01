@@ -1,16 +1,12 @@
 require("main.scripts.common.functional")
 local buffs = {}
 
----@enum statuses
-local STATUSES = { invulnerability = 'invulnerability' }
-buffs.statuses = STATUSES
-
 ---Check if the given status is in the buffs enum of a holder
 ---@param statusHolder {buffs: table}
 ---@param status statuses
 ---@return bool
 buffs.check_status = function(statusHolder, status)
-  return statusHolder[status] ~= nil or false
+  return statusHolder.buffs[status] ~= nil or false
 end
 
 ---@param statusHolder {buffs: table}

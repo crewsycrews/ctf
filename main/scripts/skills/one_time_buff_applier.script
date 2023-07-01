@@ -1,0 +1,2 @@
+go.property("buff_duration", 1)
+go.property("buff_cooldown", 3)

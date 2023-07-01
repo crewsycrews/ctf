@@ -1,4 +1,3 @@
-require("main.scripts.modules.messages")
 local druid = require("druid.druid")
 
 local function play_click(self)
