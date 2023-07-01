@@ -1,5 +1,6 @@
 require("main.scripts.modules.constants")
-require('main.scripts.common.debugger.debugger').start()
+debugger = require("main.scripts.common.debugger")
+debugger.start()
 
 function init(self)
   msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = 'menu' })
