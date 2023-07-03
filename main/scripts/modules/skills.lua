@@ -1,4 +1,5 @@
 local buffs = require("main.scripts.modules.buffs")
+local defold_extend = require("main.scripts.common.defold_extend")
 local followersManipulator = require('main.scripts.modules.followers')
 
 local skills = {}
@@ -108,10 +109,10 @@ skills.windwalk = function(performer)
 
   go.set_rotation(go.get_rotation(), spellGO)
   go.set_scale(1.6, spellGO)
-  timer.delay(1, false, function(self, handle, time_elapsed)
+  timer.delay(0.5, false, function(self, handle, time_elapsed)
     performer.windwalk_active = false
     go.set_scale(1)
-    go.delete(spellGO)
+    if (defold_extend.go_exists(spellGO)) then go.delete(spellGO) end
   end)
   timer.delay(3, false, function(self, handle, time_elapsed)
     performer.windwalk_on_cooldown = false

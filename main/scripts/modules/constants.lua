@@ -9,7 +9,11 @@ MESSAGES = {
 }
 
 ---@enum statuses
-STATUSES = { invulnerability = 'invulnerability', frozen = 'frozen' }
+STATUSES = {
+  invulnerability = 'invulnerability',
+  frozen = 'frozen',
+  slow = 'slow'
+}
 
 ---@enum collision_groups
 COLLISION_GROUPS = {
@@ -18,5 +22,6 @@ COLLISION_GROUPS = {
   totem = hash('totem'),
   head = hash('head'),
   enemies = hash('enemies'),
+  thunderclap = hash('thunderclap'),
   obstacles = hash('obstacles')
 }

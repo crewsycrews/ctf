@@ -10,7 +10,6 @@ local function handle_damage_input(self, message)
 end
 
 local function handle_one_time_buff_apply(self, message, buff)
-  pprint(buffs.check_status(self, buff))
   if (not buffs.check_status(self, buff)) then
     handle_damage_input(self, message)
     buffs.add_status(self, buff)
@@ -42,6 +41,9 @@ function on_message(self, message_id, message, sender)
     end
     if message.other_group == COLLISION_GROUPS.ice_barrage and message.enter then
       handle_one_time_buff_apply(self, message, STATUSES.frozen)
+    end
+    if message.other_group == COLLISION_GROUPS.thunderclap and message.enter then
+      handle_one_time_buff_apply(self, message, STATUSES.slow)
     end
   end
   if self.health <= 0 then go.delete() end

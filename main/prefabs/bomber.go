@@ -87,6 +87,7 @@ embedded_components {
   "mask: \"projectiles\"\n"
   "mask: \"ice_barrage\"\n"
   "mask: \"totem\"\n"
+  "mask: \"thunderclap\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
