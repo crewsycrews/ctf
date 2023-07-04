@@ -115,7 +115,7 @@ skills.windwalk = function(performer)
     if (defold_extend.go_exists(spellGO)) then go.delete(spellGO) end
   end)
   timer.delay(3, false, function(self, handle, time_elapsed)
-    performer.windwalk_on_cooldown = false
+    performer.windwalk_on_cooldown = false 
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
              { type = followersManipulator.TYPES[performer.type] })
   end)
