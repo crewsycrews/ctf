@@ -1,5 +1,5 @@
-require("main.scripts.modules.messages")
 local buffs = require("main.scripts.modules.buffs")
+local defold_extend = require("main.scripts.common.defold_extend")
 local followersManipulator = require('main.scripts.modules.followers')
 
 local skills = {}
@@ -13,9 +13,9 @@ skills.dash = function(performer)
   go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
              go.EASING_LINEAR, 0.4, 0, function(self, url, property)
     self.dashing = false
-    buffs.remove_status(performer, buffs.statuses.invulnerability)
+    buffs.remove_status(performer, STATUSES.invulnerability)
   end)
-  buffs.add_status(performer, buffs.statuses.invulnerability)
+  buffs.add_status(performer, STATUSES.invulnerability)
 end
 --- Animate scale increse and decrease
 ---@param performer { followers: table }
@@ -44,19 +44,20 @@ skills.ice_barrage = function(performer)
     return
   end
 
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN, { type = followersManipulator.TYPES[performer.type] })
+  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
+           { type = followersManipulator.TYPES[performer.type] })
   local spellGO = factory.create("#ice-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
   performer.ice_barrage_on_cooldown = true
   performer.ice_barrage_active = true
   timer.delay(6, false, function(self, handle, time_elapsed)
     performer.ice_barrage_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL, { type = followersManipulator.TYPES[performer.type] })
+    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+             { type = followersManipulator.TYPES[performer.type] })
   end)
   timer.delay(3, false, function(self, handle, time_elapsed)
     performer.ice_barrage_active = false
     go.delete(spellGO)
-
   end)
 end
 
@@ -64,12 +65,14 @@ end
 skills.fireball = function(performer)
   if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN, { type = followersManipulator.TYPES[performer.type] })
+  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
+           { type = followersManipulator.TYPES[performer.type] })
   local spellGO = factory.create("#fireball-spell-factory")
   go.set_rotation(go.get_rotation(), spellGO)
   timer.delay(0.5, false, function(self, handle, time_elapsed)
     performer.fireball_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL, { type = followersManipulator.TYPES[performer.type] })
+    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+             { type = followersManipulator.TYPES[performer.type] })
   end)
 end
 
@@ -80,7 +83,8 @@ skills.thunderclap = function(performer)
   end
   performer.thunderclap_on_cooldown = true
   performer.thunderclap_active = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN, { type = followersManipulator.TYPES[performer.type] })
+  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
+           { type = followersManipulator.TYPES[performer.type] })
 
   local spellGO = factory.create("#thunderclap-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
@@ -90,7 +94,8 @@ skills.thunderclap = function(performer)
   end)
   timer.delay(5, false, function(self, handle, time_elapsed)
     performer.thunderclap_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL, { type = followersManipulator.TYPES[performer.type] })
+    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+             { type = followersManipulator.TYPES[performer.type] })
   end)
 end
 
@@ -98,20 +103,23 @@ end
 skills.windwalk = function(performer)
   if performer.windwalk_on_cooldown or performer.windwalk_active then return end
   performer.windwalk_on_cooldown = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN, { type = followersManipulator.TYPES[performer.type] })
+  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
+           { type = followersManipulator.TYPES[performer.type] })
   local spellGO = factory.create("#windwalk-spell-factory")
 
   go.set_rotation(go.get_rotation(), spellGO)
   go.set_scale(1.6, spellGO)
-  timer.delay(1, false, function(self, handle, time_elapsed)
+  timer.delay(0.5, false, function(self, handle, time_elapsed)
     performer.windwalk_active = false
     go.set_scale(1)
-    go.delete(spellGO)
+    if (defold_extend.go_exists(spellGO)) then go.delete(spellGO) end
   end)
   timer.delay(3, false, function(self, handle, time_elapsed)
     performer.windwalk_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL, { type = followersManipulator.TYPES[performer.type] })
+    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+             { type = followersManipulator.TYPES[performer.type] })
   end)
+  -- making the walker small, like he's disappeared
   go.set_scale(0.0000001)
 end
 

@@ -14,7 +14,7 @@ end
 
 function on_message(self, message_id, message, sender)
   if message_id == hash("collision_response") then
-    if message.other_group == hash("obstacles") then
+    if message.other_group == COLLISION_GROUPS.obstacles then
       self.flip = self.flip * -1
     end
   end

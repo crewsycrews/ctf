@@ -1,5 +1,3 @@
-require("main.scripts.modules.messages")
-
 go.property("health", 500)
 
 function init(self) self.current_health = self.health end

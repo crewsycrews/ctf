@@ -1,5 +1,3 @@
-require("main.scripts.modules.messages")
-
 function init(self)
   self.fire = gui.get_node("fire")
   self.water = gui.get_node("water")
