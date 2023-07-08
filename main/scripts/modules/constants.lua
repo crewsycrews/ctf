@@ -25,3 +25,27 @@ COLLISION_GROUPS = {
   thunderclap = hash('thunderclap'),
   obstacles = hash('obstacles')
 }
+
+-- cooldowns in seconds
+---@enum cooldowns
+SKILLS = {
+  COOLDOWNS = {
+    ice_barrage = 6,
+    fireball = 0.3,
+    windwalk = 5,
+    thunderclap = 5,
+    dash = 3,
+    jump = 3,
+    backward_dash = 3
+  },
+  DURATIONS = {
+    ice_barrage = 3,
+    windwalk = 0.5,
+    thunderclap = 0.5,
+    dash = 0.4,
+    jump = 0.8,
+    backward_dash = 0.4
+  }
+}
+
+ELEMENTS = { "fire", "water", "wind", "earth" }

@@ -51,13 +51,71 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
-  id: "left"
-  xanchor: XANCHOR_NONE
+  id: "south-west"
+  xanchor: XANCHOR_LEFT
   yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_ZOOM
   layer: ""
   inherit_alpha: false
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 0.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 1.0
+    y: 1.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: ""
+  id: "head-skills"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "south-west"
+  layer: ""
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
@@ -94,8 +152,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 338.0
-    y: 40.0
+    x: 60.0
+    y: 60.0
     z: 0.0
     w: 1.0
   }
@@ -108,12 +166,12 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: "ui_elements/border"
-  id: "hp-border"
+  id: "wind-border1"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SW
   adjust_mode: ADJUST_MODE_FIT
-  parent: "left"
+  parent: "head-skills"
   layer: "static"
   inherit_alpha: false
   slice9 {
@@ -134,8 +192,8 @@ nodes {
 }
 nodes {
   position {
-    x: 6.0
-    y: 7.0
+    x: 30.0
+    y: 30.0
     z: 0.0
     w: 1.0
   }
@@ -152,8 +210,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 326.0
-    y: 26.0
+    x: 46.0
+    y: 46.0
     z: 0.0
     w: 1.0
   }
@@ -165,13 +223,245 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "ui_elements/hp-bar"
-  id: "player_health"
+  texture: "spell/tile290"
+  id: "head_wind"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "wind-border1"
+  layer: "changeable"
+  inherit_alpha: false
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 70.0
+    y: 10.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 60.0
+    y: 60.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "ui_elements/border"
+  id: "water-border1"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SW
   adjust_mode: ADJUST_MODE_FIT
-  parent: "hp-border"
+  parent: "head-skills"
+  layer: "static"
+  inherit_alpha: false
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 30.0
+    y: 30.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 46.0
+    y: 46.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "spell/tile297"
+  id: "head_water"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "water-border1"
+  layer: "changeable"
+  inherit_alpha: false
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 132.0
+    y: 10.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 60.0
+    y: 60.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "ui_elements/border"
+  id: "fire-border1"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_SW
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "head-skills"
+  layer: "static"
+  inherit_alpha: false
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 30.0
+    y: 30.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 46.0
+    y: 46.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "spell/tile218"
+  id: "head_fire"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "fire-border1"
   layer: "changeable"
   inherit_alpha: false
   slice9 {
@@ -210,8 +500,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 1.0
+    y: 1.0
     z: 0.0
     w: 1.0
   }
@@ -224,7 +514,7 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
-  id: "right"
+  id: "south-east"
   xanchor: XANCHOR_RIGHT
   yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_SE
@@ -242,7 +532,65 @@ nodes {
   clipping_inverted: false
   alpha: 0.0
   template_node_child: false
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 1.0
+    y: 1.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: ""
+  id: "tail-skills"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "south-east"
+  layer: ""
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
   enabled: true
   visible: true
@@ -286,7 +634,7 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
-  parent: "right"
+  parent: "tail-skills"
   layer: "static"
   inherit_alpha: false
   slice9 {
@@ -402,7 +750,7 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
-  parent: "right"
+  parent: "tail-skills"
   layer: "static"
   inherit_alpha: false
   slice9 {
@@ -518,7 +866,7 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
-  parent: "right"
+  parent: "tail-skills"
   layer: "static"
   inherit_alpha: false
   slice9 {
@@ -634,7 +982,7 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_FIT
-  parent: "right"
+  parent: "tail-skills"
   layer: "static"
   inherit_alpha: false
   slice9 {
@@ -731,8 +1079,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 1.0
+    y: 1.0
     z: 0.0
     w: 1.0
   }
@@ -745,7 +1093,7 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
-  id: "top"
+  id: "north"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_TOP
   pivot: PIVOT_N
@@ -763,7 +1111,7 @@ nodes {
   clipping_inverted: false
   alpha: 0.0
   template_node_child: false
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
   enabled: true
   visible: true
@@ -807,7 +1155,7 @@ nodes {
   yanchor: YANCHOR_TOP
   pivot: PIVOT_N
   adjust_mode: ADJUST_MODE_FIT
-  parent: "top"
+  parent: "north"
   layer: "static"
   inherit_alpha: false
   slice9 {
@@ -884,6 +1232,179 @@ nodes {
   enabled: true
   visible: true
 }
+nodes {
+  position {
+    x: 480.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 1.0
+    y: 1.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: ""
+  id: "south"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_BOTTOM
+  pivot: PIVOT_S
+  adjust_mode: ADJUST_MODE_ZOOM
+  layer: ""
+  inherit_alpha: false
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 0.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 169.0
+    y: 10.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 338.0
+    y: 40.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "ui_elements/border"
+  id: "hp-border"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_BOTTOM
+  pivot: PIVOT_S
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "south"
+  layer: "static"
+  inherit_alpha: false
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
+nodes {
+  position {
+    x: 0.0
+    y: 20.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 326.0
+    y: 26.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "ui_elements/hp-bar"
+  id: "player_health"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "hp-border"
+  layer: "changeable"
+  inherit_alpha: false
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+  enabled: true
+  visible: true
+}
 layers {
   name: "static"
 }
@@ -927,10 +1448,10 @@ layouts {
     type: TYPE_BOX
     blend_mode: BLEND_MODE_ALPHA
     texture: ""
-    id: "left"
+    id: "south-west"
     xanchor: XANCHOR_LEFT
     yanchor: YANCHOR_BOTTOM
-    pivot: PIVOT_CENTER
+    pivot: PIVOT_SE
     adjust_mode: ADJUST_MODE_ZOOM
     layer: ""
     inherit_alpha: false
@@ -973,8 +1494,8 @@ layouts {
       w: 1.0
     }
     size {
-      x: 200.0
-      y: 100.0
+      x: 1.0
+      y: 1.0
       z: 0.0
       w: 1.0
     }
@@ -987,7 +1508,7 @@ layouts {
     type: TYPE_BOX
     blend_mode: BLEND_MODE_ALPHA
     texture: ""
-    id: "right"
+    id: "south-east"
     xanchor: XANCHOR_RIGHT
     yanchor: YANCHOR_BOTTOM
     pivot: PIVOT_SE
@@ -1006,7 +1527,7 @@ layouts {
     alpha: 0.0
     overridden_fields: 1
     template_node_child: false
-    size_mode: SIZE_MODE_AUTO
+    size_mode: SIZE_MODE_MANUAL
     custom_type: 0
     enabled: true
     visible: true
@@ -1031,8 +1552,8 @@ layouts {
       w: 1.0
     }
     size {
-      x: 200.0
-      y: 100.0
+      x: 1.0
+      y: 1.0
       z: 0.0
       w: 1.0
     }
@@ -1045,7 +1566,7 @@ layouts {
     type: TYPE_BOX
     blend_mode: BLEND_MODE_ALPHA
     texture: ""
-    id: "top"
+    id: "north"
     xanchor: XANCHOR_NONE
     yanchor: YANCHOR_TOP
     pivot: PIVOT_N
@@ -1065,7 +1586,7 @@ layouts {
     overridden_fields: 1
     overridden_fields: 3
     template_node_child: false
-    size_mode: SIZE_MODE_AUTO
+    size_mode: SIZE_MODE_MANUAL
     custom_type: 0
     enabled: true
     visible: true

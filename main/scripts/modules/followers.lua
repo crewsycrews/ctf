@@ -2,8 +2,6 @@ local followers = {}
 local random = require("main.scripts.common.random")
 math.randomseed(os.time())
 
-followers.TYPES = { "fire", "water", "wind", "earth" }
-
 ---Deploy followers that will go behind each others back
 ---@param holder {followers_amount: number, followers: table, dir: quaternion|vector3|vector4 }
 followers.spawn_followers = function(holder)
@@ -11,8 +9,7 @@ followers.spawn_followers = function(holder)
   holder.followers_types = {}
   if #holder.followers == holder.followers_amount then return end
   for i = 1, holder.followers_amount do
-    local typeIndex = random.uniq_random(holder.followers_types, 1,
-                                         #followers.TYPES)
+    local typeIndex = random.uniq_random(holder.followers_types, 1, #ELEMENTS)
     local follower
     if #holder.followers == 0 then
       follower = factory.create("/followers#factory", go.get_position(),

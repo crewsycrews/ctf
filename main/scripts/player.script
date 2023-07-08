@@ -2,18 +2,22 @@
 ---@field moving bool
 ---@field dashing bool
 ---@field jumping bool
+---@field max_health number Set via go.property
+---@field current_health number
 ---@field input quaternion|vector3|vector4
 ---@field dir quaternion|vector3|vector4
 ---@field speed number
 ---@field followers table
 ---@field followers_amount number
 ---@field buffs table
+---@field dash_on_cooldown bool
+---@field backward_dash_on_cooldown bool
 go.property('speed', 200)
 local followersManipulator = require('main.scripts.modules.followers')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
 go.property('speed', 200)
-go.property("health", 100)
+go.property("max_health", 100)
 
 ---@param self Head
 function init(self)
@@ -27,7 +31,7 @@ function init(self)
   self.input = vmath.vector3(0, 0, 0)
   self.dir = vmath.vector3(1, 0, 0)
 
-  self.current_health = self.health
+  self.current_health = self.max_health
   followersManipulator.spawn_followers(self)
 end
 
@@ -75,11 +79,13 @@ function on_input(self, action_id, action)
   end
 end
 
+---@param self Head
 function on_message(self, message_id, message)
   if message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
     local damage = message.damage
     self.current_health = self.current_health - damage
+    -- max health(100 number) is a subject to initialize at load time on level init. So we'll need to change next line later
     msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
-             { health_percent = self.current_health / self.health })
+             { health_percent = self.current_health / self.max_health })
   end
 end
