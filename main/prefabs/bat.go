@@ -13,6 +13,11 @@ components {
     w: 1.0
   }
   properties {
+    id: "health"
+    value: "5.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
     id: "speed"
     value: "75.0"
     type: PROPERTY_TYPE_NUMBER
@@ -67,13 +72,17 @@ embedded_components {
   id: "collisionobject"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
-  "type: COLLISION_OBJECT_TYPE_DYNAMIC\n"
-  "mass: 0.05\n"
+  "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
+  "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
   "group: \"enemies\"\n"
   "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
+  "mask: \"projectiles\"\n"
+  "mask: \"ice_barrage\"\n"
+  "mask: \"totem\"\n"
+  "mask: \"thunderclap\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

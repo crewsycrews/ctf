@@ -9,7 +9,7 @@
   "workbench.iconTheme": "material-icon-theme",
   // Lua tab size
   "[lua]": {
-    "editor.defaultFormatter": "Koihik.vscode-lua-format",
+    "editor.defaultFormatter": "sumneko.lua",
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "editor.tabSize": 2
@@ -37,6 +37,8 @@
 
   // Files
   "files.associations": {
+    "*.php": "php",
+    "*.blade.php": "blade",
     "*.project": "ini",
     "*.script": "lua",
     "*.gui_script": "lua",
@@ -85,7 +87,7 @@
   "Lua.completion.callSnippet": "Replace",
   "Lua.completion.displayContext": 0,
   "Lua.completion.workspaceWord": false,
-  "Lua.completion.keywordSnippet": "Both",
+  "Lua.completion.keywordSnippet": "Replace",
   "Lua.diagnostics.globals": [
     "msg",
     "sound",
@@ -104,7 +106,8 @@
     "spine",
     "sprite",
     "json",
-    "window"
+    "window",
+    "physics"
   ],
   "Lua.diagnostics.disable": [
     "lowercase-global",
@@ -113,6 +116,14 @@
     "missing-parameter"
   ],
   "Lua.workspace.ignoreDir": [".vscode", ".internal", ".defold_api"],
-  "Lua.workspace.library": [".internal", ".defold_api"],
-  "Lua.workspace.checkThirdParty": false
+  "Lua.workspace.library": [
+    ".internal",
+    ".defold_api",
+    "~\\AppData\\Roaming\\Code\\User\\globalStorage\\astronachos.defold"
+  ],
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.window.statusBar": false,
+  "Lua.completion.showWord": "Fallback",
+  "Lua.completion.autoRequire": false,
+  "Lua.diagnostics.libraryFiles": "Disable"
 }

@@ -7,6 +7,8 @@
 ---@field speed number
 ---@field followers table
 ---@field followers_amount number
+---@field current_health number
+---@field health number
 ---@field buffs table
 go.property('speed', 200)
 local followersManipulator = require('main.scripts.modules.followers')

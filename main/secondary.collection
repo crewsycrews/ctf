@@ -99,6 +99,66 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "bat-spawn"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 1551.0
+    y: 1674.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "bat-spawn1"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 743.0
+    y: 1718.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "bat-spawn2"
+  prototype: "/main/prefabs/bat-spawn.go"
+  position {
+    x: 1792.0
+    y: 1014.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 collection_instances {
   id: "gui"
   collection: "/main/gui/gui.collection"
@@ -120,45 +180,6 @@ collection_instances {
   }
 }
 scale_along_z: 0
-embedded_instances {
-  id: "followers"
-  data: "embedded_components {\n"
-  "  id: \"factory\"\n"
-  "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/main/prefabs/follower.go\\\"\\n"
-  "load_dynamically: false\\n"
-  "dynamic_prototype: false\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: 613.0
-    y: 759.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
 embedded_instances {
   id: "map"
   data: "components {\n"
@@ -298,6 +319,25 @@ embedded_instances {
   "angular_damping: 0.0\\n"
   "locked_rotation: true\\n"
   "bullet: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"followers\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/prefabs/follower.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "dynamic_prototype: false\\n"
   "\"\n"
   "  position {\n"
   "    x: 0.0\n"
