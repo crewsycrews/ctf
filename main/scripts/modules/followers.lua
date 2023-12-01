@@ -12,13 +12,13 @@ followers.spawn_followers = function(holder)
     local typeIndex = random.uniq_random(holder.followers_types, 1, #ELEMENTS)
     local follower
     if #holder.followers == 0 then
-      follower = factory.create("/followers#factory", go.get_position(),
+      follower = factory.create("tail#followers", go.get_position(),
                                 go.get_rotation(), {
         parent = msg.url(nil, go.get_id(), 'main'),
         type = typeIndex
       })
     elseif #holder.followers <= holder.followers_amount then
-      follower = factory.create("/followers#factory",
+      follower = factory.create("tail#followers",
                                 go.get_position(holder.followers[i - 1]),
                                 go.get_rotation(holder.followers[i - 1]), {
         parent = msg.url(nil, holder.followers[i - 1], 'main'),

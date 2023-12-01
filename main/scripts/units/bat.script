@@ -4,7 +4,7 @@ function init(self) speed = go.get("#enemy-common", "speed") end
 
 function update(self, dt)
   local oldpos = go.get_position()
-  local diff = vmath.normalize(go.get_position("/player") - oldpos)
+  local diff = vmath.normalize(go.get_position("/head/player") - oldpos)
   local newpos = go.get_position() + diff * speed * dt
   go.set_position(newpos)
   sprite.set_hflip("#sprite", diff.x > 0)

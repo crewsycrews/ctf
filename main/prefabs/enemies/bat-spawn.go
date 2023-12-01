@@ -21,7 +21,7 @@ components {
 embedded_components {
   id: "factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/bat.go\"\n"
+  data: "prototype: \"/main/prefabs/enemies/bat.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""

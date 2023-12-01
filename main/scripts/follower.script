@@ -3,7 +3,7 @@
 ---@field dir quaternion|vector3|vector4
 ---@field max_distance number
 ---@field parent url
----@field type string
+---@field type number
 require("main.scripts.common.get_world_rotation")
 local followers = require("main.scripts.modules.followers")
 local skills = require("main.scripts.modules.skills")

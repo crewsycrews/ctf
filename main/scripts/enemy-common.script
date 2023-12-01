@@ -25,7 +25,8 @@ end
 function on_message(self, message_id, message, sender)
   if message_id == hash("collision_response") then
     if message.other_group == COLLISION_GROUPS.head then
-      msg.post("/player", MESSAGES.PLAYER.TAKE_DAMAGE, { damage = self.damage })
+      msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE,
+               { damage = self.damage })
       -- TODO explode animation
       go.delete(go.get_id())
     end
