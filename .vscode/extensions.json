@@ -5,6 +5,7 @@
         "thejustinwalsh.textproto-grammer",
         "slevesque.shader",
         "dtoplak.vscode-glsllint",
-        "koihik.vscode-lua-format"
+        "koihik.vscode-lua-format",
+        "astronachos.defold"
     ]
 }

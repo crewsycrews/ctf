@@ -8,7 +8,7 @@
 # - MacOS: "/Applications/Defold.app"
 # - Linux: "/usr/bin/Defold"
 # - Windows: "C:/Program Files/Defold"
-defold_editor_path="/Applications/Defold.app"
+defold_editor_path="/home/crews/.local/share/Steam/steamapps/common/Defold"
 
 # Open the output folder after completing the bundle.
 open_bundle_folder=true
@@ -19,7 +19,7 @@ open_bundle_folder=true
 ## You can change them if you understand how bob works
 
 # User email to resolve dependencies
-email=""
+email="iwazraidu@gmail.com"
 
 # Authentication token to resolve dependencies
 auth=""
