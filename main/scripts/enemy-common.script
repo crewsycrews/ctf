@@ -3,6 +3,7 @@ go.property("health", 100)
 go.property("speed", 10)
 go.property("damage", 0)
 go.property("target_url", msg.url())
+go.property("score_points", 1)
 
 function init(self)
   self.buffs = {}
@@ -41,18 +42,25 @@ local function handle_one_time_buff_apply(self, message, buff)
   end
 end
 
+-- TODO explode animation
+local function handle_destroy(self)
+  go.delete(go.get_id())
+  msg.post("/gui/gui", MESSAGES.PLAYER.COUNT_SCORE,
+           { score = self.score_points })
+end
+
 function on_message(self, message_id, message, sender)
   if message_id == hash("collision_response") then
     if message.other_group == COLLISION_GROUPS.head then
       msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE,
                { damage = self.damage })
-      -- TODO explode animation
-      go.delete(go.get_id())
+      
+      handle_destroy(self)
     end
 
     if message.other_group == COLLISION_GROUPS.totem then
       msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
-      go.delete(go.get_id())
+      handle_destroy(self)
     end
   end
   if message_id == hash("trigger_response") then
@@ -66,5 +74,8 @@ function on_message(self, message_id, message, sender)
       handle_one_time_buff_apply(self, message, STATUSES.slow)
     end
   end
-  if self.health <= 0 then go.delete() end
+  if self.health <= 0 then
+    handle_destroy(self)
+  end
+
 end

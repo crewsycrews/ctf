@@ -2,13 +2,18 @@ components {
   id: "enemy-common"
   component: "/main/scripts/enemy-common.script"
   properties {
+    id: "health"
+    value: "20.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
     id: "speed"
     value: "75.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "damage"
-    value: "5.0"
+    value: "10.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -50,13 +55,14 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
+  "      y: 5.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
   "    index: 0\n"
   "    count: 1\n"
   "  }\n"
-  "  data: 28.5645\n"
+  "  data: 24.922169\n"
   "}\n"
   ""
 }

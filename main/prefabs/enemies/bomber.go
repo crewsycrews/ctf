@@ -3,12 +3,12 @@ components {
   component: "/main/scripts/enemy-common.script"
   properties {
     id: "health"
-    value: "25.0"
+    value: "80.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "speed"
-    value: "10.0"
+    value: "40.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {

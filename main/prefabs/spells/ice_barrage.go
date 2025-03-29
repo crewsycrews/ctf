@@ -3,7 +3,7 @@ components {
   component: "/main/scripts/skills/basic_spell.script"
   properties {
     id: "damage"
-    value: "5.0"
+    value: "10.0"
     type: PROPERTY_TYPE_NUMBER
   }
 }

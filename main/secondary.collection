@@ -39,16 +39,32 @@ instances {
   id: "bat-spawn"
   prototype: "/main/prefabs/enemies/bat-spawn.go"
   position {
-    x: 1621.0
-    y: 1670.0
+    x: 1764.0
+    y: 1927.0
   }
 }
 instances {
   id: "bat-spawn1"
   prototype: "/main/prefabs/enemies/bat-spawn.go"
   position {
-    x: 1871.0
-    y: 549.0
+    x: 271.0
+    y: 1762.0
+  }
+}
+instances {
+  id: "bat-spawn2"
+  prototype: "/main/prefabs/enemies/bat-spawn.go"
+  position {
+    x: 2032.0
+    y: 769.0
+  }
+}
+instances {
+  id: "bat-spawn3"
+  prototype: "/main/prefabs/enemies/bat-spawn.go"
+  position {
+    x: 558.0
+    y: 378.0
   }
 }
 collection_instances {
@@ -59,8 +75,8 @@ collection_instances {
   id: "snake"
   collection: "/main/prefabs/players/snake.collection"
   position {
-    x: 840.0
-    y: 840.0
+    x: 1133.0
+    y: 1080.0
   }
 }
 scale_along_z: 0

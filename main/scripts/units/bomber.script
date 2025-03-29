@@ -1,6 +1,6 @@
 go.property("target_url", msg.url())
 
-function init(self) pprint(self.speed) end
+function init(self) end
 
 function update(self, dt)
 end

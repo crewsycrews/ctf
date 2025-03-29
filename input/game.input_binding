@@ -30,10 +30,6 @@ key_trigger {
   input: KEY_R
   action: "head_action_4"
 }
-key_trigger {
-  input: KEY_LSHIFT
-  action: "tail_action_2"
-}
 mouse_trigger {
   input: MOUSE_BUTTON_1
   action: "touch"
@@ -45,4 +41,8 @@ mouse_trigger {
 mouse_trigger {
   input: MOUSE_WHEEL_DOWN
   action: "scroll_down"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_RIGHT
+  action: "tail_action_2"
 }
