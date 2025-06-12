@@ -6,7 +6,7 @@ local camera = require("orthographic.camera")
 ---@return quaternion
 function get_world_rotation(x, y)
   -- the position to look at (mouse/finger)
-  local cursor_world = camera.screen_to_world(go.get_id("camera"),
+  local cursor_world = camera.screen_to_world(go.get_id("/camera"),
                                               vmath.vector3(x, y, 0))
   local player_world = go.get_world_position()
   local angle = math.atan2(player_world.x - cursor_world.x,

@@ -45,7 +45,7 @@ skills.jump = function(performer)
   go.animate(go.get_id(), 'scale', go.PLAYBACK_ONCE_PINGPONG,
              go.get_scale() * 2, go.EASING_LINEAR, SKILLS.DURATIONS.jump, 0,
              function(self, url, property) self.jumping = false end)
-  followersManipulator.animate_jump(performer)
+  -- followersManipulator.animate_jump(performer)
 end
 
 ---Push unit backward from current direction
@@ -71,14 +71,14 @@ skills.backward_dash = function(performer)
              function(self, url, property) self.dashing = false end)
 end
 
----@param performer Follower
+---@param performer Head
 skills.ice_barrage = function(performer)
   if performer.ice_barrage_on_cooldown or performer.ice_barrage_active then
     return
   end
 
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
+           { type = ELEMENTS[2] })
   local spellGO = factory.create("#ice-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
   performer.ice_barrage_on_cooldown = true
@@ -87,7 +87,7 @@ skills.ice_barrage = function(performer)
               function(self, handle, time_elapsed)
     performer.ice_barrage_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
+             { type = ELEMENTS[2] })
   end)
   timer.delay(SKILLS.DURATIONS.ice_barrage, false,
               function(self, handle, time_elapsed)
@@ -96,23 +96,23 @@ skills.ice_barrage = function(performer)
   end)
 end
 
----@param performer Follower
+---@param performer Head
 skills.fireball = function(performer)
   if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
+           { type = ELEMENTS[1] })
   local spellGO = factory.create("#fireball-spell-factory")
   go.set_rotation(go.get_rotation(), spellGO)
   timer.delay(SKILLS.COOLDOWNS.fireball, false,
               function(self, handle, time_elapsed)
     performer.fireball_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
+             { type = ELEMENTS[1] })
   end)
 end
 
----@param performer Follower
+---@param performer Head
 skills.thunderclap = function(performer)
   if performer.thunderclap_on_cooldown or performer.thunderclap_active then
     return
@@ -120,7 +120,7 @@ skills.thunderclap = function(performer)
   performer.thunderclap_on_cooldown = true
   performer.thunderclap_active = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
+           { type = ELEMENTS[4] })
 
   local spellGO = factory.create("#thunderclap-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
@@ -133,16 +133,16 @@ skills.thunderclap = function(performer)
               function(self, handle, time_elapsed)
     performer.thunderclap_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
+             { type = ELEMENTS[4] })
   end)
 end
 
----@param performer Follower
+---@param performer Head
 skills.windwalk = function(performer)
   if performer.windwalk_on_cooldown or performer.windwalk_active then return end
   performer.windwalk_on_cooldown = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
+           { type = ELEMENTS[3] })
   local spellGO = factory.create("#windwalk-spell-factory")
 
   go.set_rotation(go.get_rotation(), spellGO)
@@ -157,7 +157,7 @@ skills.windwalk = function(performer)
               function(self, handle, time_elapsed)
     performer.windwalk_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
+             { type = ELEMENTS[3] })
   end)
   -- making the walker small, like he's disappeared
   go.set_scale(0.0000001)

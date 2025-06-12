@@ -6,25 +6,11 @@ embedded_instances {
   data: "components {\n"
   "  id: \"main\"\n"
   "  component: \"/main/scripts/player.script\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "  property_decls {\n"
-  "  }\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"collisionobject\"\n"
   "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"\\\"\\n"
-  "type: COLLISION_OBJECT_TYPE_DYNAMIC\\n"
+  "  data: \"type: COLLISION_OBJECT_TYPE_DYNAMIC\\n"
   "mass: 1.0\\n"
   "friction: 1.0\\n"
   "restitution: 1.0\\n"
@@ -38,13 +24,8 @@ embedded_instances {
   "    position {\\n"
   "      x: -7.0\\n"
   "      y: -3.0\\n"
-  "      z: 0.0\\n"
   "    }\\n"
   "    rotation {\\n"
-  "      x: 0.0\\n"
-  "      y: 0.0\\n"
-  "      z: 0.0\\n"
-  "      w: 1.0\\n"
   "    }\\n"
   "    index: 0\\n"
   "    count: 3\\n"
@@ -53,158 +34,62 @@ embedded_instances {
   "  data: 28.8855\\n"
   "  data: 10.0\\n"
   "}\\n"
-  "linear_damping: 0.0\\n"
-  "angular_damping: 0.0\\n"
   "locked_rotation: true\\n"
-  "bullet: false\\n"
   "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"buffs\"\n"
   "  type: \"factory\"\n"
   "  data: \"prototype: \\\"/main/prefabs/buffs/dash.go\\\"\\n"
-  "load_dynamically: false\\n"
   "dynamic_prototype: true\\n"
   "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"fireball-spell-factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/prefabs/spells/fireball.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"ice-spell-factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/prefabs/spells/ice_barrage.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"thunderclap-spell-factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/prefabs/spells/thunderclap.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"windwalk-spell-factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/prefabs/spells/windwalker.go\\\"\\n"
+  "\"\n"
   "}\n"
   ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
 }
 embedded_instances {
   id: "sprite"
   data: "components {\n"
   "  id: \"look_at\"\n"
   "  component: \"/main/scripts/look_at.script\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "  property_decls {\n"
-  "  }\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"sprite\"\n"
   "  type: \"sprite\"\n"
-  "  data: \"tile_set: \\\"/main/atlases/characters.atlas\\\"\\n"
-  "default_animation: \\\"bolotniy-hodok\\\"\\n"
+  "  data: \"default_animation: \\\"bolotniy-hodok\\\"\\n"
   "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/atlases/characters.atlas\\\"\\n"
+  "}\\n"
   "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: -0.70710677\n"
-  "    w: 0.70710677\n"
-  "  }\n"
   "  scale {\n"
   "    x: 2.0\n"
   "    y: 2.0\n"
-  "    z: 1.0\n"
   "  }\n"
   "}\n"
   ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "tail"
-  data: "embedded_components {\n"
-  "  id: \"followers\"\n"
-  "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/main/prefabs/players/follower.go\\\"\\n"
-  "load_dynamically: false\\n"
-  "dynamic_prototype: false\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
 }

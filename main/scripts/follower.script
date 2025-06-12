@@ -4,6 +4,7 @@
 ---@field max_distance number
 ---@field parent url
 ---@field type number
+---@field fireball_on_cooldown boolean
 require("main.scripts.common.get_world_rotation")
 local followers = require("main.scripts.modules.followers")
 local skills = require("main.scripts.modules.skills")
