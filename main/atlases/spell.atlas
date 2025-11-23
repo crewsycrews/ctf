@@ -14,6 +14,18 @@ images {
   image: "/assets/ui/spells/clockwork-raven-pack/tile366.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile218.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile290.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/ui/spells/clockwork-raven-pack/tile297.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0

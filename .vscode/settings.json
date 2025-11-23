@@ -37,6 +37,9 @@
 
   // Files
   "files.associations": {
+    "*.sqlbook": "sql",
+    "*.ndjson": "jsonl",
+    "*.dbclient-js": "javascript",
     "*.php": "php",
     "*.blade.php": "blade",
     "*.project": "ini",
@@ -73,7 +76,10 @@
     "*.texture_profiles": "textproto",
     "*.tilemap": "textproto",
     "*.tilesource": "textproto",
-    "*.manifest": "textproto"
+    "*.manifest": "textproto",
+    "*.appmanifest": "yaml",
+    "*.script_api": "yaml",
+    "ext.manifest": "yaml"
   },
   "glsllint.additionalStageAssociations": {
     ".fp": "frag",
@@ -119,10 +125,12 @@
   "Lua.workspace.library": [
     ".internal",
     ".defold_api",
-    "~\\AppData\\Roaming\\Code\\User\\globalStorage\\astronachos.defold"
+    "~/.config/Code/User/globalStorage/astronachos.defold",
+    "~/.config/Code/User/workspaceStorage/39082a2e4c3d1b95f60c556ce3763aa7/astronachos.defold"
   ],
   "Lua.workspace.checkThirdParty": false,
-  "Lua.window.statusBar": false,
+  "Lua.runtime.pathStrict": true,
+  "Lua.window.statusBar": true,
   "Lua.completion.showWord": "Fallback",
   "Lua.completion.autoRequire": false,
   "Lua.diagnostics.libraryFiles": "Disable"

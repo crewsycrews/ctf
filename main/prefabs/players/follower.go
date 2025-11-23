@@ -41,7 +41,7 @@ embedded_components {
 embedded_components {
   id: "ice-spell-factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/ice_barrage.go\"\n"
+  data: "prototype: \"/main/prefabs/spells/ice_barrage.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
@@ -60,7 +60,7 @@ embedded_components {
 embedded_components {
   id: "fireball-spell-factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/fireball.go\"\n"
+  data: "prototype: \"/main/prefabs/spells/fireball.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
@@ -79,7 +79,7 @@ embedded_components {
 embedded_components {
   id: "thunderclap-spell-factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/thunderclap.go\"\n"
+  data: "prototype: \"/main/prefabs/spells/thunderclap.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
@@ -98,7 +98,7 @@ embedded_components {
 embedded_components {
   id: "windwalk-spell-factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/windwalker.go\"\n"
+  data: "prototype: \"/main/prefabs/spells/windwalker.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
