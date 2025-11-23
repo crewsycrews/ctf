@@ -7,64 +7,40 @@ instances {
   id: "totem"
   prototype: "/main/prefabs/buildings/totem.go"
   position {
-    x: 1118.0
-    y: 1264.0
-  }
-}
-instances {
-  id: "bomber"
-  prototype: "/main/prefabs/enemies/bomber.go"
-  position {
-    x: 1453.0
-    y: 656.0
+    x: 3625.0
+    y: 3724.0
   }
 }
 instances {
   id: "bomber1"
   prototype: "/main/prefabs/enemies/bomber.go"
   position {
-    x: 630.0
-    y: 656.0
+    x: 349.0
+    y: 3595.0
   }
 }
 instances {
   id: "bomber2"
   prototype: "/main/prefabs/enemies/bomber.go"
   position {
-    x: 630.0
-    y: 1523.0
+    x: 6823.0
+    y: 3499.0
   }
 }
 instances {
   id: "bat-spawn"
   prototype: "/main/prefabs/enemies/bat-spawn.go"
   position {
-    x: 1764.0
-    y: 1927.0
+    x: 198.0
+    y: 3604.0
   }
 }
 instances {
   id: "bat-spawn1"
   prototype: "/main/prefabs/enemies/bat-spawn.go"
   position {
-    x: 271.0
-    y: 1762.0
-  }
-}
-instances {
-  id: "bat-spawn2"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
-  position {
-    x: 2032.0
-    y: 769.0
-  }
-}
-instances {
-  id: "bat-spawn3"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
-  position {
-    x: 558.0
-    y: 378.0
+    x: 7008.0
+    y: 3603.0
   }
 }
 collection_instances {
@@ -75,25 +51,24 @@ collection_instances {
   id: "snake"
   collection: "/main/prefabs/players/snake.collection"
   position {
-    x: 1133.0
-    y: 1080.0
+    x: 3622.0
+    y: 3464.0
   }
 }
 scale_along_z: 0
 embedded_instances {
   id: "map"
   data: "components {\n"
-  "  id: \"map\"\n"
-  "  component: \"/main/tilemaps/secondary.tilemap\"\n"
-  "}\n"
-  "components {\n"
-  "  id: \"trees\"\n"
-  "  component: \"/main/tilemaps/third.tilemap\"\n"
+  "  id: \"big-moo-moo\"\n"
+  "  component: \"/main/tilemaps/big-moo-moo.tilemap\"\n"
+  "  position {\n"
+  "    z: -1.0\n"
+  "  }\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"collisionobject\"\n"
   "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"/main/tilemaps/third.tilemap\\\"\\n"
+  "  data: \"collision_shape: \\\"/main/tilemaps/big-moo-moo.tilemap\\\"\\n"
   "type: COLLISION_OBJECT_TYPE_STATIC\\n"
   "mass: 0.0\\n"
   "friction: 1.0\\n"

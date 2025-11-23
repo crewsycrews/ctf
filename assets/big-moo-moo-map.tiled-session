@@ -1,0 +1,51 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "main-map.tmx#nature": {
+            "scaleInEditor": 1
+        },
+        "main-map.tmx#ruins": {
+            "scaleInEditor": 1
+        },
+        "nature.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 0.75
+        }
+    },
+    "last.exportedFilePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/main/tilemaps",
+    "last.imagePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets/units/nature/tiles",
+    "last.worldFilePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets",
+    "loadedWorlds": [
+        "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets/world.world",
+        "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets/world.world"
+    ],
+    "map.height": 140,
+    "map.lastUsedExportFilter": "Тайловая карта для Defold (*.tilemap)",
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": "3",
+    "map.renderOrder": "3",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 140,
+    "openFiles": [
+    ],
+    "project": "big-moo-moo-map.tiled-project",
+    "recentFiles": [
+        "nature.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
