@@ -126,7 +126,9 @@
     ".internal",
     ".defold_api",
     "~/.config/Code/User/globalStorage/astronachos.defold",
-    "~/.config/Code/User/workspaceStorage/39082a2e4c3d1b95f60c556ce3763aa7/astronachos.defold"
+    "~/.config/Code/User/workspaceStorage/39082a2e4c3d1b95f60c556ce3763aa7/astronachos.defold",
+    "~\\AppData\\Roaming\\Code\\User\\workspaceStorage\\939bd02b3ad90aea5af8cbf1ad527832\\astronachos.defold",
+    "~\\AppData\\Roaming\\Code\\User\\globalStorage\\astronachos.defold"
   ],
   "Lua.workspace.checkThirdParty": false,
   "Lua.runtime.pathStrict": true,
