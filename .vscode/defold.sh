@@ -8,7 +8,7 @@
 # - MacOS: "/Applications/Defold.app"
 # - Linux: "/usr/bin/Defold"
 # - Windows: "C:/Program Files/Defold"
-defold_editor_path="/home/crews/.local/share/Steam/steamapps/common/Defold"
+defold_editor_path="/mnt/f33d810e-9b2a-4535-8d12-d4574ec9c9c4/SteamLibrary/steamapps/common/Defold"
 
 # Open the output folder after completing the bundle.
 open_bundle_folder=true
