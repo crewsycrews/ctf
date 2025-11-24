@@ -132,6 +132,15 @@ Dynamic entities use Defold's factory system:
 - Enemies spawn via factory references in level collections
 - Enables object pooling and lifecycle management
 
+### Camera and Coordinate Systems
+
+The game uses the **Orthographic Camera** dependency for rendering and coordinate transformations:
+- **Camera ID**: `/camera` - The main camera game object
+- **Screen to World Conversion**: Use `camera.screen_to_world(go.get_id("/camera"), screen_pos)` to convert mouse/touch input to world coordinates
+- **Module**: `require("orthographic.camera")` provides camera utilities
+- **Important**: All mouse/touch input from `on_input()` is in screen space and must be converted to world space for game logic
+- **Example**: See `main/scripts/common/get_world_rotation.lua` for proper camera coordinate conversion
+
 ## Key Directories
 
 - `main/scripts/` - Game logic (player, enemies, loader)
