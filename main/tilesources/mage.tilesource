@@ -1,0 +1,94 @@
+image: "/assets/mage-NESW.png"
+tile_width: 32
+tile_height: 32
+collision: "/assets/mage-NESW.png"
+convex_hulls {
+  index: 0
+  count: 13
+  collision_group: "default"
+}
+convex_hulls {
+  index: 13
+  count: 12
+  collision_group: "default"
+}
+convex_hulls {
+  index: 25
+  count: 11
+  collision_group: "default"
+}
+convex_hulls {
+  index: 36
+  count: 13
+  collision_group: "default"
+}
+convex_hulls {
+  index: 49
+  count: 13
+  collision_group: "default"
+}
+convex_hulls {
+  index: 62
+  count: 13
+  collision_group: "default"
+}
+convex_hulls {
+  index: 75
+  count: 14
+  collision_group: "default"
+}
+convex_hulls {
+  index: 89
+  count: 12
+  collision_group: "default"
+}
+convex_hulls {
+  index: 101
+  count: 11
+  collision_group: "default"
+}
+convex_hulls {
+  index: 112
+  count: 13
+  collision_group: "default"
+}
+convex_hulls {
+  index: 125
+  count: 13
+  collision_group: "default"
+}
+convex_hulls {
+  index: 138
+  count: 13
+  collision_group: "default"
+}
+collision_groups: "default"
+animations {
+  id: "east"
+  start_tile: 4
+  end_tile: 6
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+}
+animations {
+  id: "north"
+  start_tile: 1
+  end_tile: 3
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+}
+animations {
+  id: "south"
+  start_tile: 7
+  end_tile: 9
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+}
+animations {
+  id: "west"
+  start_tile: 10
+  end_tile: 12
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+}
+extrude_borders: 2
