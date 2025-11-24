@@ -1,8 +1,13 @@
 go.property("timeout", 1)
 go.property("finishSpawnSeconds", 60)
+go.property("amount", 1)
 
 function init(self)
   timer.delay(self.timeout, true, function(self, handle, time_elapsed)
-    factory.create("#factory", go.get_position(), go.get_rotation())
+    local i
+    for i = 1, self.amount do
+      factory.create("#factory", go.get_position(), go.get_rotation())
+    end
+    i = 1
   end)
 end

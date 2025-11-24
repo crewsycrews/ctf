@@ -34,6 +34,14 @@ instances {
     x: 198.0
     y: 3604.0
   }
+  component_properties {
+    id: "bat-spawn"
+    properties {
+      id: "amount"
+      value: "5.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
 }
 instances {
   id: "bat-spawn1"
@@ -41,6 +49,14 @@ instances {
   position {
     x: 7008.0
     y: 3603.0
+  }
+  component_properties {
+    id: "bat-spawn"
+    properties {
+      id: "amount"
+      value: "5.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
   }
 }
 collection_instances {
