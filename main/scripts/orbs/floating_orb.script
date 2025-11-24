@@ -1,0 +1,103 @@
+---@class FloatingOrb
+---@field player_id hash The player game object to follow
+---@field mouse_screen_pos vector3 Current mouse position on screen
+---@field mouse_world_pos vector3 Current mouse position in world
+---@field orbit_radius number Distance from player
+---@field orbit_speed number How fast the orb orbits
+---@field lerp_speed number How smoothly the orb follows
+---@field fireball_on_cooldown bool
+---@field ice_barrage_on_cooldown bool
+---@field ice_barrage_active bool
+---@field thunderclap_on_cooldown bool
+---@field thunderclap_active bool
+---@field current_rotation quaternion Current rotation of the orb
+
+local camera = require("orthographic.camera")
+local skills = require("main.scripts.modules.skills")
+
+go.property("orbit_radius", 80)
+go.property("orbit_speed", 2.0)
+go.property("lerp_speed", 5.0)
+
+---@param self FloatingOrb
+function init(self)
+    -- Store reference to player (passed via message after spawn)
+    self.player_id = nil
+    self.mouse_screen_pos = vmath.vector3(0, 0, 0)
+    self.mouse_world_pos = vmath.vector3(0, 0, 0)
+    self.current_rotation = vmath.quat()
+
+    -- Initialize cooldown states
+    self.fireball_on_cooldown = false
+    self.ice_barrage_on_cooldown = false
+    self.ice_barrage_active = false
+    self.thunderclap_on_cooldown = false
+    self.thunderclap_active = false
+
+    msg.post(".", "acquire_input_focus")
+end
+
+---@param self FloatingOrb
+function final(self)
+    msg.post(".", "release_input_focus")
+end
+
+---@param self FloatingOrb
+function update(self, dt)
+    if not self.player_id then
+        return
+    end
+
+    -- Convert screen coordinates to world coordinates
+    self.mouse_world_pos = camera.screen_to_world(go.get_id("/camera"), self.mouse_screen_pos)
+
+    local player_pos = go.get_position(self.player_id)
+    local current_pos = go.get_position()
+
+    -- Calculate direction from player to mouse (in world space)
+    local dir_to_mouse = self.mouse_world_pos - player_pos
+
+    -- Check if mouse is far enough from player to normalize
+    if vmath.length(dir_to_mouse) > 1 then
+        dir_to_mouse = vmath.normalize(dir_to_mouse)
+    else
+        -- Default to right if mouse is on top of player
+        dir_to_mouse = vmath.vector3(1, 0, 0)
+    end
+
+    -- Calculate target position: offset from player towards mouse
+    local target_pos = player_pos + dir_to_mouse * self.orbit_radius
+
+    -- Smoothly interpolate orb position towards target
+    local new_pos = vmath.lerp(dt * self.lerp_speed, current_pos, target_pos)
+    go.set_position(new_pos)
+
+    -- Store rotation for spell casting direction
+    -- Use the same rotation calculation as get_world_rotation for consistency
+    local orb_pos = go.get_position()
+    local angle = math.atan2(orb_pos.x - self.mouse_world_pos.x, self.mouse_world_pos.y - orb_pos.y)
+    self.current_rotation = vmath.quat_rotation_z(angle)
+    go.set_rotation(self.current_rotation)
+end
+
+---@param self FloatingOrb
+function on_input(self, action_id, action)
+    -- Track mouse position in screen space
+    if not action_id then
+        self.mouse_screen_pos.x = action.x
+        self.mouse_screen_pos.y = action.y
+    end
+end
+
+---@param self FloatingOrb
+function on_message(self, message_id, message)
+    if message_id == hash("set_player") then
+        self.player_id = message.player_id
+    elseif message_id == hash("cast_fireball") then
+        skills.fireball(self)
+    elseif message_id == hash("cast_ice_barrage") then
+        skills.ice_barrage(self)
+    elseif message_id == hash("cast_thunderclap") then
+        skills.thunderclap(self)
+    end
+end
