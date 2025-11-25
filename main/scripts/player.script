@@ -25,17 +25,12 @@
 ---@field current_animation string
 ---@field orb_id hash The floating orb that casts spells
 go.property('speed', 200)
--- local followersManipulator = require('main.scripts.modules.followers')
+go.property("max_health", 300)
+
 require("main.scripts.common.get_world_rotation")
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
 
-go.property('speed', 200)
-go.property("max_health", 100)
-
-local function checkRotation(self)
-  go.set_rotation(get_world_rotation(self.pointer.x, self.pointer.y))
-end
 
 ---@param self Head
 function init(self)

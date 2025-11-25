@@ -5,173 +5,173 @@ go.property("speed", 40)
 go.property("damage", 15)
 go.property("target_url", msg.url())
 go.property("score_points", 2)
-go.property("attack_range", 50) -- Distance at which orc starts attacking
+go.property("attack_range", 250)    -- Distance at which orc starts attacking
 go.property("attack_cooldown", 1.5) -- Time between attacks
 
 function init(self)
-	self.buffs = {}
-	self.initial_speed = self.speed
-	self.state = "walk" -- States: walk, attack, hurt, death
-	self.current_direction = "south" -- north, south, east, west
-	self.attack_timer = 0
-	self.in_attack_range = false
-	self.last_diff = vmath.vector3(0, -1, 0) -- Default facing south
+  self.buffs = {}
+  self.initial_speed = self.speed
+  self.state = "walk"              -- States: walk, attack, hurt, death
+  self.current_direction = "south" -- north, south, east, west
+  self.attack_timer = 0
+  self.in_attack_range = false
+  self.last_diff = vmath.vector3(0, -1, 0) -- Default facing south
 end
 
 local function get_direction_from_vector(diff)
-	-- Determine which direction is dominant
-	local angle = math.atan2(diff.y, diff.x)
-	local degrees = math.deg(angle)
+  -- Determine which direction is dominant
+  local angle = math.atan2(diff.y, diff.x)
+  local degrees = math.deg(angle)
 
-	-- Convert angle to cardinal direction
-	if degrees >= -45 and degrees < 45 then
-		return "east"
-	elseif degrees >= 45 and degrees < 135 then
-		return "north"
-	elseif degrees >= -135 and degrees < -45 then
-		return "south"
-	else
-		return "west"
-	end
+  -- Convert angle to cardinal direction
+  if degrees >= -45 and degrees < 45 then
+    return "east"
+  elseif degrees >= 45 and degrees < 135 then
+    return "north"
+  elseif degrees >= -135 and degrees < -45 then
+    return "south"
+  else
+    return "west"
+  end
 end
 
 local function play_animation(self, action)
-	-- Construct animation name: action-direction (e.g., "walk-south", "attack-north")
-	local anim_name = action .. "-" .. self.current_direction
-	local current_anim = go.get("#sprite", "animation")
+  -- Construct animation name: action-direction (e.g., "walk-south", "attack-north")
+  local anim_name = action .. "-" .. self.current_direction
+  local current_anim = go.get("#sprite", "animation")
 
-	-- Only play if animation is different
-	if current_anim ~= hash(anim_name) then
-		sprite.play_flipbook("#sprite", hash(anim_name))
-	end
+  -- Only play if animation is different
+  if current_anim ~= hash(anim_name) then
+    sprite.play_flipbook("#sprite", hash(anim_name))
+  end
 end
 
 local function update_direction(self, diff)
-	if diff.x ~= 0 or diff.y ~= 0 then
-		self.current_direction = get_direction_from_vector(diff)
-		self.last_diff = diff
-	end
+  if diff.x ~= 0 or diff.y ~= 0 then
+    self.current_direction = get_direction_from_vector(diff)
+    self.last_diff = diff
+  end
 end
 
 local function handle_damage_input(self, message)
-	local damage_done = go.get(msg.url(nil, message.other_id, 'script'), 'damage')
-	self.health = self.health - damage_done
+  local damage_done = go.get(msg.url(nil, message.other_id, 'script'), 'damage')
+  self.health = self.health - damage_done
 
-	-- Play hurt animation briefly
-	if self.health > 0 then
-		play_animation(self, "hurt")
-		timer.delay(0.3, false, function()
-			if self.state ~= "death" then
-				self.state = self.in_attack_range and "attack" or "walk"
-			end
-		end)
-	end
+  -- Play hurt animation briefly
+  if self.health > 0 then
+    play_animation(self, "hurt")
+    timer.delay(0.3, false, function()
+      if self.state ~= "death" then
+        self.state = self.in_attack_range and "attack" or "walk"
+      end
+    end)
+  end
 end
 
 function update(self, dt)
-	-- Don't move if dead or frozen
-	if self.state == "death" or buffs.check_status(self, STATUSES.frozen) then
-		return
-	end
+  -- Don't move if dead or frozen
+  if self.state == "death" or buffs.check_status(self, STATUSES.frozen) then
+    return
+  end
 
-	local oldpos = go.get_position()
-	local target_pos = go.get_position(self.target_url)
-	local diff = target_pos - oldpos
-	local distance = vmath.length(diff)
+  local oldpos = go.get_position()
+  local target_pos = go.get_position(self.target_url)
+  local diff = target_pos - oldpos
+  local distance = vmath.length(diff)
 
-	-- Check if in attack range
-	self.in_attack_range = distance <= self.attack_range
+  -- Check if in attack range
+  self.in_attack_range = distance <= self.attack_range
 
-	if self.in_attack_range then
-		-- Stop moving and attack
-		self.state = "attack"
-		update_direction(self, diff / distance) -- Normalize for direction only
+  if self.in_attack_range then
+    -- Stop moving and attack
+    self.state = "attack"
+    update_direction(self, diff / distance) -- Normalize for direction only
 
-		-- Handle attack timing
-		self.attack_timer = self.attack_timer + dt
-		if self.attack_timer >= self.attack_cooldown then
-			self.attack_timer = 0
-			-- Send damage to target
-			if self.target_url == msg.url("/snake/head") then
-				msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE, { damage = self.damage })
-			elseif self.target_url == msg.url("/totem") then
-				msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
-			end
-		end
+    -- Handle attack timing
+    self.attack_timer = self.attack_timer + dt
+    if self.attack_timer >= self.attack_cooldown then
+      self.attack_timer = 0
+      -- Send damage to target
+      if self.target_url == msg.url("/snake/head") then
+        msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE, { damage = self.damage })
+      elseif self.target_url == msg.url("/totem") then
+        msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
+      end
+    end
 
-		play_animation(self, "attack")
-	else
-		-- Move towards target
-		self.state = "walk"
-		local normalized_diff = vmath.normalize(diff)
-		update_direction(self, normalized_diff)
+    play_animation(self, "attack")
+  else
+    -- Move towards target
+    self.state = "walk"
+    local normalized_diff = vmath.normalize(diff)
+    update_direction(self, normalized_diff)
 
-		local newpos = oldpos + normalized_diff * self.speed * dt
-		go.set_position(newpos)
+    local newpos = oldpos + normalized_diff * self.speed * dt
+    go.set_position(newpos)
 
-		play_animation(self, "walk")
-	end
+    play_animation(self, "walk")
+  end
 end
 
 local function handle_one_time_buff_apply(self, message, buff)
-	if not buffs.check_status(self, buff) then
-		handle_damage_input(self, message)
-		buffs.add_status(self, buff)
+  if not buffs.check_status(self, buff) then
+    handle_damage_input(self, message)
+    buffs.add_status(self, buff)
 
-		if buff == STATUSES.slow then
-			self.speed = self.speed * 0.5
-		elseif buff == STATUSES.frozen then
-			self.speed = 0
-			play_animation(self, "idle")
-		end
+    if buff == STATUSES.slow then
+      self.speed = self.speed * 0.5
+    elseif buff == STATUSES.frozen then
+      self.speed = 0
+      play_animation(self, "idle")
+    end
 
-		local buff_duration = go.get(msg.url(nil, message.other_id, 'one_time_buff_applier'), 'buff_duration')
-		timer.delay(buff_duration, false, function()
-			buffs.remove_status(self, buff)
-			self.speed = self.initial_speed
-		end)
-	end
+    local buff_duration = go.get(msg.url(nil, message.other_id, 'one_time_buff_applier'), 'buff_duration')
+    timer.delay(buff_duration, false, function()
+      buffs.remove_status(self, buff)
+      self.speed = self.initial_speed
+    end)
+  end
 end
 
 local function handle_destroy(self)
-	self.state = "death"
-	play_animation(self, "death")
+  self.state = "death"
+  play_animation(self, "death")
 
-	-- Wait for death animation to play before deleting
-	timer.delay(0.4, false, function()
-		go.delete(go.get_id())
-		msg.post("/gui/gui", MESSAGES.PLAYER.COUNT_SCORE, { score = self.score_points })
-	end)
+  -- Wait for death animation to play before deleting
+  timer.delay(0.4, false, function()
+    go.delete(go.get_id())
+    msg.post("/gui/gui", MESSAGES.PLAYER.COUNT_SCORE, { score = self.score_points })
+  end)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("collision_response") then
-		if message.other_group == COLLISION_GROUPS.head then
-			-- Don't destroy on collision, let attack range handle combat
-			return
-		end
+  if message_id == hash("collision_response") then
+    if message.other_group == COLLISION_GROUPS.head then
+      -- Don't destroy on collision, let attack range handle combat
+      return
+    end
 
-		if message.other_group == COLLISION_GROUPS.totem then
-			-- Don't destroy on collision, let attack range handle combat
-			return
-		end
-	end
+    if message.other_group == COLLISION_GROUPS.totem then
+      -- Don't destroy on collision, let attack range handle combat
+      return
+    end
+  end
 
-	if message_id == hash("trigger_response") then
-		if message.other_group == COLLISION_GROUPS.projectiles and message.enter then
-			handle_damage_input(self, message)
-		end
+  if message_id == hash("trigger_response") then
+    if message.other_group == COLLISION_GROUPS.projectiles and message.enter then
+      handle_damage_input(self, message)
+    end
 
-		if message.other_group == COLLISION_GROUPS.ice_barrage and message.enter then
-			handle_one_time_buff_apply(self, message, STATUSES.frozen)
-		end
+    if message.other_group == COLLISION_GROUPS.ice_barrage and message.enter then
+      handle_one_time_buff_apply(self, message, STATUSES.frozen)
+    end
 
-		if message.other_group == COLLISION_GROUPS.thunderclap and message.enter then
-			handle_one_time_buff_apply(self, message, STATUSES.slow)
-		end
-	end
+    if message.other_group == COLLISION_GROUPS.thunderclap and message.enter then
+      handle_one_time_buff_apply(self, message, STATUSES.slow)
+    end
+  end
 
-	if self.health <= 0 and self.state ~= "death" then
-		handle_destroy(self)
-	end
+  if self.health <= 0 and self.state ~= "death" then
+    handle_destroy(self)
+  end
 end
