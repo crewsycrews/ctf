@@ -1,19 +1,5 @@
 components {
-  id: "bat-spawn"
-  component: "/main/scripts/units/spawner.script"
-  properties {
-    id: "timeout"
-    value: "5.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "factory_name"
-    value: "#bats-factory"
-    type: PROPERTY_TYPE_URL
-  }
-}
-components {
-  id: "bombs-spawn"
+  id: "orc1-spawn"
   component: "/main/scripts/units/spawner.script"
   properties {
     id: "timeout"
@@ -22,15 +8,42 @@ components {
   }
   properties {
     id: "factory_name"
-    value: "#bombs-factory"
+    value: "#orc1-factory"
     type: PROPERTY_TYPE_URL
   }
 }
-embedded_components {
-  id: "bats-factory"
-  type: "factory"
-  data: "prototype: \"/main/prefabs/enemies/bat.go\"\n"
-  ""
+components {
+  id: "orc3-spawn"
+  component: "/main/scripts/units/spawner.script"
+  properties {
+    id: "timeout"
+    value: "3.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "amount"
+    value: "2.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "factory_name"
+    value: "#orc3-factory"
+    type: PROPERTY_TYPE_URL
+  }
+}
+components {
+  id: "orc2-spawn"
+  component: "/main/scripts/units/spawner.script"
+  properties {
+    id: "timeout"
+    value: "3.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "factory_name"
+    value: "#orc2-factory"
+    type: PROPERTY_TYPE_URL
+  }
 }
 embedded_components {
   id: "sprite"
@@ -48,8 +61,20 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "bombs-factory"
+  id: "orc1-factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/enemies/bomber.go\"\n"
+  data: "prototype: \"/main/prefabs/enemies/orc1.go\"\n"
+  ""
+}
+embedded_components {
+  id: "orc2-factory"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/enemies/orc2.go\"\n"
+  ""
+}
+embedded_components {
+  id: "orc3-factory"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/enemies/orc3.go\"\n"
   ""
 }
