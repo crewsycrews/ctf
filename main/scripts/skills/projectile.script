@@ -12,7 +12,7 @@ end
 function on_message(self, message_id, message, sender)
   if message_id == hash("trigger_response") then
     if message.other_group == COLLISION_GROUPS.enemies and message.enter then
-      go.delete()
+      go.delete(go.get_id())
     end
   end
 end

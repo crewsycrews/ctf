@@ -21,12 +21,12 @@ end
 
 local function set_player_health(self, percent)
   gui.animate(self.player_health, "scale", vmath.vector3(percent, 1, 1),
-              gui.EASING_OUTCUBIC, 1)
+    gui.EASING_OUTCUBIC, 1)
 end
 
 local function set_totem_health(self, percent)
   gui.animate(self.totem_health, "scale", vmath.vector3(percent, 1, 1),
-              gui.EASING_OUTCUBIC, 1)
+    gui.EASING_OUTCUBIC, 1)
 end
 
 function on_message(self, message_id, message, sender)
@@ -46,12 +46,11 @@ function on_message(self, message_id, message, sender)
     self.score = self.score + message.score
     local scoreNode = gui.get_node("score")
     gui.set_text(scoreNode, self.score)
-    if self.score >= 50 then
-      gui.set_enabled(gui.get_node("victory"), true)
-      timer.delay(5, false, function(self, handle, time_elapsed)
-        msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "menu" })
-      end)
-    end
+    -- if self.score >= 50 then
+    --   gui.set_enabled(gui.get_node("victory"), true)
+    --   timer.delay(5, false, function(self, handle, time_elapsed)
+    --     msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "menu" })
+    --   end)
+    -- end
   end
 end
-
