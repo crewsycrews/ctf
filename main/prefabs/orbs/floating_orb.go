@@ -5,17 +5,13 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"all-for-one\"\n"
+  data: "default_animation: \"2\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/main/atlases/orbs.atlas\"\n"
+  "  texture: \"/main/tilesources/rotating-orbs.tilesource\"\n"
   "}\n"
   ""
-  scale {
-    x: 0.25
-    y: 0.25
-  }
 }
 embedded_components {
   id: "fireball-spell-factory"

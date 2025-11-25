@@ -5,31 +5,15 @@ instances {
 }
 instances {
   id: "totem"
-  prototype: "/main/prefabs/buildings/totem.go"
+  prototype: "/main/prefabs/buildings/main-building.go"
   position {
-    x: 3625.0
-    y: 3724.0
+    x: 3632.0
+    y: 3667.0
   }
 }
 instances {
-  id: "bomber1"
-  prototype: "/main/prefabs/enemies/bomber.go"
-  position {
-    x: 349.0
-    y: 3595.0
-  }
-}
-instances {
-  id: "bomber2"
-  prototype: "/main/prefabs/enemies/bomber.go"
-  position {
-    x: 6823.0
-    y: 3499.0
-  }
-}
-instances {
-  id: "bat-spawn"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
+  id: "spawner-west"
+  prototype: "/main/prefabs/enemies/spawn.go"
   position {
     x: 198.0
     y: 3604.0
@@ -41,11 +25,16 @@ instances {
       value: "5.0"
       type: PROPERTY_TYPE_NUMBER
     }
+    properties {
+      id: "spawn_radius"
+      value: "100.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
   }
 }
 instances {
-  id: "bat-spawn1"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
+  id: "spawner-east"
+  prototype: "/main/prefabs/enemies/spawn.go"
   position {
     x: 7008.0
     y: 3603.0
@@ -55,6 +44,11 @@ instances {
     properties {
       id: "amount"
       value: "5.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+    properties {
+      id: "spawn_radius"
+      value: "100.0"
       type: PROPERTY_TYPE_NUMBER
     }
   }

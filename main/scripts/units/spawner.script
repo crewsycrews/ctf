@@ -1,0 +1,36 @@
+go.property("timeout", 1)
+go.property("finishSpawnSeconds", 60)
+go.property("amount", 1)
+go.property("spawn_radius", 50) -- Radius for random spawn positions
+go.property("factory_name", msg.url('#factory'))
+
+---@class Spawner
+---@field timeout number Time delay between spawn cycles
+---@field finishSpawnSeconds number Total time before spawning ends
+---@field amount number Number of entities to spawn per cycle
+---@field spawn_radius number Radius for random spawn positions
+---@field factory_name url Factory URL for entity to spawn
+
+---@param self Spawner
+function init(self)
+  math.randomseed(os.time()) -- Initialize random seed
+
+  ---@param self Spawner
+  timer.delay(self.timeout, true, function(self, handle, time_elapsed)
+    for i = 1, self.amount do
+      local base_pos = go.get_position()
+
+      -- Generate random offset within spawn_radius
+      local angle = math.random() * 2 * math.pi
+      local distance = math.random() * self.spawn_radius
+
+      local spawn_pos = vmath.vector3(
+        base_pos.x + math.cos(angle) * distance,
+        base_pos.y + math.sin(angle) * distance,
+        base_pos.z
+      )
+
+      factory.create(self.factory_name, spawn_pos, go.get_rotation())
+    end
+  end)
+end

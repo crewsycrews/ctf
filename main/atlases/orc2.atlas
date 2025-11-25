@@ -1,0 +1,741 @@
+animations {
+  id: "idle-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "idle-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "idle-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "idle-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_idle_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "attack-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "attack-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "attack-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "attack-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_attack_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "hurt-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 8
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "hurt-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 8
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "hurt-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 8
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "hurt-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_hurt_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 8
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "death-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "death-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "death-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "death-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_death_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-attack-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-attack-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-attack-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run-attack-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_run-attack_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-attack-north"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_north_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_north_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_north_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_north_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-attack-south"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_south_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_south_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_south_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_south_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-attack-east"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_east_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_east_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_east_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_east_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "walk-attack-west"
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_west_0000.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_west_0001.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_west_0002.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/assets/orcs/PNG/Orc2/frames/orc2_walk-attack_west_0003.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 2
+inner_padding: 0
+max_page_width: 0
+max_page_height: 0
