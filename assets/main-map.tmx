@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-up" width="140" height="140" tilewidth="64" tileheight="64" infinite="0" nextlayerid="17" nextobjectid="12">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-up" width="140" height="140" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="15">
  <editorsettings>
   <export target="../main/tilemaps/big-moo-moo.tilemap" format="defold"/>
  </editorsettings>
@@ -20,6 +20,39 @@
    </wangset>
   </wangsets>
  </tileset>
+ <tileset firstgid="391" name="bashes" tilewidth="64" tileheight="64" tilecount="9" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Autumn_bush1.png" width="64" height="64"/>
+  </tile>
+  <tile id="7">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Bush_blue_flowers1.png" width="64" height="64"/>
+  </tile>
+  <tile id="10">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Bush_orange_flowers1.png" width="64" height="64"/>
+  </tile>
+  <tile id="13">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Bush_pink_flowers1.png" width="64" height="64"/>
+  </tile>
+  <tile id="16">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Bush_red_flowers1.png" width="64" height="64"/>
+  </tile>
+  <tile id="28">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Cactus2_1.png" width="64" height="64"/>
+  </tile>
+  <tile id="31">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Fern1_1.png" width="64" height="64"/>
+  </tile>
+  <tile id="34">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Fern2_1.png" width="64" height="64"/>
+  </tile>
+  <tile id="37">
+   <image source="//wsl$/Ubuntu/home/crewsycrews/gamedev/assets/craftpix-net-141354-free-top-down-bushes-pixel-art/PNG/Assets/Snow_bush1.png" width="64" height="64"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="431" source="forest-objects.tsx"/>
+ <tileset firstgid="449" source="ruins.tsx"/>
+ <tileset firstgid="489" source="rocks-n-stones.tsx"/>
  <layer id="1" name="ground 1" width="140" height="140">
   <data encoding="base64" compression="zlib">
    eJztwwEJAAAMBKEr9P3rrcdQcNVUVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVXV1w9fgHYU
@@ -30,9 +63,12 @@
    eJzt2U1ugzAQBlC2oOQU3P+O7YJI1qcZQ7ooC96TRiRg/DO1EjpZFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4jvcQryPew/FdnOvaZbyKfl4Xxqnaz/rOfru+uzl376uxqzXN5luN2821Ol/1272e5WaWsyv5/8R2xPob+3HcjtdbcX2LNtluvD62WYdr1Rhrc9yG+z8x9rlHn2sxRq5tPfKxF31tcT77yPVku2yzRt/bUq9h7LOawxr3Vmuvxh77q/odc5Y5yr/RvvSfDU+Is70y2zN3z13cs1/O9kq3Z+6eu/j/uLpXqj1z99zvzNmT4+peyWcJ8cywX76Luz/f7v5s9X0krobnXfHtfvH/9N9ydlZ7yprRWrzPWlO+zueFrOeNtaG8Nnv2yJrU2Kaa+xZrn+2Zrl7XPdN0tbYxP5mrPOZc9+b+zFmuO8et6oW5zm5en75m9fz3Mq8bn9XK89rs3itzmJ2fHb+tnZ/VyavzZ79JdL8RdONezdeVOZzlsMtlNS4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPMkPWohefw==
   </data>
  </layer>
+ <objectgroup id="17" name="Слой объектов 1">
+  <object id="14" gid="436" x="4557" y="3700" width="128" height="128"/>
+ </objectgroup>
  <layer id="16" name="roads" width="140" height="140">
   <data encoding="base64" compression="zlib">
-   eJzt22FKAlEYQNHZQbaMqNxESfvfUW8wYQhyvBnY4DnwIcgI78flPZzRaQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgKOXMa9j9rdeCJugFwq9UOiFQi8UeqHQC4VeKPRCoRcKvVDMvXxMeuEyz99eYelhzG4xh6/338a8j3m80br4n9b2EfsMS3qhWOthPpd2Z8Z5dV+u3T+e/mQVbIVeKPRCoReKa3vx/em+6IVCLxR6odALhV4oTvf7D2sXnvm8ZwIU9hgKvVDohUIvFHqh0AuFXij0QqEXCr1Q6IVi7T8nl4xnUBT2KAq9UPx0pjmnKOaOfvvbHAAAAAAAAAAAAABguz4BU0QSaw==
+   eJzt3Wtu00AAhVELFsDrb1kAKmUTpcAyCtugi+vSsNVYWFEaz3X8zjnSqCACteIvM34ArioAAACW9mbpDWBTbpbeAKBYM7+/neF7UG6q/THGvm7m988jbEvf96DcVPtjjn0N7MPUxxFr5fhmmGtdWxzfAEOMvdZYu8b1ZekNOHJurRmy74//PP1cprSXOa7T9RnjuGUL/Sz9Pp9T2ster92Mdew8ZndD3ue5ul/berR2r+2Xm4LXTGmuc0a9ZEr2S/uaNa51l9pLL2vcN3u8TrSXXsY+r7pW7+rx/sx4WG7Teo21n/f4OS8x5P3b8vxxrfv52NDPzZD3b8u98GLOz41eSOhlWns7ltbLtPZ2jKWXcU0xn/Sdw8451ny+vEVTzCc+0yT0QuK+Ht8LxoelNpBNMg+R0AunvHa+5NyFU26X3gA2RS8k9LKcLd7f0ctytnh/Ry9lSueCLc4ZCb2UKZ0LtjhnJPRCQi+c0/bxsR6f6vG43Kawck0jj4cff63HXT2+LbY1rF3TyN/qZV55qvTCeT/q8fMw/lR6oZz1aBp7vf6il2ns9fqLXjilPW8+Hk+HX9cLXe08Uh2+3nV+3tALXW0vv6v/50bd8Wu5TWOFHKeQ0AsJvZCoO3mue3muu3leeltYP/MLCb2QsB6RML+Q0AsAAAAAAABwCfccSeiFhF5I6IWEXkjohYReSOiFhF5I6IWEXkg0vTT/N5BeKHF79BW6jp/h2T67s332tGdL09U3j5hn6NILib4emnXp1DOn22G9ui6Xzh+ebX9d9EJCLyT0QuLSXpw/XRe9kNALCb2Q0AsJvZBor/c/9L3wzO93T4CEOYaEXkjohYReSOiFhF5I6IWEXkjohYReSOiFRN+/OSkZ7kGRMEeR0AuJ19Y06xSJpqOhfzcHAAAAAAAAAAAAANiuf+g2NSc=
   </data>
  </layer>
  <layer id="14" name="chests" width="140" height="140">
