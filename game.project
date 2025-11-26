@@ -38,3 +38,6 @@ default_texture_min_filter = nearest
 subpixels = 0
 max_count = 99999
 
+[factory]
+max_count = 99999
+

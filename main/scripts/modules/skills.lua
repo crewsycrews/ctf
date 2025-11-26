@@ -20,7 +20,7 @@ skills.dash = function(performer)
              { type = "head_" .. ELEMENTS[1] })
   end)
   go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_LINEAR, SKILLS.DURATIONS.dash, 0,
+             go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.dash, 0,
              function(self, url, property)
     performer.dashing = false
     buffs.remove_status(performer, STATUSES.invulnerability)
@@ -43,7 +43,7 @@ skills.jump = function(performer)
              { type = "head_" .. ELEMENTS[3] })
   end)
   go.animate(go.get_id(), 'scale', go.PLAYBACK_ONCE_PINGPONG,
-             go.get_scale() * 2, go.EASING_LINEAR, SKILLS.DURATIONS.jump, 0,
+             go.get_scale() * 2, go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.jump, 0,
              function(self, url, property) self.jumping = false end)
   -- followersManipulator.animate_jump(performer)
 end
@@ -67,7 +67,7 @@ skills.backward_dash = function(performer)
   end)
 
   go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_LINEAR, SKILLS.DURATIONS.backward_dash, 0,
+             go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.backward_dash, 0,
              function(self, url, property) self.dashing = false end)
 end
 
@@ -89,7 +89,7 @@ skills.ice_barrage = function(performer)
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
              { type = ELEMENTS[2] })
   end)
-  timer.delay(SKILLS.DURATIONS.ice_barrage, false,
+  timer.delay(SKILLS.SKILL_DURATIONS.ice_barrage, false,
               function(self, handle, time_elapsed)
     performer.ice_barrage_active = false
     go.delete(spellGO)
@@ -124,7 +124,7 @@ skills.thunderclap = function(performer)
 
   local spellGO = factory.create("#thunderclap-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
-  timer.delay(SKILLS.DURATIONS.thunderclap, false,
+  timer.delay(SKILLS.SKILL_DURATIONS.thunderclap, false,
               function(self, handle, time_elapsed)
     performer.thunderclap_active = false
     go.delete(spellGO)
@@ -147,7 +147,7 @@ skills.windwalk = function(performer)
 
   go.set_rotation(go.get_rotation(), spellGO)
   go.set_scale(1.6, spellGO)
-  timer.delay(SKILLS.DURATIONS.windwalk, false,
+  timer.delay(SKILLS.SKILL_DURATIONS.windwalk, false,
               function(self, handle, time_elapsed)
     performer.windwalk_active = false
     go.set_scale(1)

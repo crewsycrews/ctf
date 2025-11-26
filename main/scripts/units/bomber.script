@@ -1,6 +1,0 @@
-go.property("target_url", msg.url())
-
-function init(self) end
-
-function update(self, dt)
-end

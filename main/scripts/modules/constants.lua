@@ -16,6 +16,11 @@ STATUSES = {
   slow = 'slow'
 }
 
+BUFF_TO_SKILL = {
+  [STATUSES.frozen] = "ice_barrage",
+  [STATUSES.slow] = "thunderclap"
+}
+
 ---@enum collision_groups
 COLLISION_GROUPS = {
   projectiles = hash('projectiles'),
@@ -39,7 +44,7 @@ SKILLS = {
     jump = 3,
     backward_dash = 3
   },
-  DURATIONS = {
+  SKILL_DURATIONS = {
     ice_barrage = 3,
     windwalk = 0.5,
     thunderclap = 0.5,
@@ -47,6 +52,11 @@ SKILLS = {
     jump = 0.8,
     backward_dash = 0.4
   }
+}
+
+BUFF_DURATIONS = {
+  [STATUSES.frozen] = 1,
+  [STATUSES.slow] = 5
 }
 
 ELEMENTS = { "fire", "water", "wind", "earth" }

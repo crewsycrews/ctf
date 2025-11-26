@@ -9,7 +9,6 @@
 ---@field speed number
 ---@field followers table
 ---@field followers_amount number
----@field current_health number
 ---@field health number
 ---@field buffs table
 ---@field dash_on_cooldown bool
@@ -23,6 +22,7 @@
 ---@field score number
 ---@field pointer quaternion|vector3|vector4
 ---@field current_animation string
+---@field buff_visual_target string
 ---@field orb_id hash The floating orb that casts spells
 go.property('speed', 200)
 go.property("max_health", 300)
@@ -44,6 +44,7 @@ function init(self)
   self.score = 0
   self.pointer = vmath.vector3(0, 0, 0)
   self.buffs = {}
+  self.buff_visual_target = "sprite#sprite"
   self.current_animation = "south"
 
   self.current_health = self.max_health

@@ -1,6 +1,6 @@
 components {
-  id: "orc"
-  component: "/main/scripts/units/orc.script"
+  id: "enemy-common"
+  component: "/main/scripts/enemy-common.script"
   properties {
     id: "health"
     value: "60.0"
@@ -18,7 +18,7 @@ components {
   }
   properties {
     id: "target_url"
-    value: "/snake/head"
+    value: "/totem"
     type: PROPERTY_TYPE_URL
   }
   properties {
@@ -47,6 +47,9 @@ embedded_components {
   "  texture: \"/main/atlases/orc2.atlas\"\n"
   "}\n"
   ""
+  position {
+    z: 0.1
+  }
 }
 embedded_components {
   id: "collisionobject"
@@ -76,4 +79,48 @@ embedded_components {
   "  data: 30.0\n"
   "}\n"
   ""
+}
+embedded_components {
+  id: "frozen-effect"
+  type: "sprite"
+  data: "default_animation: \"iceblock\"\n"
+  "material: \"/builtins/materials/sprite.material\"\n"
+  "size {\n"
+  "  x: 80.0\n"
+  "  y: 80.0\n"
+  "}\n"
+  "textures {\n"
+  "  sampler: \"texture_sampler\"\n"
+  "  texture: \"/main/atlases/spell.atlas\"\n"
+  "}\n"
+  ""
+  position {
+    z: 0.2
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+}
+embedded_components {
+  id: "slow-effect"
+  type: "sprite"
+  data: "default_animation: \"anim\"\n"
+  "material: \"/builtins/materials/sprite.material\"\n"
+  "size {\n"
+  "  x: 128.0\n"
+  "  y: 128.0\n"
+  "}\n"
+  "textures {\n"
+  "  sampler: \"texture_sampler\"\n"
+  "  texture: \"/main/tilesources/slow-effect.tilesource\"\n"
+  "}\n"
+  ""
+  position {
+    y: -13.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
 }
