@@ -1,0 +1,93 @@
+animations {
+  id: "north"
+  images {
+    image: "/assets/mage/north/1.png"
+  }
+  images {
+    image: "/assets/mage/north/2.png"
+  }
+  images {
+    image: "/assets/mage/north/3.png"
+  }
+  images {
+    image: "/assets/mage/north/4.png"
+  }
+  images {
+    image: "/assets/mage/north/5.png"
+  }
+  images {
+    image: "/assets/mage/north/6.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 8
+}
+animations {
+  id: "south"
+  images {
+    image: "/assets/mage/south/1.png"
+  }
+  images {
+    image: "/assets/mage/south/2.png"
+  }
+  images {
+    image: "/assets/mage/south/3.png"
+  }
+  images {
+    image: "/assets/mage/south/4.png"
+  }
+  images {
+    image: "/assets/mage/south/5.png"
+  }
+  images {
+    image: "/assets/mage/south/6.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 8
+}
+animations {
+  id: "west"
+  images {
+    image: "/assets/mage/west/1.png"
+  }
+  images {
+    image: "/assets/mage/west/2.png"
+  }
+  images {
+    image: "/assets/mage/west/3.png"
+  }
+  images {
+    image: "/assets/mage/west/4.png"
+  }
+  images {
+    image: "/assets/mage/west/5.png"
+  }
+  images {
+    image: "/assets/mage/west/6.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 8
+}
+animations {
+  id: "east"
+  images {
+    image: "/assets/mage/east/1.png"
+  }
+  images {
+    image: "/assets/mage/east/2.png"
+  }
+  images {
+    image: "/assets/mage/east/3.png"
+  }
+  images {
+    image: "/assets/mage/east/4.png"
+  }
+  images {
+    image: "/assets/mage/east/5.png"
+  }
+  images {
+    image: "/assets/mage/east/6.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 8
+}
+extrude_borders: 2
