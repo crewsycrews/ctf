@@ -1,93 +1,119 @@
 animations {
   id: "north"
   images {
-    image: "/assets/mage/north/1.png"
+    image: "/assets/mage/DenChick Mag/go-up-1.png"
   }
   images {
-    image: "/assets/mage/north/2.png"
+    image: "/assets/mage/DenChick Mag/go-up-2.png"
   }
   images {
-    image: "/assets/mage/north/3.png"
+    image: "/assets/mage/DenChick Mag/go-up-3.png"
   }
   images {
-    image: "/assets/mage/north/4.png"
-  }
-  images {
-    image: "/assets/mage/north/5.png"
-  }
-  images {
-    image: "/assets/mage/north/6.png"
+    image: "/assets/mage/DenChick Mag/go-up-4.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
-  fps: 8
+  fps: 6
 }
 animations {
   id: "south"
   images {
-    image: "/assets/mage/south/1.png"
+    image: "/assets/mage/DenChick Mag/go-down-1.png"
   }
   images {
-    image: "/assets/mage/south/2.png"
+    image: "/assets/mage/DenChick Mag/go-down-2.png"
   }
   images {
-    image: "/assets/mage/south/3.png"
+    image: "/assets/mage/DenChick Mag/go-down-3.png"
   }
   images {
-    image: "/assets/mage/south/4.png"
-  }
-  images {
-    image: "/assets/mage/south/5.png"
-  }
-  images {
-    image: "/assets/mage/south/6.png"
+    image: "/assets/mage/DenChick Mag/go-down-4.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
-  fps: 8
+  fps: 6
 }
 animations {
   id: "west"
   images {
-    image: "/assets/mage/west/1.png"
+    image: "/assets/mage/DenChick Mag/go-left-1.png"
   }
   images {
-    image: "/assets/mage/west/2.png"
+    image: "/assets/mage/DenChick Mag/go-left-2.png"
   }
   images {
-    image: "/assets/mage/west/3.png"
-  }
-  images {
-    image: "/assets/mage/west/4.png"
-  }
-  images {
-    image: "/assets/mage/west/5.png"
-  }
-  images {
-    image: "/assets/mage/west/6.png"
+    image: "/assets/mage/DenChick Mag/go-left-3.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
-  fps: 8
+  fps: 5
 }
 animations {
   id: "east"
   images {
-    image: "/assets/mage/east/1.png"
+    image: "/assets/mage/DenChick Mag/go-right-1.png"
   }
   images {
-    image: "/assets/mage/east/2.png"
+    image: "/assets/mage/DenChick Mag/go-right-2.png"
   }
   images {
-    image: "/assets/mage/east/3.png"
-  }
-  images {
-    image: "/assets/mage/east/4.png"
-  }
-  images {
-    image: "/assets/mage/east/5.png"
-  }
-  images {
-    image: "/assets/mage/east/6.png"
+    image: "/assets/mage/DenChick Mag/go-right-3.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
-  fps: 8
+  fps: 5
+}
+animations {
+  id: "idle_north"
+  images {
+    image: "/assets/mage/DenChick Mag/stand-back-1.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-back-2.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-back-3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 4
+}
+animations {
+  id: "idle_south"
+  images {
+    image: "/assets/mage/DenChick Mag/stand-1.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-2.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 4
+}
+animations {
+  id: "idle_west"
+  images {
+    image: "/assets/mage/DenChick Mag/stand-left-1.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-left-2.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-left-3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 4
+}
+animations {
+  id: "idle_east"
+  images {
+    image: "/assets/mage/DenChick Mag/stand-right-1.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-right-2.png"
+  }
+  images {
+    image: "/assets/mage/DenChick Mag/stand-right-3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 4
 }
 extrude_borders: 2

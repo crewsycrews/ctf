@@ -1,11 +1,15 @@
 go.property("health", 500)
 
+function init(self)
+  self.max_health = self.health
+end
+
 function on_message(self, message_id, message)
   if message_id == hash(MESSAGES.TOTEM.TAKE_DAMAGE) then
     local damage = message.damage
     self.health = self.health - damage
     msg.post("/gui/gui", MESSAGES.TOTEM.SET_HEALTH,
-             { health_percent = self.health / self.health })
+             { health_percent = self.health / self.max_health })
   end
 end
 

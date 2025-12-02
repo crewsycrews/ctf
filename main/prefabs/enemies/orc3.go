@@ -28,7 +28,7 @@ components {
   }
   properties {
     id: "attack_range"
-    value: "100.0"
+    value: "150.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
