@@ -1,49 +1,6 @@
 components {
   id: "orc1-spawn"
   component: "/main/scripts/units/spawner.script"
-  properties {
-    id: "timeout"
-    value: "3.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "factory_name"
-    value: "#orc1-factory"
-    type: PROPERTY_TYPE_URL
-  }
-}
-components {
-  id: "orc3-spawn"
-  component: "/main/scripts/units/spawner.script"
-  properties {
-    id: "timeout"
-    value: "3.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "amount"
-    value: "2.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "factory_name"
-    value: "#orc3-factory"
-    type: PROPERTY_TYPE_URL
-  }
-}
-components {
-  id: "orc2-spawn"
-  component: "/main/scripts/units/spawner.script"
-  properties {
-    id: "timeout"
-    value: "3.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
-    id: "factory_name"
-    value: "#orc2-factory"
-    type: PROPERTY_TYPE_URL
-  }
 }
 embedded_components {
   id: "sprite"

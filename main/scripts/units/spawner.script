@@ -1,36 +1,143 @@
-go.property("timeout", 1)
-go.property("finishSpawnSeconds", 60)
-go.property("amount", 1)
-go.property("spawn_radius", 50) -- Radius for random spawn positions
-go.property("factory_name", msg.url('#factory'))
+go.property("spawn_radius", 50)    -- Radius for random spawn positions
+go.property("wave_delay", 5)       -- Delay between waves in seconds
+go.property("spawn_interval", 0.5) -- Delay between individual spawns within a wave
+
+---@class Wave
+---@field factory_name url Factory URL for entity to spawn
+---@field amount number Number of entities to spawn in this wave
+---@field spawn_interval number Optional override for spawn interval
 
 ---@class Spawner
----@field timeout number Time delay between spawn cycles
----@field finishSpawnSeconds number Total time before spawning ends
----@field amount number Number of entities to spawn per cycle
 ---@field spawn_radius number Radius for random spawn positions
----@field factory_name url Factory URL for entity to spawn
+---@field wave_delay number Delay between waves in seconds
+---@field spawn_interval number Delay between individual spawns
+---@field waves Wave[] Array of wave configurations
+---@field current_wave number Current wave index
+---@field spawned_count number Number spawned in current wave
+---@field is_spawning boolean Whether currently spawning
+---@field wave_timer userdata Timer handle for wave delays
 
 ---@param self Spawner
 function init(self)
   math.randomseed(os.time()) -- Initialize random seed
 
-  ---@param self Spawner
-  timer.delay(self.timeout, true, function(self, handle, time_elapsed)
-    for i = 1, self.amount do
-      local base_pos = go.get_position()
+  -- Initialize wave system
+  self.current_wave = 1
+  self.spawned_count = 0
+  self.is_spawning = false
+  self.wave_timer = nil
 
-      -- Generate random offset within spawn_radius
-      local angle = math.random() * 2 * math.pi
-      local distance = math.random() * self.spawn_radius
+  -- Define wave configurations
+  -- You can customize these waves or load them from a separate config
+  self.waves = {
+    -- Wave 1: 5 basic enemies
+    {
+      factory_name = msg.url('#orc1-factory'),
+      amount = 5,
+      spawn_interval = 0.5
+    },
+    -- Wave 2: 10 enemies, faster spawn
+    {
+      factory_name = msg.url('#orc1-factory'),
+      amount = 10,
+      spawn_interval = 0.3
+    },
+    -- Wave 3: 15 enemies
+    {
+      factory_name = msg.url('#orc2-factory'),
+      amount = 15,
+      spawn_interval = 0.4
+    },
+    -- Wave 4: 20 enemies, slow spawn
+    {
+      factory_name = msg.url('#orc2-factory'),
+      amount = 20,
+      spawn_interval = 0.5
+    },
+    -- Wave 5: Final wave - 25 enemies
+    {
+      factory_name = msg.url('#orc3-factory'),
+      amount = 25,
+      spawn_interval = 0.3
+    }
+  }
 
-      local spawn_pos = vmath.vector3(
-        base_pos.x + math.cos(angle) * distance,
-        base_pos.y + math.sin(angle) * distance,
-        base_pos.z
-      )
+  -- Start the first wave
+  start_wave(self)
+end
 
-      factory.create(self.factory_name, spawn_pos, go.get_rotation())
+---Spawns a single enemy at a random position
+---@param self Spawner
+---@param factory_url url
+local function spawn_enemy(self, factory_url)
+  local base_pos = go.get_position()
+
+  -- Generate random offset within spawn_radius
+  local angle = math.random() * 2 * math.pi
+  local distance = math.random() * self.spawn_radius
+
+  local spawn_pos = vmath.vector3(
+    base_pos.x + math.cos(angle) * distance,
+    base_pos.y + math.sin(angle) * distance,
+    base_pos.z
+  )
+
+  factory.create(factory_url, spawn_pos, go.get_rotation())
+end
+
+---Starts spawning the current wave
+---@param self Spawner
+function start_wave(self)
+  if self.current_wave > #self.waves then
+    print("All waves completed!")
+    return
+  end
+
+  local wave = self.waves[self.current_wave]
+  self.spawned_count = 0
+  self.is_spawning = true
+
+  print(string.format("Starting Wave %d: %d enemies", self.current_wave, wave.amount))
+
+  -- Use wave-specific spawn interval or default
+  local interval = wave.spawn_interval or self.spawn_interval
+
+  -- Spawn enemies one by one with interval
+  timer.delay(interval, true, function(self, handle)
+    if self.spawned_count >= wave.amount then
+      -- Wave complete, cancel timer and prepare next wave
+      timer.cancel(handle)
+      self.is_spawning = false
+      on_wave_complete(self)
+      return
     end
+
+    spawn_enemy(self, wave.factory_name)
+    self.spawned_count = self.spawned_count + 1
   end)
+end
+
+---Called when a wave is completed
+---@param self Spawner
+function on_wave_complete(self)
+  print(string.format("Wave %d complete!", self.current_wave))
+
+  self.current_wave = self.current_wave + 1
+
+  if self.current_wave <= #self.waves then
+    print(string.format("Next wave in %d seconds...", self.wave_delay))
+    -- Wait before starting next wave
+    self.wave_timer = timer.delay(self.wave_delay, false, function()
+      start_wave(self)
+    end)
+  else
+    print("All waves completed!")
+  end
+end
+
+---@param self Spawner
+function final(self)
+  if self.wave_timer then
+    timer.cancel(self.wave_timer)
+  end
 end

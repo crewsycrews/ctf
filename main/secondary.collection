@@ -15,7 +15,7 @@ instances {
   id: "spawner-west"
   prototype: "/main/prefabs/enemies/spawn.go"
   position {
-    x: 3080.0
+    x: 198.0
     y: 3604.0
   }
 }
@@ -23,7 +23,7 @@ instances {
   id: "spawner-east"
   prototype: "/main/prefabs/enemies/spawn.go"
   position {
-    x: 4072.0
+    x: 7008.0
     y: 3603.0
   }
 }
