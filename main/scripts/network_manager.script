@@ -8,79 +8,84 @@ M.my_session_id = nil
 M.callbacks = nil
 
 function init(self)
-    self.server_url = "ws://localhost:2567"
-    M.client = colyseus.Client(self.server_url)
+  self.server_url = "ws://localhost:2567"
+  M.client = colyseus.Client(self.server_url)
 
-    -- Connect to CTF room
-    M.client:join_or_create("ctf_room", {}, function(err, room_instance)
-        if err then
-            print("Connection error:", err)
-            return
-        end
-        M.callbacks = colyseus.callbacks(room_instance)
-        M.room = room_instance
-        M.my_session_id = room_instance.session_id
-        print("Connected! Session ID:", M.my_session_id)
+  -- Connect to CTF room
+  M.client:join_or_create("ctf_room", {}, function(err, room_instance)
+    if err then
+      print("Connection error:", err)
+      return
+    end
+    M.callbacks = colyseus.callbacks(room_instance)
+    M.room = room_instance
+    M.my_session_id = room_instance.session_id
+    print("Connected! Session ID:", M.my_session_id)
 
-        setup_listeners(room_instance)
-    end)
+    setup_listeners(room_instance)
+  end)
 end
 
 function setup_listeners(room)
-    -- Player added
-    M.callbacks:on_add("players", function (player, session_id)
-        print("Player added:", session_id, "player number:", player.playerNumber)
+  -- Player added
+  M.callbacks:on_add("players", function(player, session_id)
+    print("Player added:", session_id, "player number:", player.playerNumber)
 
-        local is_local = (session_id == M.my_session_id)
-        msg.post("/game_world", "spawn_player", {
-            session_id = session_id,
-            player_number = player.playerNumber,
-            x = player.position.x,
-            y = player.position.y,
-            is_local = is_local
-        })
-        M.callbacks:listen(player, "position", function(value, previous_value)
-          msg.post("/game_world", "update_from_server", {
-              x = value.x,
-              y = value.y,
-              session_id = session_id
-          })
-        end)
-        M.callbacks:listen(player, "animation", function(value, previous_value)
-          msg.post("/game_world", "update_from_server", {
-              animation = value,
-              session_id = session_id
-          })
-        end)
-        M.callbacks:listen(player, "moving", function(value, previous_value)
-          msg.post("/game_world", "update_from_server", {
-              moving = value,
-              session_id = session_id
-          })
-        end)
+    local is_local = (session_id == M.my_session_id)
+    msg.post("/game_world", "spawn_player", {
+      session_id = session_id,
+      player_number = player.playerNumber,
+      x = player.x,
+      y = player.y,
+      is_local = is_local
+    })
+    M.callbacks:listen(player, "x", function(value, previous_value)
+      msg.post("/game_world", "update_from_server", {
+        x = value,
+        session_id = session_id
+      })
     end)
+    M.callbacks:listen(player, "y", function(value, previous_value)
+      msg.post("/game_world", "update_from_server", {
+        y = value,
+        session_id = session_id
+      })
+    end)
+    M.callbacks:listen(player, "current_animation", function(value, previous_value)
+      msg.post("/game_world", "update_from_server", {
+        current_animation = value,
+        session_id = session_id
+      })
+    end)
+    M.callbacks:listen(player, "last_direction", function(value, previous_value)
+      msg.post("/game_world", "update_from_server", {
+        last_direction = value,
+        session_id = session_id
+      })
+    end)
+    M.callbacks:listen(player, "moving", function(value, previous_value)
+      msg.post("/game_world", "update_from_server", {
+        moving = value,
+        session_id = session_id
+      })
+    end)
+  end)
 
-    -- Player removed
-    M.callbacks:on_remove("players", function (player, sessionId)
-        local target_url = _G.player_instances[session_id]
-        msg.post(target_url, "destroy")
-    end)
+  -- Player removed
+  M.callbacks:on_remove("players", function(player, session_id)
+    msg.post("/game_world", "destroy", {
+      session_id = session_id })
+  end)
 end
 
 function send_input(message_type, data)
-    if M.room then
-        M.room:send(message_type, data)
-    end
+  if M.room then
+    M.room:send(message_type, data)
+  end
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("send_input") then
-        send_input(message.type, message.data)
-    end
+  if message_id == hash("send_input") then
+    send_input(message.type, message.data)
+  end
 end
-
--- function update(self, dt)
---     if M.client then
---         M.client:update()
---     end
--- end

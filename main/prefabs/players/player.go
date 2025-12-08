@@ -1,6 +1,11 @@
 components {
   id: "main"
   component: "/main/scripts/player.script"
+  properties {
+    id: "speed"
+    value: "400.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
 }
 embedded_components {
   id: "thunderclap-spell-factory"
@@ -11,7 +16,7 @@ embedded_components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"south\"\n"
+  data: "default_animation: \"idle_south\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "size {\n"
   "  x: 32.0\n"
@@ -19,7 +24,7 @@ embedded_components {
   "}\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/main/tilesources/mage.tilesource\"\n"
+  "  texture: \"/main/atlases/green-mage.atlas\"\n"
   "}\n"
   ""
   scale {

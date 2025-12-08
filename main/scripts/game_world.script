@@ -1,37 +1,36 @@
 function init(self)
-    self.player_instances = {}
-    print("Game world initialized")
+  self.player_instances = {}
+  print("Game world initialized")
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("spawn_player") then
-        print("Spawning player:", message.session_id, "is_local:", message.is_local, "position: ", message.x, message.y)
+  if message_id == hash("spawn_player") then
+    print("Spawning player:", message.session_id, "is_local:", message.is_local, "position: ", message.x, message.y)
 
-        local pos = vmath.vector3(message.x, message.y, 0)
-        local props = {}
-        -- Spawn player using factory
-        local player_id = factory.create("#player_factory", pos, nil, {
-            is_local = message.is_local
-        }, 1)
+    local pos = vmath.vector3(message.x, message.y, 0)
+    -- Spawn player using factory
+    local player_id = factory.create("#player_factory", pos, nil, {
+      is_local = message.is_local
+    }, 1)
 
-        self.player_instances[message.session_id] = player_id
-        -- Set up local player
-        if message.is_local then
-            msg.post(player_id, "set_local_player", {
-                session_id = message.session_id
-            })
-        end
+    self.player_instances[message.session_id] = player_id
+    -- Set up local player
+    if message.is_local then
+      msg.post(player_id, "set_local_player", {
+        session_id = message.session_id
+      })
     end
+  end
 
-    if message_id == hash("destroy_player") then
-        local player_id = self.player_instances[message.session_id]
-        if player_id then
-            go.delete(player_id)
-            self.player_instances[message.session_id] = nil
-        end
+  if message_id == hash("destroy_player") then
+    local player_id = self.player_instances[message.session_id]
+    if player_id then
+      msg.post(player_id, "destroy")
+      self.player_instances[message.session_id] = nil
     end
-    if message_id == hash("update_from_server") then 
-      local player_id = self.player_instances[message.session_id]
-      msg.post(player_id, "update_from_server", message)
-    end
+  end
+  if message_id == hash("update_from_server") then
+    local player_id = self.player_instances[message.session_id]
+    msg.post(player_id, "update_from_server", message)
+  end
 end
