@@ -2,19 +2,20 @@ go.property("health", 500)
 
 function init(self)
   self.max_health = self.health
+  -- Health is now managed by server
+  -- Totem only receives SET_HEALTH messages from network_manager
 end
 
 function on_message(self, message_id, message)
-  if message_id == hash(MESSAGES.TOTEM.TAKE_DAMAGE) then
-    local damage = message.damage
-    self.health = self.health - damage
-    msg.post("/gui/gui", MESSAGES.TOTEM.SET_HEALTH,
-             { health_percent = self.health / self.max_health })
+  -- Remove TAKE_DAMAGE handler - server handles damage now
+  -- Keep only SET_HEALTH handler for GUI updates from network_manager
+  if message_id == hash(MESSAGES.TOTEM.SET_HEALTH) then
+    msg.post("/gui#gui", MESSAGES.TOTEM.SET_HEALTH, {
+      health_percent = message.health_percent
+    })
   end
 end
 
 function update(self, dt)
-  if self.health <= 0 then
-    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
-  end
+  -- Remove game over check - server handles defeat condition
 end

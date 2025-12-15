@@ -1,4 +1,5 @@
 go.property("speed", 600)
+go.property("damage", 10)
 
 function update(self, dt)
   local pos = go.get_position()
@@ -12,6 +13,22 @@ end
 function on_message(self, message_id, message, sender)
   if message_id == hash("trigger_response") then
     if message.other_group == COLLISION_GROUPS.enemies and message.enter then
+      -- Get enemy ID
+      local enemy_url = msg.url(nil, message.other_id, "script")
+      local ok, enemy_id = pcall(go.get, enemy_url, "enemy_id")
+
+      if ok and enemy_id and enemy_id ~= "" then
+        -- Network mode: report to server
+        msg.post("/network_manager", "send_input", {
+          type = "projectile_hit",
+          data = {
+            enemyId = enemy_id,
+            damage = self.damage
+          }
+        })
+      end
+      -- else: fallback mode, damage handled by enemy collision
+
       go.delete(go.get_id())
     end
   end

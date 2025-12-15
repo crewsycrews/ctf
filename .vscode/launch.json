@@ -12,13 +12,25 @@
         "command": "bash"
       },
       "osx": {
-        "args": [".vscode/defold.sh", "launch", "macOS"]
+        "args": [
+          ".vscode/defold.sh",
+          "launch",
+          "macOS"
+        ]
       },
       "linux": {
-        "args": [".vscode/defold.sh", "launch", "Linux"]
+        "args": [
+          ".vscode/defold.sh",
+          "launch",
+          "Linux"
+        ]
       },
       "windows": {
-        "args": [".vscode/defold.sh", "launch", "Windows"],
+        "args": [
+          ".vscode/defold.sh",
+          "launch",
+          "Windows"
+        ],
         "program": {
           "command": "C:/Program Files/Git/bin/bash"
         }
@@ -36,13 +48,25 @@
         "command": "bash"
       },
       "osx": {
-        "args": [".vscode/defold.sh", "launch", "macOS"]
+        "args": [
+          ".vscode/defold.sh",
+          "launch",
+          "macOS"
+        ]
       },
       "linux": {
-        "args": [".vscode/defold.sh", "launch", "Linux"]
+        "args": [
+          ".vscode/defold.sh",
+          "launch",
+          "Linux"
+        ]
       },
       "windows": {
-        "args": [".vscode/defold.sh", "launch", "Windows"],
+        "args": [
+          ".vscode/defold.sh",
+          "launch",
+          "Windows"
+        ],
         "program": {
           "command": "C:/Program Files/Git/bin/bash"
         }
@@ -58,12 +82,16 @@
       "program": {
         "command": "build/defoldkit/dmengine"
       },
-      "args": ["build/defoldkit/game.projectc"],
+      "args": [
+        "build/defoldkit/game.projectc"
+      ],
       "windows": {
         "program": {
           "command": "build\\defoldkit\\dmengine.exe"
         },
-        "args": ["build\\defoldkit\\game.projectc"]
+        "args": [
+          "build\\defoldkit\\game.projectc"
+        ]
       },
       "preLaunchTask": "Defold Kit: Build to Launch"
     }

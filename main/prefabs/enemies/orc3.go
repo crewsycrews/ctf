@@ -54,8 +54,8 @@ embedded_components {
 embedded_components {
   id: "collisionobject"
   type: "collisionobject"
-  data: "type: COLLISION_OBJECT_TYPE_DYNAMIC\n"
-  "mass: 0.15\n"
+  data: "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
+  "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.3\n"
   "group: \"enemies\"\n"

@@ -1,5 +1,6 @@
 function init(self)
   self.player_instances = {}
+  self.enemy_instances = {}
   print("Game world initialized")
 end
 
@@ -29,8 +30,49 @@ function on_message(self, message_id, message, sender)
       self.player_instances[message.session_id] = nil
     end
   end
+
   if message_id == hash("update_from_server") then
     local player_id = self.player_instances[message.session_id]
     msg.post(player_id, "update_from_server", message)
+  end
+
+  -- Enemy spawning
+  if message_id == hash("spawn_enemy") then
+  print("Spawning enemy:", message.enemy_id, message.enemy_type, "at", message.x, message.y)
+
+    local pos = vmath.vector3(message.x, message.y, 0)
+
+    -- Determine which factory to use based on enemy_type
+    local factory_url = "#" .. message.enemy_type .. "-factory"
+    local enemy_obj_id = factory.create(factory_url, pos)
+
+    self.enemy_instances[message.enemy_id] = enemy_obj_id
+
+    -- Initialize enemy with network mode
+    msg.post(enemy_obj_id, "init_network_enemy", {
+      enemy_id = message.enemy_id,
+      enemy_type = message.enemy_type,
+      state = message.state,
+      direction = message.direction,
+      is_frozen = message.is_frozen,
+      is_slowed = message.is_slowed
+    })
+  end
+
+  -- Enemy updates
+  if message_id == hash("update_enemy") then
+    local enemy_obj_id = self.enemy_instances[message.enemy_id]
+    if enemy_obj_id then
+      msg.post(enemy_obj_id, "update_from_server", message)
+    end
+  end
+
+  -- Enemy removal
+  if message_id == hash("remove_enemy") then
+    local enemy_obj_id = self.enemy_instances[message.enemy_id]
+    if enemy_obj_id then
+      msg.post(enemy_obj_id, "die")
+      self.enemy_instances[message.enemy_id] = nil
+    end
   end
 end

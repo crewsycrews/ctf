@@ -19,6 +19,12 @@ go.property("spawn_interval", 0.5) -- Delay between individual spawns within a w
 
 ---@param self Spawner
 function init(self)
+  -- Skip client-side spawning when connected to server
+  -- Server now controls all enemy spawning in multiplayer mode
+  print("Spawner disabled - server controls spawning in multiplayer mode")
+  return
+
+  --[[ Original client-side spawning logic (disabled for network mode)
   math.randomseed(os.time()) -- Initialize random seed
 
   -- Initialize wave system
@@ -64,6 +70,7 @@ function init(self)
 
   -- Start the first wave
   start_wave(self)
+  --]]
 end
 
 ---Spawns a single enemy at a random position
