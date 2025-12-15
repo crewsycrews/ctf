@@ -35,10 +35,6 @@ instances {
     y: 3603.0
   }
 }
-collection_instances {
-  id: "gui"
-  collection: "/main/gui/gui.collection"
-}
 scale_along_z: 0
 embedded_instances {
   id: "map"
@@ -87,6 +83,14 @@ embedded_instances {
   "looping: 1\\n"
   "gain: 0.1\\n"
   "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "gui"
+  data: "components {\n"
+  "  id: \"GUI\"\n"
+  "  component: \"/main/gui/player_gui.gui\"\n"
   "}\n"
   ""
 }

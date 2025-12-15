@@ -384,6 +384,60 @@ nodes {
 }
 nodes {
   position {
+    x: -463.0
+    y: -23.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 80.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "Wave: 0"
+  font: "PixelFont"
+  id: "wave_text"
+  yanchor: YANCHOR_TOP
+  pivot: PIVOT_NW
+  shadow {
+    y: 1.0
+    z: 1.0
+  }
+  line_break: true
+  parent: "north"
+  layer: "static"
+}
+nodes {
+  position {
+    x: -330.0
+    y: -23.0
+  }
+  scale {
+    x: 1.2
+    y: 1.2
+  }
+  size {
+    x: 100.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: ""
+  font: "PixelFont"
+  id: "countdown_text"
+  yanchor: YANCHOR_TOP
+  pivot: PIVOT_NW
+  shadow {
+    y: 1.0
+    z: 1.0
+  }
+  line_break: true
+  parent: "north"
+  layer: "static"
+}
+nodes {
+  position {
     x: 457.0
     y: -23.0
   }

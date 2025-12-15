@@ -9,6 +9,9 @@ function init(self)
   self.player_health = gui.get_node("player_health")
   self.totem_health = gui.get_node("totem_health")
   self.score = 0
+  self.wave_number = 0
+  self.wave_countdown = 0
+  self.team_score = 0
 end
 
 local function handle_spell_animation(message_id, node)
@@ -42,6 +45,7 @@ function on_message(self, message_id, message, sender)
   if message_id == hash(MESSAGES.TOTEM.SET_HEALTH) then
     set_totem_health(self, message.health_percent)
   end
+
   if message_id == hash(MESSAGES.PLAYER.COUNT_SCORE) then
     self.score = self.score + message.score
     local scoreNode = gui.get_node("score")
@@ -52,5 +56,29 @@ function on_message(self, message_id, message, sender)
     --     msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "menu" })
     --   end)
     -- end
+  end
+
+  -- Multiplayer wave system
+  if message_id == hash("wave_changed") then
+    self.wave_number = message.wave_number
+    local wave_text_node = gui.get_node("wave_text")
+    gui.set_text(wave_text_node, "Wave: " .. self.wave_number)
+  end
+
+  if message_id == hash("wave_countdown") then
+    self.wave_countdown = message.seconds
+    local countdown_text_node = gui.get_node("countdown_text")
+    if self.wave_countdown > 0 then
+      gui.set_text(countdown_text_node, "Next: " .. math.floor(self.wave_countdown) .. "s")
+    else
+      gui.set_text(countdown_text_node, "")
+    end
+  end
+
+  -- Team score for multiplayer
+  if message_id == hash("update_team_score") then
+    self.team_score = message.score
+    local scoreNode = gui.get_node("score")
+    gui.set_text(scoreNode, self.team_score)
   end
 end
