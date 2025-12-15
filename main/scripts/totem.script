@@ -10,7 +10,7 @@ function on_message(self, message_id, message)
   -- Remove TAKE_DAMAGE handler - server handles damage now
   -- Keep only SET_HEALTH handler for GUI updates from network_manager
   if message_id == hash(MESSAGES.TOTEM.SET_HEALTH) then
-    msg.post("/gui#gui", MESSAGES.TOTEM.SET_HEALTH, {
+    msg.post("/gui", MESSAGES.TOTEM.SET_HEALTH, {
       health_percent = message.health_percent
     })
   end

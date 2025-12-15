@@ -150,12 +150,12 @@ function setup_listeners(room)
   M.callbacks:listen("wave", function(currentValue, previousValue)
     if (not previousValue or currentValue.currentWave ~= previousValue.currentWave) then
       print("Wave changed:", currentValue.currentWave)
-      msg.post("/gui#gui", "wave_changed", {
+      msg.post("/gui", "wave_changed", {
         wave_number = currentValue.currentWave
       })
     end
     if (not previousValue or currentValue.nextWaveTimer ~= previousValue.nextWaveTimer) then
-      msg.post("/gui#gui", "wave_countdown", {
+      msg.post("/gui", "wave_countdown", {
         seconds = currentValue.nextWaveTimer
       })
     end
@@ -167,7 +167,7 @@ function setup_listeners(room)
     if (not previousValue or currentValue.health ~= previousValue.health) then
       local health_percent = currentValue.health / currentValue.maxHealth
       print("Totem health:", currentValue.health, "percent:", health_percent)
-      msg.post("/gui#gui", MESSAGES.TOTEM.SET_HEALTH, {
+      msg.post("/gui", MESSAGES.TOTEM.SET_HEALTH, {
         health_percent = health_percent
       })
     end
@@ -177,7 +177,7 @@ function setup_listeners(room)
   M.callbacks:listen("score", function(currentValue, previousValue)
     if (not previousValue or currentValue.teamScore ~= previousValue.teamScore) then
       print("Team score:", currentValue.teamScore)
-      msg.post("/gui#gui", "update_team_score", {
+      msg.post("/gui", "update_team_score", {
         score = currentValue.teamScore
       })
     end
