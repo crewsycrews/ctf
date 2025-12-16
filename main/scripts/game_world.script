@@ -75,4 +75,33 @@ function on_message(self, message_id, message, sender)
       self.enemy_instances[message.enemy_id] = nil
     end
   end
+
+  -- Skill messages - forward to owner's player (player will forward to orb)
+  if message_id == hash("skill_activated") then
+    local player_id = self.player_instances[message.session_id]
+    if player_id then
+      msg.post(player_id, "skill_activated", message)
+    end
+  end
+
+  if message_id == hash("spawn_active_skill") then
+    local player_id = self.player_instances[message.owner_id]
+    if player_id then
+      msg.post(player_id, "spawn_active_skill", message)
+    end
+  end
+
+  if message_id == hash("update_active_skill") then
+    -- Broadcast to all players - each player/orb will check if it owns this skill
+    for _, player_id in pairs(self.player_instances) do
+      msg.post(player_id, "update_active_skill", message)
+    end
+  end
+
+  if message_id == hash("remove_active_skill") then
+    -- Broadcast to all players - each player/orb will check if it owns this skill
+    for _, player_id in pairs(self.player_instances) do
+      msg.post(player_id, "remove_active_skill", message)
+    end
+  end
 end

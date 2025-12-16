@@ -29,6 +29,7 @@
 ---@field is_local bool
 ---@field server_position vector3 Last known server position
 ---@field reconciliation_speed number How fast to lerp to server position
+---@field active_skill_instances table Maps skill_id to game_object_id for active skills
 go.property('speed', 200)
 go.property("max_health", 300)
 go.property("is_local", false)
@@ -61,7 +62,10 @@ function init(self)
 
   -- Spawn floating orb and store reference
   self.orb_id = factory.create("#floating-orb-factory")
-  msg.post(self.orb_id, "set_player", { player_id = go.get_id() })
+  msg.post(self.orb_id, "set_player", { player_id = go.get_id(), is_local = self.is_local })
+
+  -- Track active skill visual game objects (skill_id -> game_object_id)
+  self.active_skill_instances = {}
 end
 
 ---@param self Head
@@ -74,11 +78,20 @@ function update(self, dt)
     local pos = go.get_position()
     pos = pos + self.dir * self.speed * dt
     go.set_position(pos)
+
+    -- Get orb position and direction for skill system
+    local orb_pos = go.get_position(self.orb_id)
+    local orb_rotation = go.get_rotation(self.orb_id)
+    local orb_direction = math.atan2(orb_rotation.z, orb_rotation.w) * 2 -- quaternion to radians
+
     msg.post("/network_manager", "send_input", {
       type = "player_update",
       data = {
         x = go.get_position().x,
         y = go.get_position().y,
+        orbX = orb_pos.x,
+        orbY = orb_pos.y,
+        orbDirection = orb_direction
       }
     })
   end
@@ -198,22 +211,22 @@ function on_input(self, action_id, action)
 
   -- Skills (Phase 2)
   if action_id == hash("head_action_1") and action.pressed then
-    -- skills.dash(self) -- Will be handled by server in Phase 2
+    skills.dash(self)          -- Will be handled by server in Phase 2
   elseif action_id == hash("head_action_2") and action.pressed then
-    -- skills.jump(self) -- Will be handled by server in Phase 2
+    skills.jump(self)          -- Will be handled by server in Phase 2
   elseif action_id == hash("head_action_3") and action.pressed then
-    -- skills.backward_dash(self) -- Will be handled by server in Phase 2
+    skills.backward_dash(self) -- Will be handled by server in Phase 2
   end
 
   -- Orb spells (Phase 2)
   if action_id == hash("scroll_down") then
-    -- msg.post(self.orb_id, "cast_ice_barrage")
+    msg.post(self.orb_id, "cast_ice_barrage")
   end
   if action_id == hash("touch") then
-    -- msg.post(self.orb_id, "cast_fireball")
+    msg.post(self.orb_id, "cast_fireball")
   end
   if action_id == hash("scroll_up") then
-    -- msg.post(self.orb_id, "cast_thunderclap")
+    msg.post(self.orb_id, "cast_thunderclap")
   end
 
   -- Mouse tracking
@@ -275,6 +288,52 @@ function on_message(self, message_id, message)
     if self.current_health <= 0 then
       msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL,
         { level = "game_over" })
+    end
+  elseif message_id == hash("skill_activated") then
+    -- Visual feedback for skill activation (camera shake, particles, sound)
+    -- This fires immediately when skill is used, before projectile spawns
+    print("Skill activated:", message.skill_type, "by session:", message.session_id)
+
+    -- TODO: Add visual/audio feedback based on skill_type
+    -- - Camera shake for impact skills
+    -- - Sound effects
+    -- - Flash effects
+  elseif message_id == hash("spawn_active_skill") then
+    -- Spawn visual representation of server-controlled skill
+    -- Only spawn if this player owns the skill
+    if message.owner_id == self.session_id then
+      print("Spawning active skill:", message.skill_id, message.skill_type)
+
+      local pos = vmath.vector3(message.x, message.y, 0)
+      local rotation = vmath.quat_rotation_z(message.direction)
+
+      -- Determine factory based on skill_type
+      local factory_id = "#" .. message.skill_type:gsub("_", "-") .. "-spell-factory"
+
+      -- Create the skill visual game object
+      local skill_obj = factory.create(factory_id, pos, rotation)
+
+      -- Store reference for updates/removal
+      self.active_skill_instances[message.skill_id] = skill_obj
+
+      print("Created skill visual at", pos, "with factory", factory_id)
+    end
+  elseif message_id == hash("update_active_skill") then
+    -- Update position of active skill (for projectiles moving or parent-locked AoE)
+    local skill_obj = self.active_skill_instances[message.skill_id]
+    if skill_obj then
+      local new_pos = go.get_position(skill_obj)
+      if message.x then new_pos.x = message.x end
+      if message.y then new_pos.y = message.y end
+      go.set_position(new_pos, skill_obj)
+    end
+  elseif message_id == hash("remove_active_skill") then
+    -- Remove active skill visual (projectile hit or duration expired)
+    local skill_obj = self.active_skill_instances[message.skill_id]
+    if skill_obj then
+      go.delete(skill_obj)
+      self.active_skill_instances[message.skill_id] = nil
+      print("Removed active skill:", message.skill_id)
     end
   end
 end

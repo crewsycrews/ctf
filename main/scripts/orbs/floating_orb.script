@@ -1,5 +1,6 @@
 ---@class FloatingOrb
 ---@field player_id hash The player game object to follow
+---@field is_local bool Whether this orb belongs to the local player
 ---@field mouse_screen_pos vector3 Current mouse position on screen
 ---@field mouse_world_pos vector3 Current mouse position in world
 ---@field orbit_radius number Distance from player
@@ -23,6 +24,7 @@ go.property("lerp_speed", 5.0)
 function init(self)
     -- Store reference to player (passed via message after spawn)
     self.player_id = nil
+    self.is_local = false
     self.mouse_screen_pos = vmath.vector3(0, 0, 0)
     self.mouse_world_pos = vmath.vector3(0, 0, 0)
     self.current_rotation = vmath.quat()
@@ -34,7 +36,7 @@ function init(self)
     self.thunderclap_on_cooldown = false
     self.thunderclap_active = false
 
-    msg.post(".", "acquire_input_focus")
+    -- Input focus will be acquired when set_player message is received
 end
 
 ---@param self FloatingOrb
@@ -82,6 +84,9 @@ end
 
 ---@param self FloatingOrb
 function on_input(self, action_id, action)
+    -- Only process input for local player's orb
+    if not self.is_local then return end
+
     -- Track mouse position in screen space
     if not action_id then
         self.mouse_screen_pos.x = action.x
@@ -93,11 +98,27 @@ end
 function on_message(self, message_id, message)
     if message_id == hash("set_player") then
         self.player_id = message.player_id
+        self.is_local = message.is_local or false
+
+        -- Only acquire input focus for local player's orb
+        if self.is_local then
+            msg.post(".", "acquire_input_focus")
+        end
     elseif message_id == hash("cast_fireball") then
-        skills.fireball(self)
+        -- Send to server instead of local execution
+        msg.post("/network_manager", "send_input", {
+            type = "use_skill",
+            data = { skillType = "fireball" }
+        })
     elseif message_id == hash("cast_ice_barrage") then
-        skills.ice_barrage(self)
+        msg.post("/network_manager", "send_input", {
+            type = "use_skill",
+            data = { skillType = "ice_barrage" }
+        })
     elseif message_id == hash("cast_thunderclap") then
-        skills.thunderclap(self)
+        msg.post("/network_manager", "send_input", {
+            type = "use_skill",
+            data = { skillType = "thunderclap" }
+        })
     end
 end

@@ -26,6 +26,7 @@ function init(self)
   end)
 end
 
+---@param room Room
 function setup_listeners(room)
   -- Player added
   M.callbacks:on_add("players", function(player, session_id)
@@ -181,6 +182,57 @@ function setup_listeners(room)
         score = currentValue.teamScore
       })
     end
+  end)
+
+  -- Skill activated broadcast (server tells all clients a skill was used)
+  room:on_message("skill_activated", function(message)
+    print("Skill activated:", message.skillType, "by:", message.sessionId)
+    msg.post("/game_world", "skill_activated", {
+      session_id = message.sessionId,
+      skill_type = message.skillType,
+      direction = message.direction,
+      x = message.x,
+      y = message.y
+    })
+  end)
+
+  -- Active skills added (projectiles, AoE effects)
+  M.callbacks:on_add("activeSkills", function(activeSkill, skillId)
+    print("Active skill added:", skillId, activeSkill.skillType)
+    msg.post("/game_world", "spawn_active_skill", {
+      skill_id = skillId,
+      skill_type = activeSkill.skillType,
+      owner_id = activeSkill.ownerId,
+      x = activeSkill.x,
+      y = activeSkill.y,
+      direction = activeSkill.direction,
+      animation_name = activeSkill.animationName,
+      animation_fps = activeSkill.animationFPS,
+      parent_locked = activeSkill.parentLocked
+    })
+
+    -- Position updates for projectiles and parent-locked effects
+    M.callbacks:listen(activeSkill, "x", function(value)
+      msg.post("/game_world", "update_active_skill", {
+        skill_id = skillId,
+        x = value
+      })
+    end)
+
+    M.callbacks:listen(activeSkill, "y", function(value)
+      msg.post("/game_world", "update_active_skill", {
+        skill_id = skillId,
+        y = value
+      })
+    end)
+  end)
+
+  -- Active skills removed (projectile hit, effect expired)
+  M.callbacks:on_remove("activeSkills", function(activeSkill, skillId)
+    print("Active skill removed:", skillId)
+    msg.post("/game_world", "remove_active_skill", {
+      skill_id = skillId
+    })
   end)
 end
 

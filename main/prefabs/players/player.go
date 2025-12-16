@@ -27,10 +27,6 @@ embedded_components {
   "  texture: \"/main/atlases/green-mage.atlas\"\n"
   "}\n"
   ""
-  scale {
-    x: 2.0
-    y: 2.0
-  }
 }
 embedded_components {
   id: "fireball-spell-factory"
