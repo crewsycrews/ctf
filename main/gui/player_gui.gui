@@ -423,7 +423,6 @@ nodes {
     y: 20.0
   }
   type: TYPE_TEXT
-  text: ""
   font: "PixelFont"
   id: "countdown_text"
   yanchor: YANCHOR_TOP

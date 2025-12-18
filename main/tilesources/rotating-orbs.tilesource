@@ -6,58 +6,56 @@ animations {
   id: "1"
   start_tile: 1
   end_tile: 4
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
   id: "2"
   start_tile: 5
   end_tile: 8
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
   id: "3"
   start_tile: 9
   end_tile: 12
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
   id: "4"
   start_tile: 13
   end_tile: 16
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
   id: "5"
   start_tile: 17
   end_tile: 20
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
   id: "6"
   start_tile: 21
   end_tile: 24
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
-
   id: "7"
   start_tile: 25
   end_tile: 28
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 animations {
-
   id: "8"
   start_tile: 29
   end_tile: 32
-  fps: 5
   playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
 }
 extrude_borders: 2

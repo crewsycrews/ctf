@@ -1,17 +1,10 @@
 images {
   image: "/assets/units/nature/trees/tree_3.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/units/nature/trees/tree_4.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/units/nature/trees/tree_5.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
-margin: 0
 extrude_borders: 3
-inner_padding: 0
-max_page_width: 0
-max_page_height: 0

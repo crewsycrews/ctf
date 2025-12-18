@@ -1,150 +1,108 @@
 images {
   image: "/assets/units/hand_made/bolotniy.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/units/hand_made/persik.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 animations {
   id: "bolotniy-hodok"
   images {
     image: "/assets/units/hand_made/bolotniy/bolotniy hodit1.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/bolotniy/bolotniy hodit2.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/bolotniy/bolotniy hodit3.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/bolotniy/bolotniy hodit4.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/bolotniy/bolotniy hodit5.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/bolotniy/bolotniy hodit6.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 10
-  flip_horizontal: 0
-  flip_vertical: 0
 }
 animations {
   id: "wind"
   images {
     image: "/assets/units/hand_made/black.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
 }
 animations {
   id: "fire"
   images {
     image: "/assets/units/hand_made/purple.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
 }
 animations {
   id: "earth-old"
   images {
     image: "/assets/units/hand_made/hulk.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
 }
 animations {
   id: "water"
   images {
     image: "/assets/units/hand_made/green.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
-  flip_horizontal: 0
-  flip_vertical: 0
 }
 animations {
   id: "earth"
   images {
     image: "/assets/units/hand_made/oak/oak animation1.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation2.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation3.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation4.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation5.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation6.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 10
-  flip_horizontal: 0
-  flip_vertical: 0
 }
 animations {
   id: "oak-legs"
   images {
     image: "/assets/units/hand_made/oak/oak animation1 (2).png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation2 (2).png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation3 (2).png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation4 (2).png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation5 (2).png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/units/hand_made/oak/oak animation6 (2).png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 10
-  flip_horizontal: 0
-  flip_vertical: 0
 }
-margin: 0
 extrude_borders: 2
-inner_padding: 0
-max_page_width: 0
-max_page_height: 0
