@@ -12,9 +12,9 @@ function init(self)
   M.client = colyseus.Client(self.server_url)
 
   -- Connect to CTF room
-  M.client:join_or_create("ctf_room", {}, function(err, room_instance)
+  M.client:join_or_create("ctf_room", nil, function(err, room_instance)
     if err then
-      print("Connection error:", err)
+      pprint("Connection error:", err)
       return
     end
     M.callbacks = colyseus.callbacks(room_instance)
@@ -41,31 +41,43 @@ function setup_listeners(room)
       is_local = is_local
     })
     M.callbacks:listen(player, "x", function(value, previous_value)
-      msg.post("/game_world", "update_from_server", {
+      msg.post("/game_world", "player_update_from_server", {
         x = value,
         session_id = session_id
       })
     end)
     M.callbacks:listen(player, "y", function(value, previous_value)
-      msg.post("/game_world", "update_from_server", {
+      msg.post("/game_world", "player_update_from_server", {
         y = value,
         session_id = session_id
       })
     end)
+    M.callbacks:listen(player, "orbX", function(value, previous_value)
+      msg.post("/game_world", "player_update_from_server", {
+        orbX = value,
+        session_id = session_id
+      })
+    end)
+    M.callbacks:listen(player, "orbY", function(value, previous_value)
+      msg.post("/game_world", "player_update_from_server", {
+        orbY = value,
+        session_id = session_id
+      })
+    end)
     M.callbacks:listen(player, "current_animation", function(value, previous_value)
-      msg.post("/game_world", "update_from_server", {
+      msg.post("/game_world", "player_update_from_server", {
         current_animation = value,
         session_id = session_id
       })
     end)
     M.callbacks:listen(player, "last_direction", function(value, previous_value)
-      msg.post("/game_world", "update_from_server", {
+      msg.post("/game_world", "player_update_from_server", {
         last_direction = value,
         session_id = session_id
       })
     end)
     M.callbacks:listen(player, "moving", function(value, previous_value)
-      msg.post("/game_world", "update_from_server", {
+      msg.post("/game_world", "player_update_from_server", {
         moving = value,
         session_id = session_id
       })
@@ -95,14 +107,14 @@ function setup_listeners(room)
 
     -- Position listeners
     M.callbacks:listen(enemy, "x", function(value)
-      msg.post("/game_world", "update_enemy", {
+      msg.post("/game_world", "enemy_update_from_server", {
         enemy_id = enemy_id,
         x = value
       })
     end)
 
     M.callbacks:listen(enemy, "y", function(value)
-      msg.post("/game_world", "update_enemy", {
+      msg.post("/game_world", "enemy_update_from_server", {
         enemy_id = enemy_id,
         y = value
       })
@@ -110,14 +122,14 @@ function setup_listeners(room)
 
     -- State listeners
     M.callbacks:listen(enemy, "state", function(value)
-      msg.post("/game_world", "update_enemy", {
+      msg.post("/game_world", "enemy_update_from_server", {
         enemy_id = enemy_id,
         state = value
       })
     end)
 
     M.callbacks:listen(enemy, "direction", function(value)
-      msg.post("/game_world", "update_enemy", {
+      msg.post("/game_world", "enemy_update_from_server", {
         enemy_id = enemy_id,
         direction = value
       })
@@ -125,14 +137,14 @@ function setup_listeners(room)
 
     -- Status effect listeners
     M.callbacks:listen(enemy, "isFrozen", function(value)
-      msg.post("/game_world", "update_enemy", {
+      msg.post("/game_world", "enemy_update_from_server", {
         enemy_id = enemy_id,
         is_frozen = value
       })
     end)
 
     M.callbacks:listen(enemy, "isSlowed", function(value)
-      msg.post("/game_world", "update_enemy", {
+      msg.post("/game_world", "enemy_update_from_server", {
         enemy_id = enemy_id,
         is_slowed = value
       })

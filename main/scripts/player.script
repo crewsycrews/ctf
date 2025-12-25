@@ -79,19 +79,12 @@ function update(self, dt)
     pos = pos + self.dir * self.speed * dt
     go.set_position(pos)
 
-    -- Get orb position and direction for skill system
-    local orb_pos = go.get_position(self.orb_id)
-    local orb_rotation = go.get_rotation(self.orb_id)
-    local orb_direction = math.atan2(orb_rotation.z, orb_rotation.w) * 2 -- quaternion to radians
 
     msg.post("/network_manager", "send_input", {
       type = "player_update",
       data = {
         x = go.get_position().x,
         y = go.get_position().y,
-        orbX = orb_pos.x,
-        orbY = orb_pos.y,
-        orbDirection = orb_direction
       }
     })
   end
@@ -219,13 +212,13 @@ function on_input(self, action_id, action)
   end
 
   -- Orb spells (Phase 2)
-  if action_id == hash("scroll_down") then
+  if action_id == hash("scroll_down") and action.pressed then
     msg.post(self.orb_id, "cast_ice_barrage")
   end
-  if action_id == hash("touch") then
+  if action_id == hash("touch") and action.pressed then
     msg.post(self.orb_id, "cast_fireball")
   end
-  if action_id == hash("scroll_up") then
+  if action_id == hash("scroll_up") and action.pressed then
     msg.post(self.orb_id, "cast_thunderclap")
   end
 
@@ -249,7 +242,7 @@ function on_message(self, message_id, message)
     camera.follow(nil, go.get_id())
 
     print("Local player set up:", self.session_id)
-  elseif message_id == hash("update_from_server") then
+  elseif message_id == hash("player_update_from_server") then
     -- Update server position for reconciliation
     if message.x or message.y then
       local current_pos = go.get_position()
@@ -274,6 +267,14 @@ function on_message(self, message_id, message)
       end
       if message.moving then
         self.moving = message.moving
+      end
+      if message.orbX or message.orbY then
+        local current_orb_pos = go.get_position(self.orb_id)
+        local orb_server_x = message.orbX or current_orb_pos.x
+        local orb_server_y = message.orbY or current_orb_pos.y
+        local orb_server_position = vmath.vector3(orb_server_x, orb_server_y, 0)
+
+        go.set_position(orb_server_position, self.orb_id)
       end
     end
   elseif message_id == hash("destroy") then

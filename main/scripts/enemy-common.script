@@ -216,7 +216,7 @@ function on_message(self, message_id, message, sender)
     return
   end
 
-  if message_id == hash("update_from_server") then
+  if message_id == hash("enemy_update_from_server") then
     -- Update individual coordinates as they come in
     if message.x then
       self.server_position.x = message.x

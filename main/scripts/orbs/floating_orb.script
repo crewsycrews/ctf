@@ -22,34 +22,34 @@ go.property("lerp_speed", 5.0)
 
 ---@param self FloatingOrb
 function init(self)
-    -- Store reference to player (passed via message after spawn)
-    self.player_id = nil
-    self.is_local = false
-    self.mouse_screen_pos = vmath.vector3(0, 0, 0)
-    self.mouse_world_pos = vmath.vector3(0, 0, 0)
-    self.current_rotation = vmath.quat()
+  -- Store reference to player (passed via message after spawn)
+  self.player_id = nil
+  self.is_local = false
+  self.mouse_screen_pos = vmath.vector3(0, 0, 0)
+  self.mouse_world_pos = vmath.vector3(0, 0, 0)
+  self.current_rotation = vmath.quat()
 
-    -- Initialize cooldown states
-    self.fireball_on_cooldown = false
-    self.ice_barrage_on_cooldown = false
-    self.ice_barrage_active = false
-    self.thunderclap_on_cooldown = false
-    self.thunderclap_active = false
+  -- Initialize cooldown states
+  self.fireball_on_cooldown = false
+  self.ice_barrage_on_cooldown = false
+  self.ice_barrage_active = false
+  self.thunderclap_on_cooldown = false
+  self.thunderclap_active = false
 
-    -- Input focus will be acquired when set_player message is received
+  -- Input focus will be acquired when set_player message is received
 end
 
 ---@param self FloatingOrb
 function final(self)
-    msg.post(".", "release_input_focus")
+  msg.post(".", "release_input_focus")
 end
 
 ---@param self FloatingOrb
 function update(self, dt)
-    if not self.player_id then
-        return
-    end
-
+  if not self.player_id then
+    return
+  end
+  if self.is_local then
     -- Convert screen coordinates to world coordinates
     self.mouse_world_pos = camera.screen_to_world(go.get_id("/camera"), self.mouse_screen_pos)
 
@@ -61,10 +61,10 @@ function update(self, dt)
 
     -- Check if mouse is far enough from player to normalize
     if vmath.length(dir_to_mouse) > 1 then
-        dir_to_mouse = vmath.normalize(dir_to_mouse)
+      dir_to_mouse = vmath.normalize(dir_to_mouse)
     else
-        -- Default to right if mouse is on top of player
-        dir_to_mouse = vmath.vector3(1, 0, 0)
+      -- Default to right if mouse is on top of player
+      dir_to_mouse = vmath.vector3(1, 0, 0)
     end
 
     -- Calculate target position: offset from player towards mouse
@@ -80,45 +80,56 @@ function update(self, dt)
     local angle = math.atan2(orb_pos.x - self.mouse_world_pos.x, self.mouse_world_pos.y - orb_pos.y)
     self.current_rotation = vmath.quat_rotation_z(angle)
     go.set_rotation(self.current_rotation)
+    -- Get orb position and direction for skill system
+    local orb_direction = math.atan2(self.current_rotation.z, self.current_rotation.w) * 2 -- quaternion to radians
+    msg.post("/network_manager", "send_input", {
+      type = "player_update",
+      data = {
+        orbX = orb_pos.x,
+        orbY = orb_pos.y,
+        orbDirection = orb_direction
+      }
+    })
+  end
 end
 
 ---@param self FloatingOrb
 function on_input(self, action_id, action)
-    -- Only process input for local player's orb
-    if not self.is_local then return end
+  -- Only process input for local player's orb
+  if not self.is_local then return end
 
-    -- Track mouse position in screen space
-    if not action_id then
-        self.mouse_screen_pos.x = action.x
-        self.mouse_screen_pos.y = action.y
-    end
+  -- Track mouse position in screen space
+  if not action_id then
+    self.mouse_screen_pos.x = action.x
+    self.mouse_screen_pos.y = action.y
+  end
 end
 
 ---@param self FloatingOrb
 function on_message(self, message_id, message)
-    if message_id == hash("set_player") then
-        self.player_id = message.player_id
-        self.is_local = message.is_local or false
+  if message_id == hash("set_player") then
+    self.player_id = message.player_id
+    self.is_local = message.is_local or false
 
-        -- Only acquire input focus for local player's orb
-        if self.is_local then
-            msg.post(".", "acquire_input_focus")
-        end
-    elseif message_id == hash("cast_fireball") then
-        -- Send to server instead of local execution
-        msg.post("/network_manager", "send_input", {
-            type = "use_skill",
-            data = { skillType = "fireball" }
-        })
-    elseif message_id == hash("cast_ice_barrage") then
-        msg.post("/network_manager", "send_input", {
-            type = "use_skill",
-            data = { skillType = "ice_barrage" }
-        })
-    elseif message_id == hash("cast_thunderclap") then
-        msg.post("/network_manager", "send_input", {
-            type = "use_skill",
-            data = { skillType = "thunderclap" }
-        })
+    -- Only acquire input focus for local player's orb
+    if self.is_local then
+      msg.post(".", "acquire_input_focus")
     end
+  elseif message_id == hash("cast_fireball") then
+    -- Send to server instead of local execution
+    msg.post("/network_manager", "send_input", {
+      type = "use_skill",
+      data = { skillType = "fireball" }
+    })
+  elseif message_id == hash("cast_ice_barrage") then
+    msg.post("/network_manager", "send_input", {
+      type = "use_skill",
+      data = { skillType = "ice_barrage" }
+    })
+  elseif message_id == hash("cast_thunderclap") then
+    msg.post("/network_manager", "send_input", {
+      type = "use_skill",
+      data = { skillType = "thunderclap" }
+    })
+  end
 end

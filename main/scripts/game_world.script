@@ -31,14 +31,14 @@ function on_message(self, message_id, message, sender)
     end
   end
 
-  if message_id == hash("update_from_server") then
+  if message_id == hash("player_update_from_server") then
     local player_id = self.player_instances[message.session_id]
-    msg.post(player_id, "update_from_server", message)
+    msg.post(player_id, "player_update_from_server", message)
   end
 
   -- Enemy spawning
   if message_id == hash("spawn_enemy") then
-  print("Spawning enemy:", message.enemy_id, message.enemy_type, "at", message.x, message.y)
+    print("Spawning enemy:", message.enemy_id, message.enemy_type, "at", message.x, message.y)
 
     local pos = vmath.vector3(message.x, message.y, 0)
 
@@ -60,10 +60,10 @@ function on_message(self, message_id, message, sender)
   end
 
   -- Enemy updates
-  if message_id == hash("update_enemy") then
+  if message_id == hash("enemy_update_from_server") then
     local enemy_obj_id = self.enemy_instances[message.enemy_id]
     if enemy_obj_id then
-      msg.post(enemy_obj_id, "update_from_server", message)
+      msg.post(enemy_obj_id, "enemy_update_from_server", message)
     end
   end
 
