@@ -45,7 +45,7 @@ SKILLS = {
     backward_dash = 3
   },
   SKILL_DURATIONS = {
-    ice_barrage = 3,
+    ice_barrage = 1,
     windwalk = 0.5,
     thunderclap = 0.5,
     dash = 0.4,

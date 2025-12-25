@@ -14,23 +14,20 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"fireball\"\n"
+  data: "default_animation: \"anim\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/main/atlases/fire-spell.atlas\"\n"
+  "  texture: \"/main/tilesources/fireball2.tilesource\"\n"
   "}\n"
   ""
-  position {
-    y: 45.0
-  }
   rotation {
-    z: -0.70710677
+    z: 0.70710677
     w: 0.70710677
   }
   scale {
-    x: 0.1
-    y: 0.1
+    x: 0.5
+    y: 0.5
   }
 }
 embedded_components {
@@ -46,17 +43,17 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: -1.0\n"
-  "      y: 44.0\n"
+  "      y: 2.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
   "    index: 0\n"
   "    count: 3\n"
+  "    id: \"box\"\n"
   "  }\n"
-  "  data: 9.315\n"
-  "  data: 37.021\n"
-  "  data: 10.0\n"
+  "  data: 4.549422\n"
+  "  data: 13.481347\n"
+  "  data: 10.48\n"
   "}\n"
   ""
 }

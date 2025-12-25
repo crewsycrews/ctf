@@ -28,7 +28,7 @@ components {
   }
   properties {
     id: "attack_range"
-    value: "150.0"
+    value: "50.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -59,7 +59,6 @@ embedded_components {
   "friction: 0.1\n"
   "restitution: 0.3\n"
   "group: \"enemies\"\n"
-  "mask: \"head\"\n"
   "mask: \"obstacles\"\n"
   "mask: \"projectiles\"\n"
   "mask: \"ice_barrage\"\n"

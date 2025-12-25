@@ -7,6 +7,7 @@ go.property("target_url", msg.url())
 go.property("score_points", 1)
 go.property("attack_range", 0)       -- >0 enables attack timer/animation logic
 go.property("attack_cooldown", 1.5)  -- seconds between attacks when in range
+go.property("detection_range", 300)  -- distance to detect and switch target to player
 
 function init(self)
   self.buffs = {}
@@ -25,6 +26,11 @@ function init(self)
   self.last_diff = vmath.vector3(0, -1, 0)
   self.attack_timer = 0
   self.in_attack_range = false
+
+  -- AI targeting
+  self.default_target = self.target_url  -- Store original target (totem)
+  self.player_url = msg.url("/player")   -- Reference to player
+  self.current_target = self.default_target
 end
 
 local function get_direction_from_vector(diff)
@@ -85,7 +91,20 @@ function update(self, dt)
   end
 
   local oldpos = go.get_position()
-  local target_pos = go.get_position(self.target_url)
+
+  -- AI: Check distance to player and switch target accordingly
+  local player_pos = go.get_position(self.player_url)
+  local player_diff = player_pos - oldpos
+  local player_distance = vmath.length(player_diff)
+
+  -- Switch target based on detection range
+  if player_distance <= self.detection_range then
+    self.current_target = self.player_url
+  else
+    self.current_target = self.default_target
+  end
+
+  local target_pos = go.get_position(self.current_target)
   local diff = target_pos - oldpos
   local distance = vmath.length(diff)
 
@@ -100,11 +119,11 @@ function update(self, dt)
       self.attack_timer = self.attack_timer + dt
       if self.attack_timer >= self.attack_cooldown then
         self.attack_timer = 0
-        if self.target_url == msg.url("/snake/head") then
-          msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE,
+        if self.current_target == self.player_url then
+          msg.post(self.player_url, MESSAGES.PLAYER.TAKE_DAMAGE,
                    { damage = self.damage })
-        elseif self.target_url == msg.url("/totem") then
-          msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE,
+        elseif self.current_target == self.default_target then
+          msg.post(self.default_target, MESSAGES.TOTEM.TAKE_DAMAGE,
                    { damage = self.damage })
         end
       end
@@ -180,13 +199,13 @@ function on_message(self, message_id, message, sender)
   if message_id == hash("collision_response") then
     if self.attack_range <= 0 then
       if message.other_group == COLLISION_GROUPS.head then
-        msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE,
+        msg.post(self.player_url, MESSAGES.PLAYER.TAKE_DAMAGE,
                  { damage = self.damage })
         handle_destroy(self)
       end
 
       if message.other_group == COLLISION_GROUPS.totem then
-        msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE,
+        msg.post(self.default_target, MESSAGES.TOTEM.TAKE_DAMAGE,
                  { damage = self.damage })
         handle_destroy(self)
       end

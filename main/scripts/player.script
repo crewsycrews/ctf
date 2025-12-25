@@ -45,7 +45,7 @@ function init(self)
   self.score = 0
   self.pointer = vmath.vector3(0, 0, 0)
   self.buffs = {}
-  self.buff_visual_target = "sprite#sprite"
+  self.buff_visual_target = "#sprite"
   self.current_animation = "idle_south"
   self.last_direction = "south"
 
@@ -72,7 +72,7 @@ function update(self, dt)
   if not self.moving then
     local idle_animation = "idle_" .. self.last_direction
     if idle_animation ~= self.current_animation then
-      msg.post("sprite#sprite", "play_animation", { id = hash(idle_animation) })
+      msg.post("#sprite", "play_animation", { id = hash(idle_animation) })
       self.current_animation = idle_animation
     end
   end
@@ -140,7 +140,7 @@ function on_input(self, action_id, action)
 
     -- Only change animation if it's different from current
     if animation ~= self.current_animation then
-      msg.post("sprite#sprite", "play_animation", { id = hash(animation) })
+      msg.post("#sprite", "play_animation", { id = hash(animation) })
       self.current_animation = animation
     end
   end

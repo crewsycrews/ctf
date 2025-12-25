@@ -27,17 +27,17 @@ instances {
     y: 3603.0
   }
 }
+instances {
+  id: "player"
+  prototype: "/main/prefabs/players/player.go"
+  position {
+    x: 3630.0
+    y: 3478.0
+  }
+}
 collection_instances {
   id: "gui"
   collection: "/main/gui/gui.collection"
-}
-collection_instances {
-  id: "snake"
-  collection: "/main/prefabs/players/snake.collection"
-  position {
-    x: 3622.0
-    y: 3464.0
-  }
 }
 scale_along_z: 0
 embedded_instances {
