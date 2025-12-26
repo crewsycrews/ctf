@@ -1,246 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-up" width="140" height="140" tilewidth="64" tileheight="64" infinite="1" nextlayerid="5" nextobjectid="1">
- <tileset firstgid="1" name="nature" tilewidth="64" tileheight="64" tilecount="390" columns="26">
-  <image source="units/nature/tiles/64x64.png" width="1664" height="960"/>
-  <wangsets>
-   <wangset name="Безымянный набор" type="mixed" tile="-1">
-    <wangcolor name="sand-terrain" color="#ff0000" tile="-1" probability="1"/>
-    <wangtile tileid="17" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="18" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="19" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="43" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="44" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="45" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="69" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="70" wangid="1,1,1,1,1,1,1,1"/>
-    <wangtile tileid="71" wangid="1,1,1,1,1,1,1,1"/>
-   </wangset>
-  </wangsets>
- </tileset>
- <tileset firstgid="391" source="nature.tsx"/>
- <layer id="1" name="main road" width="140" height="140">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-up" width="140" height="140" tilewidth="64" tileheight="64" infinite="1" nextlayerid="8" nextobjectid="1">
+ <editorsettings>
+  <export target="../../../../../../../wsl$/Ubuntu/home/crewsycrews/gamedev/CTF/main/tilemaps/with-spawns.tilemap" format="defold"/>
+ </editorsettings>
+ <tileset firstgid="1" source="nature.tsx"/>
+ <layer id="3" name="ground" width="140" height="140">
   <data encoding="base64" compression="zlib">
-   <chunk x="-80" y="0" width="16" height="16">
-   eJxjYCAO8CJhHijmJVIvCHBBMScDA4MylOYiQT8vDjxU9HPiwPTSP9D+p1S/MhRzobGJBTwU2j9cAQDmuAPN
-  </chunk>
-   <chunk x="-64" y="0" width="16" height="16">
-   eJzjYWBg4IViHiw0uhg6VmZgYOBCwpxIYpxQWhmLOpg8NjOHEuYcYDzQ/qcUK6Nh5HSD7E8uNDYsXSGnXR60dIor7SKrG+kAADWgCaw=
-  </chunk>
-   <chunk x="-48" y="0" width="16" height="16">
-   eJzjZWBg4IFiXijmQcO8WORhbC4oVoZiTiifE4mtjKSOE43mHeKYc4DxQPufUqyMln6Q04YyFnlOtPSEbh56euUhYP9IBwA6YAni
-  </chunk>
-   <chunk x="-32" y="0" width="16" height="16">
-   eJzjZWBg4EHCvGgYWZwHC+ZkYGDggmJlKB+GlZHEkOW4kNjo9g01zDnAeKD9TynmQksn2DBMDRcaG93/xKZhZHqkAwDnYQmJ
-  </chunk>
-   <chunk x="-16" y="0" width="16" height="16">
-   eJzVktEKgDAIRU+PxvYVfkX9/4f1MkGGllEECZfpxSNjswMN6EPN1d7PagFWQEeuzpPRp07WY0wvKGPv8BFb5TPW5lYUsW/wT+//xfud/Z9Mvkzn1f74XY3ybK9NldgW2BP9PQ4CWg8e
-  </chunk>
    <chunk x="0" y="0" width="16" height="16">
-   eJzjZWBg4IFiXiSMLobOhmFlKOaC0pxIYjA+FxZ12DA2M3gJYEJmkKof3Qxy9MPM4CQC00I/Je6nJPwoiT9c6QdXmMDU40qj6GkZW9oFYStG3NiakWHYAwDT/RDb
+   eJydUrENADAIcpU3/P/H7oQqOpg0CljUiog6RIocqK4wriaGfp0+BN/R2/qd/Ds1foM4qm8aXIXt5tXpb/boYh3cdEPbG2CvEDlnt07t1/8SVx31B57XAwAJHZw=
   </chunk>
    <chunk x="16" y="0" width="16" height="16">
-   eJzjZWBg4GVgYOCBYl40mgeLHDJWZmBg4ETCID4XFMP4yljYMDW8QxxzDjAeaP9TipWR0gzMT8jpB8ZWxkJz4kizvEhsbHxk8ZEOAMVsCdY=
+   eJydU0EOACAI8qrf6P9/7FKbYxLagVWmwMyWma0DT/vqfGMBd3GgagNWho4PVc+8K81Ozo9n5qnqhTc1M8eL35MO5rD4pKeXPwre7EH1qqpXs8I8ombnzdRbvPLYLE38I7eag+m/qLAB5nAcsQ==
   </chunk>
    <chunk x="32" y="0" width="16" height="16">
-   eJzjYWBg4IViHiTMi4eNrF4ZCXMxMDBwItHKaDRMDlkP7xDHnAOMB9r/lGLkNKOMxMaWlpDFYRg5ffJiSaO8WMSR0/lIBwAcywm/
+   eJylkjEOACAIA1nhG/7/jy6aNKSKxaEJQ6HkYJjZWHKoFUWjP3tPvS74mZfVvlTtHeBRGXVZ5hk5X+UbBVv1DnhvltW9PduzYtjx5x/Z2ZgfF/+rbtx/fwb/8sScsWHzJw0VHRM=
   </chunk>
    <chunk x="48" y="0" width="16" height="16">
-   eJzjYWBg4GVgYOCBYlxsGJ8Xjc0JxVxQrIxEKyPxuZDUKiPp4R3imHOA8UD7n1KsjOQXLjTMiZaOlNHSGBeOtMmDxR5caXukAwCXdAnb
+   eJydUkEOwCAI42q/4f//uCyZiWG1FA8EldKSCiJiFjFSzmeGVZg3IPoZhzMDwzDe8emvO8Q8ai6mgy27Xjje39ZvsafeyqfdX2eXsk9qRxjnSQdmvfpn9c48Qfx3raPvzNf9U8X1AAQ7HLA=
   </chunk>
    <chunk x="64" y="0" width="16" height="16">
-   eJzjZWBg4MGCiQWcDAwMXAwMDMpQGsYmFvDiwENFPycOTC/9A+1/SvUro6Ufcv3PQ6b9Ix0AAIcjA7A=
+   eJylU0EOwCAI46rf8P9/3Jbs0DTF1nggEgKFUlxVtV4b/4s+xib4zoaIndZzPmN2eDi74uRmVX2SWoej9uFykOcUMdap2xvnM57SO+HDvRQn1uFW93S/uxm6WnejjJHeZILnZnb34f6quqPPHlojHLA=
+  </chunk>
+   <chunk x="80" y="0" width="16" height="16">
+   eJylUjkOACAIY8Vv8P8/GhMH0pRDHBo10FJAExELoBfnvuDMOK+xTDPiKIljbkd3uTfylWiweoxX9VjNcZLr/fj+sh5YjWyHnT1hTeZhgo4v9PGiEeVXu5vMq+L+zqvzBw8271od6Q==
+  </chunk>
+   <chunk x="96" y="0" width="16" height="16">
+   eJytU0EOwCAM6rX9hv//ox52aBoGLO5ATCwCtboiYh3Uszro3CScBNwiZ1T9S0aWDdVT8JG3o19Cf+4h3vTunLc7YRrZUIOverqF6o316szJQX9jTOsPH/Z+XF+Vtc8Q/TuWYQPMAxz/
+  </chunk>
+   <chunk x="112" y="0" width="16" height="16">
+   eJydU0EKACAI86rf8P9/7FIwwtnyMBBl05mlmTkgNzAOAOaxnhe30lK4Kpzwf/Q6Ls7sVnvwj35BelY7UXyz3KQ+6R2CXpBY8YR393rzlz7qdPuZ7GayW+aj+x937dwe863OsgDzRBzo
+  </chunk>
+   <chunk x="128" y="0" width="16" height="16">
+   eJy1kksKwDAIRN3qNXr/O5buQngzUUoWghDnp8mIeLZK0bv65gpwCl8Nvo4uzU6wf7QnGdZ9uN0QZwGH0kuYd94V9+rzlFN5d/jJzdK8T7yR5o7v8tG+Tno3/if16g6U8wUFDR0v
+  </chunk>
+   <chunk x="144" y="0" width="16" height="16">
+   eJylUcEOQCEI8gq/8f7/H9/JrbFQq4OrYQEiIuIrik2/Khz03NvEae43RaO544Xger7mAZnr1js2fJ0HGnz6FwuHend8bsbkm+aKQutkN1PfXbYvHjp/qUvBXJ6K6Z5Xbz+lfhzk
+  </chunk>
+   <chunk x="0" y="16" width="16" height="16">
+   eJytU7kRwDAIo5XWYP8d06QgCp9zKXzWGZlHgJuZ3wcB/3EQboqNYu/8sOBk7x2PA8/tnWdX28RFEocL3GmpvKqOip9pT3vmC8vrg+Cpb8r/ovOkK5c66qyhwNHHyT7oLG7/Iok/zdBmdmL/uv25AOgcG8w=
+  </chunk>
+   <chunk x="16" y="16" width="16" height="16">
+   eJytUjESACAIcoVv+P8/tjRxWpoNXgsgGG5mLoPk/TETLTYweNilnIyPvQdW9xX56/A6WSD7KpmqvhloZT2h8DSv4iNvJ788YG63nXZjqqVd6ugqPvqT6iy2AB4Z
+  </chunk>
+   <chunk x="32" y="16" width="16" height="16">
+   eJydUTEOADEI6mq/4f//2BtuIATUOJimgkQhzzn51/0q4B/QYyzpfwnDXsAbgKkZV6yldlC9MBylPcWne4fgVz45Dfbf+enmGes86fzq5qqMHGeTs7prkzP6sb3d7bLVm3ow4Vd5P8wdHJY=
+  </chunk>
+   <chunk x="48" y="16" width="16" height="16">
+   eJydk0sOACEIQ9nCNeb+d5yNJoT0CbpoJECr8nEz84VvwcG37Uh2jddT5Sh+JL/iEqLJp1jlRaO3/THQ7kC1nOqp+t38nXSod9TLU4+p1ornKeelly91Os1zd8/kHbQPxFXxbt5oP2/m8AffARxf
+  </chunk>
+   <chunk x="64" y="16" width="16" height="16">
+   eJylUkEOACAI8qrf6P9/rEubY9gwD8zSBKYtM4uDleKFw30KT3HKjf0O/CyvIIjGj1em2/URgzm9+vK+8R3+gS53VYvizPQVDy9+1VdnP8oeuhqKXvWG5XHGTmo4+w2x1B3k
+  </chunk>
+   <chunk x="80" y="16" width="16" height="16">
+   eJydUzESACAIcrVv+P8/tjh0ZgINDF4IeliYWSQ8cdYBgDiL6GF8Jj11plOn6qFedXZPD2+8Ol7VRH617jyYHd3u/JVs/MHv+lGGk+d67KPm9gvmnqd35n8pHszuE3cDyEEdxw==
+  </chunk>
+   <chunk x="96" y="16" width="16" height="16">
+   eJydU7ENACAIY6Vv+P+PLpoQgi0yNCoglKJuZivAD1ZY8/6eUdgjQO5W8U58aNRRdifxGNa4voo3u8O0fXHuaK7yqHllf+5B1Vd9RR5dDVgPPzle82dvm81wApC6Sk/FW2lW/ccNxhAclw==
+  </chunk>
+   <chunk x="112" y="16" width="16" height="16">
+   eJylUkEOADAEc+Ub+/8ft8MOS1NUdhAy2lGWma1jnvi4vjInsRMujBU+tXaCQawyYwz/qTj95isuNhdyvj1NdUUuhq84g9RlGgXEDMtw2G/WTze7kkcNu33/3FvHoe5C1Q7v7n3bNu4c+Q==
+  </chunk>
+   <chunk x="128" y="16" width="16" height="16">
+   eJylkrsRADAIQm3jGu6/YxqLnKegpqDDhz8TEXOdR0YUPVUd43WyMqkLcfSDvZ2b9bTNfZmTuaI3q+/2qYDb5SnwTPbV/dPqZpvsLDP+IeKiWnbTybwZq9rBBTIkHeU=
+  </chunk>
+   <chunk x="144" y="16" width="16" height="16">
+   eJydUjkOACAIY4Vv+P8/umhCKpVjIMhdiioi64i6tznB2IK8yM/yK6LQVz99IxvrfR7DO8HDMEZzf3x09jOnTV4cyENltwwP69/hr7pvZ07GVeaLtEHN5L9ktXcGu+2E0+5Nr70BCq8crg==
+  </chunk>
+   <chunk x="0" y="32" width="16" height="16">
+   eJylkzEOwCAMA7Pib/D/P7J0qE4xsdoBIZE4DhfYVbWx1rOribm1grjLoY+gUehDD5n6XR1qJ5+Uy03v7qahlxtL5ju201kyp67XhNHk94cvmbq6b4Zf/Kjhm03+Q8on6a/LSeZ6AHbaHX0=
+  </chunk>
+   <chunk x="16" y="32" width="16" height="16">
+   eJydU8sKACAI8+p+o///xwg6hDjTHaSYU4cPN7P1GMi/ay7w/NZCgjvJi/B26yraGIf5sr5FvqoXRQ6Q2pP5dHRmmLIrLLbSWM1jwunqn+DZ7bC9rXodY343oM762AY4sR2Y
+  </chunk>
+   <chunk x="32" y="32" width="16" height="16">
+   eJylUkEKACAI86rf8P9/rENBDG2LDsOk4XSaZpYTsSK+Hd6YZwPG6zQ6hMBBfaz7WoP14EdU5nGow3iorfj0yjl9qnYWVnuJf+wWNm5zMF9Uf399Ynei7uKmVfne3VAIPam3ivkAvAccrg==
+  </chunk>
+   <chunk x="48" y="32" width="16" height="16">
+   eJyVUkkKADEI86rf8P9/HOYglBCXHAIlWhPTppklIAhXcKgH4SY4OQfwyGFt8+Qwh+mHMHvqe+uXni6na35Tf82fdqqeTg/3cADLHDPqvG1vMt1R/lZl4IRTdNl7XTxt+Xd+1P3VfBK0f3xY1RvI
+  </chunk>
+   <chunk x="64" y="32" width="16" height="16">
+   eJyVUjEOADEIcpVv9P9/vNxmCCoOLhSUUF5EvGZywbv3yvsHBQPpsuDT/YkHwd88KT17ZNzZr/xdRvlTGTCHdW4Wl/91dl474mQ2ZaJ2OHzWYtGmuLV1dvK5dbDzgeauk7nCP+eLHOM=
+  </chunk>
+   <chunk x="80" y="32" width="16" height="16">
+   eJy9U0EOwCAI41q/4f//uB0kMRUo7rBDYxMslEanmc0XY53MGV7D4kNoQLzqnQGi5nXVG3b6cV3HV+WD86vuRlr2BeK3u1V78bzMb+apm9FX35UewZy/wbNhOp/u/+L91Nvf+6k/GOX5AMxoHIA=
+  </chunk>
+   <chunk x="96" y="32" width="16" height="16">
+   eJydUkEOADAEc7Vv+P8fd9kSkaIcZDO06ExELLFTxKLpM+9nechXxznhrfDjPeNmsNg6NA/qSd2cXR8Ih9nlVLON5oh7s+vIr4k/1a7Tgc2p3k6Di85qRyg2+ad/jqglwryq2xwN
+  </chunk>
+   <chunk x="112" y="32" width="16" height="16">
+   eJylUkEKwDAI82q+4f//OAY7SIixowdpFUliNCOiWiTlW+QXaDW0etF/wijCKMJlDIh+CO6JD4Lfzc9cJ744vxSu8rJj8XurxfVOGp0P7KPjVTNO+1UendzTxPvXv80vtTOl+5Zrw1Ma3G2/+QMjZRww
+  </chunk>
+   <chunk x="128" y="32" width="16" height="16">
+   eJytUkkOwEAI8orf8P9/bJv0YIgSnfZAZokLCmFmuBHp9BeRAHozQHdv6lQ5SHHch7mFqIkBz8ksFZdJ3U2PDV+OBf11O/uDq6ceSsvNzKe5SvupXytPKj8prTr9lCZbbb76Su37mfsCEM8cxQ==
+  </chunk>
+   <chunk x="144" y="32" width="16" height="16">
+   eJy1UjkOACAIYy3f8P9/dNHEmFIw6kCUcJVSmFkrmI8XIgfkj6X2pYFguZml9nIxM+ujMN7wgqA/6wmrYc929CDG7h7lM3+vZ3gR5L/iUXH66yZKZ6c4mKaczJv6m7EO3rIcxg==
+  </chunk>
+   <chunk x="0" y="48" width="16" height="16">
+   eJy1UjsOQCEIYy3X8P531MGXmIbyGd7QaBWxFJaZrQM/wF0j/gHEXzjFR7FOe4i77A/FlTYv8kO8B50xV75kHv2JqL5Msz8xU886dU986PjazR31s9KZzWHlX6dW1jSde9avej31aAOOrxz+
+  </chunk>
+   <chunk x="16" y="48" width="16" height="16">
+   eJytUkEKwDAI86rf8P9/3A4VSjAzwg6haKOGaJpZvMgDv2I/SEA0OcZl+Q41W+V3epRaplP9V3pv+E7q0LvOd6wJ8qKeaVebvW38nnoyncod1v0UHHgYb+Z3nk57uTWp8764yPljVw/K6Bx8
+  </chunk>
+   <chunk x="32" y="48" width="16" height="16">
+   eJyVUjESwDAIctVv+P8/toMD9UDt4CXnQYhgmlm+5VVZFVXYS8CynhOM1zuMF3AqvtK93DtXzRODjupPHKVz8XGbh/k65YD/YXhVHXvhIkZlffGFefBnP8K++9u1WY7bv1QOzHemc9m7TZt5wPKeMujzPsLbGt8=
+  </chunk>
+   <chunk x="48" y="48" width="16" height="16">
+   eJytU0kOACEI42q/wf//aDxMYpoWh+ihIQhhaTEjIg8YhT82n987NZPqLEDEvxxslvPYd31R2M4upz1BPSFqVzPf4M/sTkMFx7viVWnm6rMGN5x37sDd4Utd1P9Rd/FSb8Un77xiExqLHJw=
+  </chunk>
+   <chunk x="64" y="48" width="16" height="16">
+   eJxTZmBgUAZiTiiNjDlxiGPDXGhq8enjwsHGpQYbxuVeYtxKiX+J8SOx4YZPP6l24gsvfObh0ktM+BPrR0rjhRj/ovNJiUdkMS40ProYITMIhRsp6Y8Lj3nE+hfZ/eh5FIQBG9wdlg==
+  </chunk>
+   <chunk x="80" y="48" width="16" height="16">
+   eJyVklEKwDAIQ/1Nr9H733EMViiiy/NDKDE1atwRsVOowFycP+sLyndaGnArjkA/f3mnTWZ1ddXgK+110q/zsqqbsYpD96gGn3iXse5Nb4Po0jqdZ3TeiZ/3DTs/iR8n92IPQsUdMA==
+  </chunk>
+   <chunk x="96" y="48" width="16" height="16">
+   eJydUTkOACAIY4Vv+P8/upqmJa0DETD0gK6qY8SIfpvzSTDMhhxr1ld4b42+lM9U7yx/Gwbzleyd8Y7Icc7Ruu0yCdTp4vzeR+1X8TKfqVZ1z3lel3/Da4Lt6r5NaB1e
+  </chunk>
+   <chunk x="112" y="48" width="16" height="16">
+   eJylUzsWwDAIcsVr9P53bLrl8SRoOjgkQQJ+EBFY8Qzjy0m647MKxmHTgCEfGjlTfxDcN1zOf1WLG60uV9Wo+5/rxUS3w1Zz5Xzm4e1vz7pzXemt9kTpUh4VB+9NR2cS7gVTcB3M
+  </chunk>
+   <chunk x="128" y="48" width="16" height="16">
+   eJylUzkOACAIYy3f8P9/1EETQiqHDo1B7jYMEcHCWND9HsDZLIYBLleDmkj6sb9fXycmy/F8MH404dLydavXnRVBXqTBsdkeXtcXzZjmFpar6s437pj/RfPqfpXb6Mz9Mxe7OabrBHtOHUg=
+  </chunk>
+   <chunk x="144" y="48" width="16" height="16">
+   eJylU0EKwDAI8xq/4f//uA12kBCddgepiI1JxDCzuAPp9TfPAVHr6kE4XZ/6wzwgMKe4XuQbPpnT10wMe7beqL7KD65vdpExpn6xZj+Yu/Fisq8OjzVW/P/wAOF3WlVPdYsn+tV9P/kFmrYc0A==
+  </chunk>
+   <chunk x="0" y="64" width="16" height="16">
+   eJytUkkOACEM6rX9hv//41zGZEKAMMaDUZHSBVdVLbIadvXuOMlKYufl9ed+osP4iZabRYptvEnONjGox+rd+Ij8p/5grcxzNRuGs77/1KN6V1qOP3BOa1E8lyv5X4mvN7xFXx5FKR18
+  </chunk>
+   <chunk x="16" y="64" width="16" height="16">
+   eJydUzEOACEIY6Xf8P9/vMVLSAMFHIhKa6kQj5mdGx726sxrF5Hvy3uKG3HcPYbalYbyzhwUOl0fsuDaytNUl/OqR5OZZB5jvPR+gyO8wRc6nW41Owg8+wNbHy+ekdQH4dksOPfzP8SgHBI=
+  </chunk>
+   <chunk x="32" y="64" width="16" height="16">
+   eJylkjEWwDAIQl3lGt7/jl3axSpoMvgygJD8lzCzIONCP9nBO7fZEH3bfOafdqDQ0OhVVs7zZX/m0u0xz+belVcxzIy88Ex4MW7q/ymO0zzYn1P3psycdSquaM4pk8//AKEBHMw=
+  </chunk>
+   <chunk x="48" y="64" width="16" height="16">
+   eJydUkEOwDAI8jq/4f//uC3pwTAF3YHYJoJCDDOLhOuBn7eff6TK0PUwbqWvZrE5jOtCV2nm2mm5fffceNvuNvVf7eugg9yKg95VFlO/f3PZZKBuQHFxHubHerocJ5krDeW1u8MXN5qGHOI=
+  </chunk>
+   <chunk x="64" y="64" width="16" height="16">
+   eJy9UkEKwCAM6zV+w///cR42KKGJFWSHUMSkTaMzIrAwFmZR8VYFCM5O1+GM5KOr6cz9C+yFzznjivvt73aC0O/8wMxW3FvgnVT/k7lIvTkbt6fyx14h7p22ylp5VRlB8Ny/OHm7By6VHRU=
+  </chunk>
+   <chunk x="80" y="64" width="16" height="16">
+   eJylUkEOwCAM6lW+4f//uB22xBDomB6aWg0tYGdVzTvw5JMYH3WC2emdclez0LwxzuVk5okX6n4YT149Steu1ylm5dT1gDkzV/em6nQHQP15Tuc3Fky6O0qL4/XHd/X/iXb2+ALexR0V
+  </chunk>
+   <chunk x="96" y="64" width="16" height="16">
+   eJydUkEOwDAI8qrf6P//uB26hBjosAfSpioBy4qI9SL3ifjeat9L9LJZBeQpUq8fXlZPMZOGts6hPDq+nN0wz9N9Kl9JaooL9fadnrKgwHypHudfpt5dbT3HyJdiRmVrkpPTflBDmTO36Hofc1QcrA==
+  </chunk>
+   <chunk x="112" y="64" width="16" height="16">
+   eJydUzESwCAIY4Vv+P8/tkOHHCch6cB5CoQk6omI80Z+6y1q2fdgWCnUMBzW33PqrJ6f9G26XQ45nNcFj/Ul4Ya5gj42Q7kb1x/k4byBqW57k92fDfMPP9U35T+4Prt9qA31PUW6HPk=
+  </chunk>
+   <chunk x="128" y="64" width="16" height="16">
+   eJy1UkEOwCAM6rX9hv//43YxWQiUzmWHRiMILboiIu9aj9UV8grOEzgl+JuL95kPajMMfVzfp/P+VZiL8nX9FOxVXgkc5TuZv3urN1od3mXi/qbLiWkwrZ1VEfzLXNOepxzElf8FFiMc4A==
+  </chunk>
+   <chunk x="144" y="64" width="16" height="16">
+   eJylk0sKACAIRN3qNbr/HaNFEIPjJxdSkY5PLRWR9WEK61RDHa1ztiT2GvqxuApzlNPg3tNibFHerB4W2+l/hTVjZHPqsE3eTNdwXlUuViv6efqZ/7vHf1RhY/Xgf/J6gdwbl8EdFQ==
+  </chunk>
+   <chunk x="0" y="80" width="16" height="16">
+   eJylkksOACEIQ9m21/D+d5zVJISUj7ggIfikFTlmdlzgMu8CizuZn4qByLf9NuwN7zmKOcXaVK/iOWC7+9O5Rq2Jn8lZ9ABXr/xlu8FET+l3f0HB/p4ouPgOFNqv+8ai7wfdwR1L
+  </chunk>
+   <chunk x="16" y="80" width="16" height="16">
+   eJydUzkOACAIYy3f8P9/dDIhDRRkICpHlVaOmZ3CfBDj9e0RzigwEOqQ5FZ1nW3rJvdHX8YPEr/qX/GNgheFm+kRsfh9SuMNb6znpA9v4j/8e9NTpVmXs/lXjMNzwXkcU5ornSf6PLsXAhzP
+  </chunk>
+   <chunk x="32" y="80" width="16" height="16">
+   eJyVU0EOACAI8qrf6P9/rENtjEnqwa2hKGSFmfmJdeOdAzDEXeBVHQfX+Z1Z8bI+yGHdIfBFcxVf+VReA3qwNzWDeysNVU22R8Xle8vukv1MtHR3N6kLwWXd3b6dXU/nTN99lu/+sZ+G324xtwGlQRv5
+  </chunk>
+   <chunk x="48" y="80" width="16" height="16">
+   eJytkVEKwDAIQ/0119j97zgG+ygusbHsI7QVjeE1I+IyhUHvoxR39u5m8t2tZlivk+kPYfGt3ohvNpUHpZbCV3mweuVQ2bBcOz4d2x33Kfs1Lw52d7xPM0Kcbi43p8tn8gdMN0zmHWU=
+  </chunk>
+   <chunk x="64" y="80" width="16" height="16">
+   eJzFU0EKwCAM69V+I///43ZwUEKb6hA8BDGVpA0VZoYXY8LnHYEHwUUt40AeFe9UV1rcZ8UrDaVzC4POjKsyWs3k7/yZ/07WK+AdOIVuzribnO9uP8qr0+r8PLzp+lR/96s/DaAd4Q==
+  </chunk>
+   <chunk x="80" y="80" width="16" height="16">
+   eJytkzEOwDAIA1nxN/L/PzZLpArFxlQdGAJcMFayIiJ3rEGgnG98zUHwLJKwjK8zs7krX/nayzyB4L7spry96f/bZ1fvmYXodUHUJjso3vHGrdedOk8mnjla1H9ib9HV2LEPTDYdTg==
+  </chunk>
+   <chunk x="96" y="80" width="16" height="16">
+   eJy1U0EKACAI86rf8P9/jKAghtOEOkgq0w01ExFfpomvkJ+vEbyTWoeaHUf9kYvxacDBtHQMe6BuxFiAq3RUPVmOYSq+bA+vDe/kZkcdTRHWwGdzu5lVNf+u/ux//NhJdjMnzwB3DRyt
+  </chunk>
+   <chunk x="112" y="80" width="16" height="16">
+   eJydUUEOwDAI8uq+0f//caclhIDFHUyqolA8VXVENLwfyr+ammOMmnXzbbCsJdWA3A16pn8leraand6+4CfOFDt5gpqUl8ofx+2wm3sxpi+c2Et2b2+S7v1zJ9dL6tMNlIecY7yW7xy1
+  </chunk>
+   <chunk x="128" y="80" width="16" height="16">
+   eJylk0EOACEIA7mWb/j/P+7VEKizeiAmAlOluiJilchmj+RovQ4cbasMs8u5Phe1Xo3edGanJcM7MRz3rw+vfWRuzg+qm4BH3gD1mXp8y53unkArh7puRs6H+h/2/g8Bpx4E
+  </chunk>
+   <chunk x="144" y="80" width="16" height="16">
+   eJy1UkkKADEI86rf8P9/nPYWgmthDkKJDcYYFxE95VRW4J70/ioLsJf52vCzORGe6ez+d7qjPuvO9sCboY5I08Q/K+ZGGVHivWZECz5jvP82B8jd3m3iKXqy8QP95neX2WnmLv4BfXEdMA==
+  </chunk>
+  </data>
+ </layer>
+ <layer id="1" name="main road" width="140" height="140">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="64" width="16" height="16">
+   eJxjYCAO8CJhHijmJVIvCHBBMScQK0NpLhL08+LAQ0U/Jw5ML/0D7X9K9StDMRcam1gAS6/k2j9cAQDmuAPN
+  </chunk>
+   <chunk x="16" y="64" width="16" height="16">
+   eJzjYWBg4IViHiw0uhg6VgZiLiTMiSTGCaWVsaiDyWMzcyhhzgHGA+1/SrEyGkZON8j+5EJjw9IVctpFTq/Y0jO6WhB7pAMANaAJrA==
+  </chunk>
+   <chunk x="32" y="64" width="16" height="16">
+   eJzjZWBg4IFiXijmQcO8WORhbC4oVoZiTiifE4mtjKSOE43mHeKYc4DxQPufUgxLG8pIbE4sYsjpCzk9oZuHnl55CNg/0gEAOmAJ4g==
+  </chunk>
+   <chunk x="48" y="64" width="16" height="16">
+   eJzjZWBg4EHCvGgYWZwHC+YEYi4oVobyYVgZSQxZjguJjW7fUMOcA4wH2v+UYli6QU87yBimhguNje5/YtMwMj3SAQDnYQmJ
+  </chunk>
+   <chunk x="64" y="64" width="16" height="16">
+   eJzjZWBg4AFiXijmQeIji+PicwIxFxArQ9nKSGKcUHXKSBimBqaHlwiMSy8p+rHpJVY/Lr0wc4nB2PRSQz+l7qdH+OGLP040cU40mlD6QU6r2Ni40jUMEwMsGRkYrHDgoQ4AAloPHg==
+  </chunk>
+   <chunk x="80" y="64" width="16" height="16">
+   eJzjZWBg4IFiXiSMLobOhmFlKOaC0pxIYjA+FxZ12DA2M3gJYEJmkKof3Qxy9MPM4CQC00I/Je6nJPwoiT9c6QdXmMDU40qj6GkZW9oFYStG3NgaiIc7AADT/RDb
+  </chunk>
+   <chunk x="96" y="64" width="16" height="16">
+   eJzjZWBg4AViHijmRaN5sMghY2Ug5kTCID4XFMP4yljYMDW8QxxzDjAeaP9TimFpApZekNMGMlsZCw2Sx5ZmeZHY2PjI4iMdAADFbAnW
+  </chunk>
+   <chunk x="112" y="64" width="16" height="16">
+   eJzjYWBg4IViHiTMi4eNrF4ZCXMBMScSrYxGw+SQ9fAOccw5wHig/U8pRk4zykhsbGkJWRyGkdMnMo2OedDYMDzSAQAcywm/
+  </chunk>
+   <chunk x="128" y="64" width="16" height="16">
+   eJzjYWBg4AViHijGxYbxedHYnFDMBcXKSLQyEp8LSa0ykh7eIY45BxgPtP8pxbC0gJyGkNOLMgNmWkJOU9jSJg8We3Cl7ZEOAJd0Cds=
+  </chunk>
+   <chunk x="144" y="64" width="16" height="16">
+   eJzjZWBg4MGCiQWcQMwFxMpQGsYmFvDiwENFPycOTC/9A+1/SvXD0g2MJtf/PGTaP9IBAIcjA7A=
   </chunk>
   </data>
  </layer>
  <layer id="2" name="naked trees" width="140" height="140">
   <data encoding="base64" compression="zlib">
-   <chunk x="-80" y="0" width="16" height="16">
-   eJxjYCAOFDAwMBQyMDDko7GJBV0MDAzdDAwMnWjsUTAywGj6GZwAAM7jC7k=
+   <chunk x="0" y="64" width="16" height="16">
+   eJxjYCAOFABxIRDno7GJBV1A3A3EnWjsUTAywGj6GZwAAM7jC7k=
   </chunk>
-   <chunk x="-64" y="0" width="16" height="16">
-   eJzt0jENACAQBMFxzCMDMI2HqyD5qVbAFiYGKuiNgxV2+1vyTP/zjgvnjx9B
+   <chunk x="16" y="64" width="16" height="16">
+   eJwrYGBgKATifCAuIIPdBcTdQNxJJnsUDG1ATpoZTT+DBwAA548fQQ==
   </chunk>
-   <chunk x="-48" y="0" width="16" height="16">
-   eJzt0jENACAQBMFxDC8DMI2HqyD5qVbAFgYmKuiDhR12+1vyTP/zjgvxnx9F
+   <chunk x="32" y="64" width="16" height="16">
+   eJwrZGBgyAfiAiAuJIPdDcSdQNxFJnsUDG1ATpoZTT+DBwAA8Z8fRQ==
   </chunk>
-   <chunk x="-32" y="0" width="16" height="16">
-   eJzt0jENACAQBMFx/CADMI2HqyD5qVbAFgYmKuiFjRN2+1vyTP/zjgvcjx89
+   <chunk x="48" y="64" width="16" height="16">
+   eJzLZ2BgKADiQiDOJ4PdCcRdQNxNJnsUDG1ATpoZTT+DBwAA3I8fPQ==
   </chunk>
-   <chunk x="-16" y="0" width="16" height="16">
-   eJwrYGBgKGRgYMhnYGAowMImBLoYGBi6GRgYOnGwR8HwBtjSzGBJP4cZGRiOMOKnRzoAAGzmFo0=
+   <chunk x="64" y="64" width="16" height="16">
+   eJwrYGBgKATifCAuwMImBLqAuBuIO3GwR8HwBtjSzGBJP7ZAbEeAHukAAE64Ec4=
   </chunk>
-   <chunk x="0" y="0" width="16" height="16">
-   eJxjYMAP8hkYGAoYGBgKcbAJgU4GBoYuBgaGbhzsUTC8Aa3TzxFGBobDjPjpUYAbAAAmVxaG
+   <chunk x="80" y="64" width="16" height="16">
+   eJxjYMAP8oG4AIgLcbAJgU4g7gLibhzsUTC8Aa3Tjx0Q2xKgRwFuAACDNhHH
   </chunk>
-   <chunk x="16" y="0" width="16" height="16">
-   eJzt0jENACAQBMFxDC8DMI2HqyD5qVbAFgYmKuiDhR12+1vyTP/zjgvxnx9F
+   <chunk x="96" y="64" width="16" height="16">
+   eJwrZGBgyAfiAiAuJIPdDcSdQNxFJnsUDG1ATpoZTT+DBwAA8Z8fRQ==
   </chunk>
-   <chunk x="32" y="0" width="16" height="16">
-   eJzt0jENACAQBMFx/CADMI2HqyD5qVbAFgYmKuiFjRN2+1vyTP/zjgvcjx89
+   <chunk x="112" y="64" width="16" height="16">
+   eJzLZ2BgKADiQiDOJ4PdCcRdQNxNJnsUDG1ATpoZTT+DBwAA3I8fPQ==
   </chunk>
-   <chunk x="48" y="0" width="16" height="16">
-   eJzt0jENACAQBMFxzCMDMI2HqyD5qVbAFiYGKuiNgxV2+1vyTP/zjgvnjx9B
+   <chunk x="128" y="64" width="16" height="16">
+   eJwrYGBgKATifCAuIIPdBcTdQNxJJnsUDG1ATpoZTT+DBwAA548fQQ==
   </chunk>
-   <chunk x="64" y="0" width="16" height="16">
-   eJwrZGBgyGdgYChgYGAoRGITC7oZGBg6GRgYutDYo2BkgMLR9DOkAQCjwQu5
-  </chunk>
-  </data>
- </layer>
- <layer id="3" name="ground" width="140" height="140">
-  <data encoding="base64" compression="zlib">
-   <chunk x="-80" y="-64" width="16" height="16">
-   eJxjYBhZYCUjKh7VP6p/JOsHACw3Iok=
-  </chunk>
-   <chunk x="-64" y="-64" width="16" height="16">
-   eJxjYBjaYCXjKB7Fo5hcDACYn4oh
-  </chunk>
-   <chunk x="-48" y="-64" width="16" height="16">
-   eJxjYBjaYCXjKB7Fo5hcDACYn4oh
-  </chunk>
-   <chunk x="-32" y="-64" width="16" height="16">
-   eJxjYBjaYCXjKB7Fo5hcDACYn4oh
-  </chunk>
-   <chunk x="-16" y="-64" width="16" height="16">
-   eJxjYBjaYCUjJh7VP6p/JOsnBQMA54oyeQ==
-  </chunk>
-   <chunk x="0" y="-64" width="16" height="16">
-   eJxjYBgFo2AUDFWwkpEyDABtPwqh
-  </chunk>
-   <chunk x="16" y="-64" width="16" height="16">
-   eJxjYBgFo2AUDFWwkpEyDABtPwqh
-  </chunk>
-   <chunk x="32" y="-64" width="16" height="16">
-   eJxjYBgFo2AUDFWwkpEyDABtPwqh
-  </chunk>
-   <chunk x="48" y="-64" width="16" height="16">
-   eJxjYBgFo2AUDFWwkpEyDABtPwqh
-  </chunk>
-   <chunk x="64" y="-64" width="16" height="16">
-   eJxjYBgFo2AUDFWwkpEwxgcAIuYF+w==
-  </chunk>
-   <chunk x="-80" y="-48" width="16" height="16">
-   eJxjYCANrGRExaSCUf2j+kf1Dx79AGF/KoE=
-  </chunk>
-   <chunk x="-64" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-48" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-32" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-16" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="0" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="16" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="32" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="48" y="-48" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="64" y="-48" width="16" height="16">
-   eJxbycjAsJIAxgcI6R3VP6qfEv2EwKh+yvQDAEvUW6U=
-  </chunk>
-   <chunk x="-80" y="-32" width="16" height="16">
-   eJxjYCANrGRExaSCUf2j+kf1Dx79AGF/KoE=
-  </chunk>
-   <chunk x="-64" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-48" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-32" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-16" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="0" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="16" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="32" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="48" y="-32" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="64" y="-32" width="16" height="16">
-   eJxbycjAsBIPJgTw6R3VP6p/VP/g1g8AB9BVAQ==
-  </chunk>
-   <chunk x="-80" y="-16" width="16" height="16">
-   eJxjYCANrGRExaSCUf2j+kf1Dx79AGF/KoE=
-  </chunk>
-   <chunk x="-64" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-48" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-32" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="-16" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="0" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="16" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="32" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="48" y="-16" width="16" height="16">
-   eJxbycjAsHIUj+JRPCIxAGr7qgE=
-  </chunk>
-   <chunk x="64" y="-16" width="16" height="16">
-   eJxbycjAsBIPJgTw6R3VP6p/VP/g1g8AB9BVAQ==
+   <chunk x="144" y="64" width="16" height="16">
+   eJwrZGBgyAfiAiAuRGITC7qBuBOIu9DYo2BkAOQ0M5p+hh4AAKPBC7k=
   </chunk>
   </data>
  </layer>
  <layer id="4" name="trees" width="140" height="140">
   <data encoding="base64" compression="zlib">
-   <chunk x="16" y="-48" width="16" height="16">
-   eJzty7ENgCAUANHLdeIYyhjgGMr+i1hASyLW/5WXHIQQvtqEJOz+ew7hFLK9rz5FqMI1+szsuYVHaKO/IV8EwA==
+   <chunk x="64" y="0" width="16" height="16">
+   eJzV07cNwDAQQ1Ht7riE4xKOSzjO419eY0BHVybwygMogArBnwQpMsdNjgIlKtRoHPctOvQYMGJy3M9YsGLDjsPR+cSFW+ysxHaOzR872z0pnZU92Sh7sond01uU/2Tz5f0PgMAr5w==
   </chunk>
-   <chunk x="32" y="-48" width="16" height="16">
-   eJztzDkRACAQwMBMSj4VYAP8u0IDR3vbJ5BSiipCNd5PYX30WzhCE7owHl8XZLYBFQ==
+   <chunk x="80" y="0" width="16" height="16">
+   eJzN07sNgDAMBFDvHn5LBAJLhN8S4TcP10SyIkUJpoCTnuTmiiusiKiAEhS7c6OhhS64K6ihSfQtjDAFt4EehkTfwQZ7cM+wwPpgC88BJ1yUvyUWQ3lbYvnrFiXo8y1a0OdbrKDP4172v4z/VWn8r97oMS1r
   </chunk>
-   <chunk x="-16" y="-32" width="16" height="16">
-   eJzt0LkRwkAUBNFX43EmgTiSQAKSEFf+ceCuyX4Di/a7umb480sWYRlWqfm7MIR9h982z2EMU4ffNudwD48Ov9Jch03YFpuHcAyn4s+XcA23ov8Mr/Au+u3+Ct/u/wDhYgf5
+   <chunk x="96" y="0" width="16" height="16">
+   eJzlkkkKgDAQBPN310+4fsL1E67vsTwMDAGJ0YtgQ0Ef0t0wxJh/KoDwxrsYEkgtn0Hu6I6ghApqyzfQXmSku4AeBhgtP8Gs8joj3R2ssMFueZFs6ox0L67jqE2fjJZsPtWTzS8pepk/b6//jq8On3gtuQ==
   </chunk>
-   <chunk x="0" y="-32" width="16" height="16">
-   eJzlkc0NgkAYRN83Z6AMoQyxDLVWpQywDLAAT5tM4iYuGz35zvOTzMD/cQu4B0xR7mkEraATzAFLwCPjd51zEPSCQbAGbAHPjN91nnUUjIKT3j2O6zzrLLgIrh/8rivtLMn6NmmbWtI2NZ3+R02n/7GHX/zxAhoIE3c=
+   <chunk x="112" y="0" width="16" height="16">
+   eJzV0rkNgEAMBVH3ztkEsNAEZxOc9TArJ5sQ4E1gpBc6+JJF/l0Wed8gR4HScD/CoUVnuN8xYcaCBKm823XgxIUKteguSz0G0V2WVmyiuyxbwr60xVLMX/mc2P/KF/7VUzcJICCK
   </chunk>
-   <chunk x="16" y="-32" width="16" height="16">
-   eJzdkskNwkAQBGv6x5kEZxLmSsIgESsQBhCGIQC08mdYeXeFn9TPkms1rW7ophJsBFtBLTgKTvr+p46+LwZXg5ulnRjv3A0eBk/LOx7vNAYvg/cPfh/nn/F99HF8HwPBUDDKbGCqdIczwVywyPhrpTv0G+4i3HfIvF3acLjvXNj3WDBRmzOmKriBpWClNmfXfSV2gn0iZ8j/Ae8WJ2I=
+   <chunk x="128" y="0" width="16" height="16">
+   eJzlkckJwEAMA7f3nE3kbCJnEznryfi3+OUY8opgQB9hGYXwvXIooFQ+MeZb6KBXvjLmZ1hgVX4wdj7hglv5zdjZo7inR3HPt5JdUsict2WXGhpnXnYZYXLmZZcdDmf+T/8/hRErKQ==
   </chunk>
-   <chunk x="32" y="-32" width="16" height="16">
-   eJzV0rcNw1AQBNGHzWSbkG1CtglRpv86BAIiwPQfI01+ZhfThWfYh0M4RolruIV7mIV5WDTseoV3+IRN2IZd8ZdTOIdLcf4Rul8vrVSyj/nX7MuwCuvi3ap/Q9dj/1oYuh7718KUrnuqng1Mca3nCyGGDBY=
+   <chunk x="144" y="0" width="16" height="16">
+   eJzFkskNhDAQBJ07x5LEgtkkOJYkYI94qB8ty5LN8KCkkvoz/elx7holVlhIrvGBTcZ9ix0+JXvs8RX0xhhxwkHyjG9cgt5Y14YfXCV/8Yf/oFe7ctFe7bKgXVbObBPDu2MbC7qNBd3GQuqfUlh+QLnzB2Lb75LjN1I=
   </chunk>
-   <chunk x="-16" y="-16" width="16" height="16">
-   eJzd0csNggAURNGT2SlqEyLShPhpQgT7r8MGNCQvrrjruZNMhu/cwj088iOwwBTm8C76m7ANTdE/hjaciv4lDOFa9J9hDK+wC/twKHZ14Rz6ov/PL9f0S4W17f8Av74LlQ==
+   <chunk x="64" y="16" width="16" height="16">
+   eJzd0skJgFAUQ9H0rn5tQv3ahGMTjvV4N4LrbBQDZxnIgydJHXoM8rJgxWb2E6TIzH6JCrXZf/v+OwE5CrMf0aA1+yMmzOaWHQfOH29x8tzytV+/AJjxKqk=
   </chunk>
-   <chunk x="0" y="-16" width="16" height="16">
-   eJydkskNAjEQBGv6x5kEZxKcSXDGuhDGQhhAAIiHpQF5jb3ztUtdbg/kT0fQFfRUALkZCcaCSUt+IVgKVgV8XzAQDAU7wV5wKOCngplgXsD4ntaCjWBbwPuejoKT4PzDh4zY5PQUMmLOTT35OyEj5tzE+Dsh45+zZ1Lv8s6VwcXgat9M6v+9Z21wM7hb/s54z4fB0+BlaaZy5212u3Z8m93+eL4BpYkcqg==
+   <chunk x="80" y="16" width="16" height="16">
+   eJxjYCAPbAfiHWTqBYGLQHyJAv3NQNxCgf65QDyPAv0D6f82IG4H4g4y9S8A4oVAvIhMO3cB8W4g3kOmnVeA+CoQXxuEdiIDcuyEpctWMu2Epcv5JOhBBrB0uZNI9QD/iiZt
   </chunk>
-   <chunk x="16" y="-16" width="16" height="16">
-   eJy9k9ltAkEQRF/XnzmchLmSAAxJcGbKmQSXk7DBBIDQ7kgtMTsLP7zPaZWqq1UDaaaCmWCux9lX5O0VuiX6tcHGYGvx+Sii/xBUBFXB0eBk8FOgj3HP1BA0BReDf4NriX5hsDRYWZapJ+gnstUEdcFnvufOYG9wsCzTWDBJ6FuCtqCT7/lr8GdwfjLnt2AgGJbsWYTvRGrPd+Jv6nvj+5DC39T3xvfBewSCj7+p743vg/cIBJ+if+b74D0Cz/QzEPO4ARgUKwc=
+   <chunk x="96" y="16" width="16" height="16">
+   eJzVk1EKgkAYhPdeeQ27kKVdoqwukatdoszO0yf4gwzt4vrmwPcgOPMvDOOdc2e4QA0FHODolqmHBzTgJauECk4R/3jnBe8/WVe4wT2SVcv3PKuFDp6SNZePvO0DA3wlawfZ9E8f8Yeyctgv9KnstvWUKrttPa2V9bRW1tPWlLoP9ejWUj26tZBCHt3aD3CjPXA=
   </chunk>
-   <chunk x="32" y="-16" width="16" height="16">
-   eJzVkcsNggAUBCdzEz9NgGATqNAEKPZfhxcT3gniw4tz38lmtxLOkuYq3DbkR+GxIf/v7IRC2Cc3KIXq82HG1Tp/GF0H4SicVlyD84fRVQuNcPmiS3TdhU7ok7s8hUl4JfO//CVD3DJD3HKJN342Czg=
+   <chunk x="112" y="16" width="16" height="16">
+   eJzVk7kRgEAMA907bxPAQRO8TfDWgxwwKDnwHBGa2UwbYB0i/mxgB8dDx5cUZCAPcDUO1KAJ9AcwginQD/32CMQgMfa1x7cqQAkqo689J/etWtCB3uhrj281gwWsRl97X97JH8N7Wbdmx8m9l3Vrdniva+u3/40d3usE9FowoQ==
+  </chunk>
+   <chunk x="128" y="16" width="16" height="16">
+   eJy9kksOgCAMRLm730uo6CX8XsLveZwuSAhSaFg4ydvATNpJqtRXJahA7fmTSIMeDIn5BaxgS8xf4AZPYv6v/hnzLu3fMO+h/jQzBwUYI7sZnzuzBR3YI7sZny2aOYE5kA35aOYBzkie83G9XEn6k7hbkfbXyn8r0v72rdg7S/u/xio7yg==
+  </chunk>
+   <chunk x="144" y="16" width="16" height="16">
+   eJydktkNgDAMQ7s75xJAYQnOJTjnwXxUQlGdFiy9H0eJZLfGxMuCFnQfdt6awAyWn/sHOMH1YzcBKcjIPAcFKMm8AjVohO9uWqN304MBjMJ3N0PdrGADu/DdzXc3LKvP991kWZkvxbIyX4plZb6U9tahf/BIyxnTgZYzpgMtZ2wH7D/L/DflaT9N
+  </chunk>
+   <chunk x="64" y="32" width="16" height="16">
+   eJzV07kNgEAMRFH3ztkEsNDEHtAEZz38BIl0J0DC0gtHE9g2y5sVG/bM3DM1GrRi3mHEJOYTZixi/sCJS8wXKFGJ+Q49BrHTIyCKncr+lc73nSidzv59J1/9yQ0S9iZH
+  </chunk>
+   <chunk x="80" y="32" width="16" height="16">
+   eJy10f0NgkAMh+GOJYwhjIEuIShLgOgS8uESojKPb2JMqjkQGvglz1/X9nJXke/c0OIutuwQIzH2Z8hxNPZfUKIaqFnBg+8463v/HgekWCNA6OjXdToFTjgjwgZbR7+u07NqNLgOvEt+6vSsB57o/vTrurF3jpk1dz5/Y00h77+x3Kn3YblT72NKltjHC2n3M3I=
+  </chunk>
+   <chunk x="96" y="32" width="16" height="16">
+   eJzdkssNwjAQBbcsoAxIGUATJIQmIEAT+dFEQEo9zCqXleWsRY48aQ6WPNaunkXiqaGBFgZ4wye4MwTnFaxh4zhhrLOFHWQJx8Y6ezjA8Qd/ifPPsX0scWwfJ8ihcNyLzHd4hRtUjv+U+Q7tH45F53s5b6f+sM43Or7mDKVMe4apE67mDg+Z9ozNl0oHvcT31P2//LsnJg==
+  </chunk>
+   <chunk x="112" y="32" width="16" height="16">
+   eJyNk9kNwjAQBfcP2oAquKrgqgJogrMJINAE4WiCcNTDWGjFYtmJnzTSSpadvLFciMgDMjjAUcJ5wgvekfULXOEGc1jA0pvLYs/fwg723pyaE+Rw9ubU3KGQrxc7pyTUdwVr2CTst31rUJfqu7GxfRvQlP+7qYrt24WeVN+9i+2o+0YwDqyHksmvo+5rQRs6Enegrm1H9daHAQwl7kBd247qbQJTmJU4UNfaWb/tEnsH1oW61s76bZfYO7AuQmfqv8TegXXxASYiW7k=
+  </chunk>
+   <chunk x="128" y="32" width="16" height="16">
+   eJyVklsOQQEMRLt3z03gsgkuNoHLepw/Y6JNneQkTTM/k3aKiCe+cINb3OEM57iIbzTjHPGEY5HTjHPDOz6KnGYqslzWy1niCte2r/orA+7xYPuqv3LGC15t3+0/xeeuStaryxC/e3XJenXJev2D/kBndvQHOrOjP9CZHf2BzlzxBvmhT9g=
+  </chunk>
+   <chunk x="144" y="32" width="16" height="16">
+   eJzlk7kNgDAQBN07bxOAoQneJnjrYRyQWGfZmJCRJllpg9XplJLR2GJn5RXW2Dh6DxPOuFh5jwOOnv6BJ15WvuKGu6cvkWCKWUTXELrdReh2F1+2G/6+P8cCy8i+VvJPhCL9xJubSD8RehPX9htySSo3
+  </chunk>
+   <chunk x="64" y="48" width="16" height="16">
+   eJzd0ckJgDAQheHctA1t1bUJ1yZcm3Ctx/8SkKAYB08OfOSQeQnDKHVdPQaMN/dPtWLDLswHCBEJ8xlyFMJ8gxadMD9hxoIYCVLhWyUq1ML8l7v8014k9XZ+B+7ptJ1f93vwT6ft/Lrf/N+c/wB+9yX5
+  </chunk>
+   <chunk x="80" y="48" width="16" height="16">
+   eJyd0tkNgzAQRVHKgpRBKCNJE1mbCIQ0EbI0kbWeXD4sPSEbMx7pSP7w0wyDs2x6rbHB1pDROqJGk5i/oMPVkNlhjwOeeOFtyJ/Q4mzI6J5uuONhyOuePvjiF+jhqyl7cj18M4f2pHdcD9/MoYzecT1iM2tm7Lt05hwFZoPM2P/XOUvMUUUyoTkXWGIVyeRyTnnbpZxT3nY/5x/FpEF2
+  </chunk>
+   <chunk x="96" y="48" width="16" height="16">
+   eJy9k9kNwkAMRLcpziY4m+BsgrMJINBEuJrgrIeHEov5yO7CDyO9n3gtj62Jc2Hd4QHPgtoq0htTGqlXoQZ1T/1S8G0CU5hBGzrQ/cHTe6c1bGAIIxhHekpQhorLdtrDIfB+DgtY5j4b0ISWy3a6wi3Qn8AWdrnPHvRhEPFpOsIJzhGfPmkmQj7/Kb2p5kbzEFLiPjfV3GgedIbJ5uhNNTeaB51hsjm+/0zzoDNM3+TTVDTjBSlQOnA=
+  </chunk>
+   <chunk x="112" y="48" width="16" height="16">
+   eJydktsNwkAMBN0kNMQrTRACTQCBJnjWw3xwyipahxMjjWT5Y2Wfr42IHXa4xwPOcI43vONjVD/xhW884Rl7vOAV17jBZlQvcImrGHCZOovWW2y/806hs2h9lHmn0Fm01jf4B7e/62W4/bX3K8vtrz3N0rsV3P7a06wuhrsVXKaiWXq3gsvM0LsVXGaGe0uXmVH7VzNq/2pG7V/9AMKPW7E=
+  </chunk>
+   <chunk x="128" y="48" width="16" height="16">
+   eJztzbkNwCAQRFF699mEzyZsDE34rMc/3GAF0saM9MKvca6szLbW2HToMRubBSuORFOhRqM0ARFPohkwYlKaF5/yKZsNO3ymkZPNiQt3ppGzND88AiMN
+  </chunk>
+   <chunk x="144" y="48" width="16" height="16">
+   eJzt0ssNgzAQRdHpC9oIDQUCTRA+TUACTfCth7tBjJAN9p4nnY0tSzNPbkSkxU+uU6JCfTofMGK6ef9Hh95y/0aMRJ19kCLDjAWr5X2OLwoECC9mNqWRo4cXIoeZdUw93M2sY9rfJ3p/n+z96v19svfr+g/Oce3XFtd+n5izAdTXKfg=
+  </chunk>
+   <chunk x="0" y="64" width="16" height="16">
+   eJxjYMANLIDYEoit8KjBB4KAOBiIQ8jUnwPEuUCcR6Z+UyA2A2JzMvX7A3EAEAeSqT8TiLOAOJtM/aPhP7DhPxIAACSEC3c=
+  </chunk>
+   <chunk x="64" y="64" width="16" height="16">
+   eJxjYMAPFIFYCYkeBaNgFAwfAAAINgCH
+  </chunk>
+   <chunk x="144" y="64" width="16" height="16">
+   eJxjYMAOLIDYEoitcMgTAkFAHAzEIWTqzwHiXCDOI1O/KRCbAbE5mfr9gTgAiAPJ1J8JxFlAnE2m/tHwH9jwHykAAFJcC3c=
+  </chunk>
+   <chunk x="0" y="80" width="16" height="16">
+   eJyNUtEKACEI89V+w///x7ugwRjNFOSsc7nWMiLqzzy563USe7t2gf9FmJLs8OhJ8wWXbn5SX8X9Di60D7OXrDv+fH/l8NKPe/islOzms1bMnfddqHYp9RTvsC/9lKt6AHU3n73GfmBOLtSnesbE/87zE/+yz27vgHXHX3GqRYf/ACpBC5s=
+  </chunk>
+  </data>
+ </layer>
+ <layer id="7" name="spawns" width="140" height="140">
+  <data encoding="base64" compression="zlib">
+   <chunk x="64" y="0" width="16" height="16">
+   eJxjYBgFo4C2oIdC/cuo4opRgA0AAMcHATM=
+  </chunk>
+   <chunk x="96" y="0" width="16" height="16">
+   eJxjYBgFo2AUkAJ6KNS/jCquoA4AAM5YATM=
+  </chunk>
+   <chunk x="144" y="0" width="16" height="16">
+   eJxjYBgFwx30UKh/GVVcMQoGIwAAYBYBMw==
+  </chunk>
+   <chunk x="144" y="16" width="16" height="16">
+   eJxjYBgFo2DgQQ+F+pdRxRUjDwAAm/8BMw==
+  </chunk>
+   <chunk x="80" y="32" width="16" height="16">
+   eJxjYBgFo4Ay0EOh/mVUccUoIAcAAO1HATM=
+  </chunk>
+   <chunk x="96" y="32" width="16" height="16">
+   eJxjYBgY0EOh/mVUccUoGAUjGwAAE0wBMw==
+  </chunk>
+   <chunk x="112" y="32" width="16" height="16">
+   eJxjYKA/6KFQ/zKquGIUjIJRAAAYFAEz
+  </chunk>
+   <chunk x="112" y="48" width="16" height="16">
+   eJxjYBi5oIdC/cuo4opRMAoGLi0CANtlAmU=
+  </chunk>
+  </data>
+ </layer>
+ <layer id="6" name="chests" width="140" height="140">
+  <data encoding="base64" compression="zlib">
+   <chunk x="112" y="0" width="16" height="16">
+   eJxjYBgFo2AUIAMmCvXLUMUV9AEAGKgAHw==
+  </chunk>
+   <chunk x="144" y="32" width="16" height="16">
+   eJxjYBgFo2AUDDfARKQ6AARQAAM=
+  </chunk>
+   <chunk x="144" y="48" width="16" height="16">
+   eJxjYMAOZHCIj4JRMAqGDwAAcWAAHQ==
+  </chunk>
+  </data>
+ </layer>
+ <layer id="5" name="lake" width="140" height="140">
+  <data encoding="base64" compression="zlib">
+   <chunk x="128" y="0" width="16" height="16">
+   eJxjYBgFo4A4MAuIZ6NhUsAWIN6KhoeS/nNAfB4ND3UAAGkCEak=
+  </chunk>
+   <chunk x="144" y="0" width="16" height="16">
+   eJxjYBgFIxnMRsJzyNC/FQlvG4L6zyPhC2ToH+oAAIWYDio=
   </chunk>
   </data>
  </layer>

@@ -3,56 +3,56 @@ instances {
   id: "camera"
   prototype: "/orthographic/camera.go"
   position {
-    x: 3647.0
-    y: 3572.0
+    x: 5149.0
+    y: 1650.0
   }
 }
 instances {
   id: "totem"
   prototype: "/main/prefabs/buildings/main-building.go"
   position {
-    x: 3629.0
-    y: 3651.0
+    x: 5131.0
+    y: 1729.0
   }
 }
 instances {
   id: "spawner-west"
   prototype: "/main/prefabs/enemies/spawn.go"
   position {
-    x: 3102.0
-    y: 3604.0
+    x: 793.0
+    y: 1693.0
   }
 }
 instances {
   id: "spawner-east"
   prototype: "/main/prefabs/enemies/spawn.go"
   position {
-    x: 4122.0
-    y: 3603.0
+    x: 9493.0
+    y: 1692.0
   }
 }
 instances {
   id: "player"
   prototype: "/main/prefabs/players/player.go"
   position {
-    x: 3630.0
-    y: 3478.0
+    x: 5132.0
+    y: 1556.0
   }
 }
 collection_instances {
   id: "gui"
   collection: "/main/gui/gui.collection"
   position {
-    x: 3167.0
-    y: 3252.0
+    x: 4669.0
+    y: 1330.0
   }
 }
 scale_along_z: 0
 embedded_instances {
   id: "map"
   data: "components {\n"
-  "  id: \"big-moo-moo\"\n"
-  "  component: \"/main/tilemaps/big-moo-moo.tilemap\"\n"
+  "  id: \"with-spawns\"\n"
+  "  component: \"/main/tilemaps/with-spawns.tilemap\"\n"
   "  position {\n"
   "    z: -1.0\n"
   "  }\n"
@@ -60,7 +60,7 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"collisionobject\"\n"
   "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"/main/tilemaps/big-moo-moo.tilemap\\\"\\n"
+  "  data: \"collision_shape: \\\"/main/tilemaps/with-spawns.tilemap\\\"\\n"
   "type: COLLISION_OBJECT_TYPE_STATIC\\n"
   "mass: 0.0\\n"
   "friction: 1.0\\n"
@@ -72,13 +72,7 @@ embedded_instances {
   "\"\n"
   "}\n"
   ""
-  position {
-    x: 106.0
-    y: 106.0
-  }
   scale3 {
-    x: 0.781
-    y: 0.781
     z: 0.781
   }
 }

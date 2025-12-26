@@ -62,7 +62,8 @@ function final(self) msg.post(".", "release_input_focus") end
 
 ---@param self Head
 function update(self, dt)
-  if not self.dashing and self.moving then
+  -- Handle dashing or normal movement
+  if self.dashing or self.moving then
     local target_position = go.get_position()
     target_position = target_position + self.dir * self.speed * dt
     go.set_position(target_position)

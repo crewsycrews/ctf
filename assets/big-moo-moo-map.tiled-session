@@ -8,14 +8,14 @@
     ],
     "fileStates": {
         "": {
-            "scaleInDock": 1
+            "scaleInDock": 0.5
         },
         "main-map.tmx": {
             "scale": 0.25,
             "selectedLayer": 9,
             "viewCenter": {
                 "x": 4462,
-                "y": 4440
+                "y": 4442
             }
         },
         "main-map.tmx#nature": {
@@ -67,43 +67,54 @@
         "orcs/Tiled_files/Orc1.tmx#shadow_single": {
             "scaleInDock": 1
         },
-        "with-spawns.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+        "with-spawns-fixed-dimensions.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": -1174.2424242424242,
-                "y": 542.4242424242425
+                "x": 4616,
+                "y": 808
+            }
+        },
+        "with-spawns.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 6104,
+                "y": 4184
             }
         },
         "with-spawns.tmx#nature": {
             "scaleInDock": 0.5
         }
     },
-    "last.exportedFilePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/main/tilemaps",
+    "last.exportedFilePath": "//wsl$/Ubuntu/home/crewsycrews/gamedev/CTF/main/tilemaps",
+    "last.externalTilesetPath": "//wsl.localhost/Ubuntu/home/crewsycrews/gamedev/CTF/assets",
     "last.imagePath": "/home/crews/projects/ctf-project/ctf-defold/assets",
     "last.workingDirectory": "/home/crews/projects/ctf-project/ctf-defold/assets",
     "last.worldFilePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets",
     "loadedWorlds": [
-        "/home/crews/projects/ctf-project/ctf-defold/assets/world.world"
+        "//wsl.localhost/Ubuntu/home/crewsycrews/gamedev/CTF/assets/world.world"
     ],
-    "map.fixedSize": false,
-    "map.height": 140,
+    "map.fixedSize": true,
+    "map.height": 96,
     "map.lastUsedExportFilter": "Тайловая карта для Defold (*.tilemap)",
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": "3",
-    "map.renderOrder": "3",
+    "map.renderOrder": "2",
     "map.tileHeight": 64,
     "map.tileWidth": 64,
-    "map.width": 140,
+    "map.width": 160,
     "openFiles": [
     ],
     "project": "big-moo-moo-map.tiled-project",
     "recentFiles": [
+        "nature.tsx",
+        "main-map.tmx",
         "with-spawns.tmx",
-        "orcs/Tiled_files/Orc1.tmx",
-        "nature.tsx"
+        "orcs/Tiled_files/Orc1.tmx"
     ],
     "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "Файлы набора тайлов Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 64,

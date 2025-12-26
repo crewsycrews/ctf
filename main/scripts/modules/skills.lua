@@ -10,18 +10,24 @@ skills.dash = function(performer)
   if performer.dash_on_cooldown or performer.dashing then return end
   performer.dash_on_cooldown = true
   performer.dashing = true
-  local target_position = go.get_position()
-  target_position = target_position + performer.dir * performer.speed * 1.08
+
+  -- Store original speed and boost it for dash
+  if not performer.original_speed then
+    performer.original_speed = performer.speed
+  end
+  performer.speed = performer.original_speed * 4
+
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = "head_" .. ELEMENTS[1] })
-  timer.delay(SKILLS.COOLDOWNS.dash, false, function(self, handle, time_elapsed)
+    { type = "head_" .. ELEMENTS[1] })
+  timer.delay(SKILLS.COOLDOWNS.dash, false, function()
     performer.dash_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = "head_" .. ELEMENTS[1] })
+      { type = "head_" .. ELEMENTS[1] })
   end)
-  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.dash, 0,
-             function(self, url, property)
+
+  -- Reset speed and dashing state after dash duration
+  timer.delay(SKILLS.SKILL_DURATIONS.dash, false, function()
+    performer.speed = performer.original_speed
     performer.dashing = false
     buffs.remove_status(performer, STATUSES.invulnerability)
   end)
@@ -36,15 +42,15 @@ skills.jump = function(performer)
   performer.jumping = true
   performer.jump_on_cooldown = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = "head_" .. ELEMENTS[3] })
+    { type = "head_" .. ELEMENTS[3] })
   timer.delay(SKILLS.COOLDOWNS.jump, false, function(self, handle, time_elapsed)
     performer.jump_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = "head_" .. ELEMENTS[3] })
+      { type = "head_" .. ELEMENTS[3] })
   end)
   go.animate(go.get_id(), 'scale', go.PLAYBACK_ONCE_PINGPONG,
-             go.get_scale() * 2, go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.jump, 0,
-             function(self, url, property) self.jumping = false end)
+    go.get_scale() * 2, go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.jump, 0,
+    function(self, url, property) self.jumping = false end)
   -- followersManipulator.animate_jump(performer)
 end
 
@@ -52,23 +58,33 @@ end
 ---@param performer Head
 skills.backward_dash = function(performer)
   if performer.backward_dash_on_cooldown or performer.dashing then return end
-  performer.dashing = true
   performer.backward_dash_on_cooldown = true
-  local target_position = go.get_position()
-  target_position = target_position - performer.dir * performer.speed * 1.08
+  performer.dashing = true
+
+  -- Store original speed and direction
+  if not performer.original_speed then
+    performer.original_speed = performer.speed
+  end
+  local original_dir = vmath.vector3(performer.dir)
+
+  -- Boost speed and reverse direction for backward dash
+  performer.speed = performer.original_speed * 8
+  performer.dir = -performer.dir
 
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = "head_" .. ELEMENTS[2] })
-  timer.delay(SKILLS.COOLDOWNS.backward_dash, false,
-              function(self, handle, time_elapsed)
+    { type = "head_" .. ELEMENTS[2] })
+  timer.delay(SKILLS.COOLDOWNS.backward_dash, false, function()
     performer.backward_dash_on_cooldown = false
     msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = "head_" .. ELEMENTS[2] })
+      { type = "head_" .. ELEMENTS[2] })
   end)
 
-  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_LINEAR, SKILLS.SKILL_DURATIONS.backward_dash, 0,
-             function(self, url, property) self.dashing = false end)
+  -- Reset speed, restore direction, and clear dashing state after dash duration
+  timer.delay(SKILLS.SKILL_DURATIONS.backward_dash, false, function()
+    performer.speed = performer.original_speed
+    performer.dir = original_dir
+    performer.dashing = false
+  end)
 end
 
 ---@param performer Head
@@ -78,22 +94,22 @@ skills.ice_barrage = function(performer)
   end
 
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[2] })
+    { type = ELEMENTS[2] })
   local spellGO = factory.create("#ice-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
   performer.ice_barrage_on_cooldown = true
   performer.ice_barrage_active = true
   timer.delay(SKILLS.COOLDOWNS.ice_barrage, false,
-              function(self, handle, time_elapsed)
-    performer.ice_barrage_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[2] })
-  end)
+    function(self, handle, time_elapsed)
+      performer.ice_barrage_on_cooldown = false
+      msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+        { type = ELEMENTS[2] })
+    end)
   timer.delay(SKILLS.SKILL_DURATIONS.ice_barrage, false,
-              function(self, handle, time_elapsed)
-    performer.ice_barrage_active = false
-    go.delete(spellGO)
-  end)
+    function(self, handle, time_elapsed)
+      performer.ice_barrage_active = false
+      go.delete(spellGO)
+    end)
 end
 
 ---@param performer Head
@@ -101,15 +117,15 @@ skills.fireball = function(performer)
   if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[1] })
+    { type = ELEMENTS[1] })
   local spellGO = factory.create("#fireball-spell-factory")
   go.set_rotation(go.get_rotation(), spellGO)
   timer.delay(SKILLS.COOLDOWNS.fireball, false,
-              function(self, handle, time_elapsed)
-    performer.fireball_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[1] })
-  end)
+    function(self, handle, time_elapsed)
+      performer.fireball_on_cooldown = false
+      msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+        { type = ELEMENTS[1] })
+    end)
 end
 
 ---@param performer Head
@@ -120,21 +136,21 @@ skills.thunderclap = function(performer)
   performer.thunderclap_on_cooldown = true
   performer.thunderclap_active = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[4] })
+    { type = ELEMENTS[4] })
 
   local spellGO = factory.create("#thunderclap-spell-factory")
   msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
   timer.delay(SKILLS.SKILL_DURATIONS.thunderclap, false,
-              function(self, handle, time_elapsed)
-    performer.thunderclap_active = false
-    go.delete(spellGO)
-  end)
+    function(self, handle, time_elapsed)
+      performer.thunderclap_active = false
+      go.delete(spellGO)
+    end)
   timer.delay(SKILLS.COOLDOWNS.thunderclap, false,
-              function(self, handle, time_elapsed)
-    performer.thunderclap_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[4] })
-  end)
+    function(self, handle, time_elapsed)
+      performer.thunderclap_on_cooldown = false
+      msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+        { type = ELEMENTS[4] })
+    end)
 end
 
 ---@param performer Head
@@ -142,23 +158,23 @@ skills.windwalk = function(performer)
   if performer.windwalk_on_cooldown or performer.windwalk_active then return end
   performer.windwalk_on_cooldown = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[3] })
+    { type = ELEMENTS[3] })
   local spellGO = factory.create("#windwalk-spell-factory")
 
   go.set_rotation(go.get_rotation(), spellGO)
   go.set_scale(1.6, spellGO)
   timer.delay(SKILLS.SKILL_DURATIONS.windwalk, false,
-              function(self, handle, time_elapsed)
-    performer.windwalk_active = false
-    go.set_scale(1)
-    if (defold_extend.go_exists(spellGO)) then go.delete(spellGO) end
-  end)
+    function(self, handle, time_elapsed)
+      performer.windwalk_active = false
+      go.set_scale(1)
+      if (defold_extend.go_exists(spellGO)) then go.delete(spellGO) end
+    end)
   timer.delay(SKILLS.COOLDOWNS.windwalk, false,
-              function(self, handle, time_elapsed)
-    performer.windwalk_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[3] })
-  end)
+    function(self, handle, time_elapsed)
+      performer.windwalk_on_cooldown = false
+      msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
+        { type = ELEMENTS[3] })
+    end)
   -- making the walker small, like he's disappeared
   go.set_scale(0.0000001)
 end
