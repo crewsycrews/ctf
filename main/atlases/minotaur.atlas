@@ -1,0 +1,148 @@
+animations {
+  id: "idle"
+  images {
+    image: "/assets/units/minotaur/idle/idle_1.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_2.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_3.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_4.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_5.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_6.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_7.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_8.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_9.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_10.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_11.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_12.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_13.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_14.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_15.png"
+  }
+  images {
+    image: "/assets/units/minotaur/idle/idle_16.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "attack"
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_1.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_2.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_3.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_4.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_5.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_6.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_7.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_8.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_9.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_10.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_11.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_12.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_13.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_14.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_15.png"
+  }
+  images {
+    image: "/assets/units/minotaur/atk_1/atk_1_16.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "walk"
+  images {
+    image: "/assets/units/minotaur/walk/walk_1.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_2.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_3.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_4.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_5.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_6.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_7.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_8.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_9.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_10.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_11.png"
+  }
+  images {
+    image: "/assets/units/minotaur/walk/walk_12.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+extrude_borders: 2

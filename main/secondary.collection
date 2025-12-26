@@ -2,20 +2,24 @@ name: "secondary"
 instances {
   id: "camera"
   prototype: "/orthographic/camera.go"
+  position {
+    x: 3647.0
+    y: 3572.0
+  }
 }
 instances {
   id: "totem"
   prototype: "/main/prefabs/buildings/main-building.go"
   position {
-    x: 3632.0
-    y: 3667.0
+    x: 3629.0
+    y: 3651.0
   }
 }
 instances {
   id: "spawner-west"
   prototype: "/main/prefabs/enemies/spawn.go"
   position {
-    x: 198.0
+    x: 3102.0
     y: 3604.0
   }
 }
@@ -23,7 +27,7 @@ instances {
   id: "spawner-east"
   prototype: "/main/prefabs/enemies/spawn.go"
   position {
-    x: 7008.0
+    x: 4122.0
     y: 3603.0
   }
 }
@@ -38,6 +42,10 @@ instances {
 collection_instances {
   id: "gui"
   collection: "/main/gui/gui.collection"
+  position {
+    x: 3167.0
+    y: 3252.0
+  }
 }
 scale_along_z: 0
 embedded_instances {
