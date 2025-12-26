@@ -10,7 +10,16 @@
         "": {
             "scaleInDock": 1
         },
+        "main-map.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 9,
+            "viewCenter": {
+                "x": 4462,
+                "y": 4440
+            }
+        },
         "main-map.tmx#nature": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "main-map.tmx#ruins": {
@@ -19,15 +28,65 @@
         "nature.tsx": {
             "scaleInDock": 0.33,
             "scaleInEditor": 0.75
+        },
+        "orcs/Tiled_files/Orc1.tmx": {
+            "scale": 2.293359375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 127.97819792198943,
+                "y": 255.95639584397887
+            }
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_attack_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_death_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_hurt_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_idle_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_run_attack_front_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_run_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_walk_attack_front _full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#orc1_walk_full": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#shadow_death": {
+            "scaleInDock": 1
+        },
+        "orcs/Tiled_files/Orc1.tmx#shadow_single": {
+            "scaleInDock": 1
+        },
+        "with-spawns.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": -1174.2424242424242,
+                "y": 542.4242424242425
+            }
+        },
+        "with-spawns.tmx#nature": {
+            "scaleInDock": 0.5
         }
     },
     "last.exportedFilePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/main/tilemaps",
-    "last.imagePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets/units/nature/tiles",
+    "last.imagePath": "/home/crews/projects/ctf-project/ctf-defold/assets",
+    "last.workingDirectory": "/home/crews/projects/ctf-project/ctf-defold/assets",
     "last.worldFilePath": "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets",
     "loadedWorlds": [
-        "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets/world.world",
-        "C:/Users/COMPLETE COUPLE/gamedev/CTF/assets/world.world"
+        "/home/crews/projects/ctf-project/ctf-defold/assets/world.world"
     ],
+    "map.fixedSize": false,
     "map.height": 140,
     "map.lastUsedExportFilter": "Тайловая карта для Defold (*.tilemap)",
     "map.lastUsedFormat": "tmx",
@@ -40,12 +99,14 @@
     ],
     "project": "big-moo-moo-map.tiled-project",
     "recentFiles": [
+        "with-spawns.tmx",
+        "orcs/Tiled_files/Orc1.tmx",
         "nature.tsx"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 32,
-        "width": 32
+        "height": 64,
+        "width": 64
     }
 }
