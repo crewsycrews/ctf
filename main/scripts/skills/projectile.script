@@ -4,7 +4,7 @@ function update(self, dt)
   local pos = go.get_position()
   local distance = self.speed * dt
   local direction = vmath.rotate(go.get_rotation(),
-                                 vmath.vector3(0, distance, 0))
+    vmath.vector3(0, distance, 0))
   pos = pos + direction
   go.set_position(pos)
 end
@@ -12,7 +12,7 @@ end
 function on_message(self, message_id, message, sender)
   if message_id == hash("trigger_response") then
     if message.other_group == COLLISION_GROUPS.enemies and message.enter then
-      go.delete(go.get_id())
+      go.delete()
     end
   end
 end
