@@ -11,6 +11,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Engine:** Defold (version 0.1)
 - **Language:** Lua 5.1
 
+### Microlite20 (M20) Integration
+
+The game is currently being enhanced with Microlite20 tabletop RPG mechanics for deeper stat-based progression:
+
+- **Implementation Plan**: See [M20_IMPLEMENTATION_PLAN.md](M20_IMPLEMENTATION_PLAN.md) for detailed roadmap
+- **M20 Rules Reference**: See [docs/Microlite20.pdf](docs/Microlite20.pdf) for complete M20 rules
+- **Current Status**: Milestone 1 complete (core modules), Milestone 2 partial (player/enemy integration)
+- **Key Features**: STR/DEX/MIND stats, d20 combat resolution, XP/leveling, 4 character classes, HP-based spell casting
+
 ## Build and Development Commands
 
 ### Using the Build Script
@@ -105,6 +114,65 @@ Entities can have temporary status effects (implemented in `main/scripts/modules
 - `slow` - 50% movement speed
 
 Buffs are stored in `entity.buffs` table and managed via timers.
+
+### Microlite20 (M20) System
+
+The game uses the Microlite20 RPG system for character stats, combat resolution, and progression. All entities (player, enemies) have M20 stats:
+
+```lua
+entity.m20_stats = {
+  -- Core attributes (3-18 typical range)
+  STR = 10,  -- Strength (melee attack/damage)
+  DEX = 10,  -- Dexterity (AC, ranged attack)
+  MIND = 10, -- Mind (spellcasting, magic)
+
+  -- Derived stats
+  level = 1,
+  xp = 0,
+  xp_to_next_level = 10,
+  hp_max = 15,      -- Maximum HP
+  hp_current = 15,  -- Current HP (source of truth for health)
+  ac = 11,          -- Armor Class (10 + DEX bonus)
+
+  -- Metadata
+  class = "fighter", -- fighter, rogue, mage, cleric
+  race = "human"     -- human, elf, dwarf, halfling
+}
+```
+
+**Key M20 Mechanics**:
+- **Stat Bonus**: (stat - 10) / 2 rounded down (e.g., STR 16 = +3 bonus)
+- **XP Formula**: Enemy awards HD² + HD XP (e.g., 2 HD = 6 XP)
+- **Level-Up**: Requires 10 × current level XP (level 1→2 = 10 XP)
+- **HP System**: M20 stats are the single source of truth (no redundant health properties)
+- **Combat**: d20 + attack bonus vs AC, then damage roll on hit
+- **Spells**: Cost 1 + (2 × spell level) HP, no cooldowns
+
+**M20 Modules** (`main/scripts/modules/m20_*.lua`):
+- `m20_attributes.lua` - Stat management, HP/AC calculation
+- `m20_dice.lua` - Dice rolling (d20, d6, etc.), attack/damage rolls
+- `m20_combat.lua` - Combat resolution with M20 rules
+- `m20_skills.lua` - 4-skill system (Physical, Subterfuge, Knowledge, Communication)
+- `m20_progression.lua` - XP tracking, level-up mechanics
+- `m20_classes.lua` - Character classes (Fighter, Rogue, Mage, Cleric)
+- `m20_magic.lua` - HP-based spell casting
+- `m20_spells.lua` - Spell database (35+ spells from M20 rules)
+
+**M20 Messages** (in `constants.lua`):
+```lua
+MESSAGES.M20 = {
+  AWARD_XP = 'm20_award_xp',           -- Award XP to player
+  LEVEL_UP = 'm20_level_up',           -- Level-up notification
+  SPELL_CAST = 'm20_spell_cast',       -- Spell cast event
+  -- ... see constants.lua for full list
+}
+```
+
+**Integration Status**:
+- ✅ Player: Initialized as Fighter/Human, gains XP on kills, levels up automatically
+- ✅ Enemies: Stats generated from HD property, award XP on death
+- ⏸️ Spells: Modules ready, integration pending (Milestone 3)
+- ⏸️ UI: HUD/character sheet pending (Milestone 2)
 
 ### Skill System
 
