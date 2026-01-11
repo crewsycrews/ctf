@@ -159,6 +159,49 @@ The game uses the **Orthographic Camera** dependency for rendering and coordinat
 - `main/tilesources/` - Tiled sprite sheets
 - `assets/` - Raw source files (PNGs, Tiled maps, audio)
 
+## Coding Standards
+
+### Type Annotations (LuaLS/EmmyLua)
+
+**All Lua modules MUST include type annotations** using LuaLS (Lua Language Server) / EmmyLua syntax:
+
+**Required Annotations**:
+1. **Class definitions** at the top of modules for complex data structures
+2. **Function parameters** with `---@param` annotations
+3. **Return types** with `---@return` annotations
+4. **Optional parameters** marked with `?` suffix (e.g., `---@param count? number`)
+
+**Example**:
+```lua
+---@class M20Stats
+---@field STR number Strength stat
+---@field DEX number Dexterity stat
+---@field level number Character level
+
+--- Roll a die with specified number of sides
+---@param sides number Number of sides on the die
+---@param count? number Number of dice to roll (default: 1)
+---@return number total Sum of all dice rolled
+function M.roll(sides, count)
+    count = count or 1
+    return math.random(1, sides) * count
+end
+```
+
+**Benefits**:
+- IDE autocomplete and IntelliSense
+- Type checking and error detection
+- Self-documenting code
+- Easier refactoring and maintenance
+
+**Type Annotation Style**:
+- Use `---` (three dashes) for LuaLS annotations
+- Place `---@class` definitions at the top of the module
+- Add function annotations immediately before function declaration
+- Use `?` suffix for optional parameters (e.g., `count?`)
+- Use `|` for union types (e.g., `string|nil`)
+- Use `[]` suffix for arrays (e.g., `number[]`)
+
 ## Common Development Patterns
 
 ### Adding a New Enemy

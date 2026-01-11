@@ -6,7 +6,28 @@ MESSAGES = {
     COUNT_SCORE = 'player_count_score'
   },
   TOTEM = { TAKE_DAMAGE = 'totem_take_damage', SET_HEALTH = 'totem_set_health' },
-  SKILLS = { COOLDOWN = 'cooldown', NORMAL = 'normal' }
+  SKILLS = { COOLDOWN = 'cooldown', NORMAL = 'normal' },
+  -- M20 System Messages
+  M20 = {
+    AWARD_XP = 'm20_award_xp',
+    LEVEL_UP = 'm20_level_up',
+    STAT_CHOICE = 'm20_stat_choice',
+    ROLL_ATTACK = 'm20_roll_attack',
+    ROLL_DAMAGE = 'm20_roll_damage',
+    SAVING_THROW = 'm20_saving_throw',
+    COMBAT_RESULT = 'm20_combat_result',
+    UPDATE_STATS = 'm20_update_stats',
+    GOLD_PICKUP = 'm20_gold_pickup',
+    SHOP_OPEN = 'm20_shop_open',
+    SHOP_CLOSE = 'm20_shop_close',
+    BUY_ITEM = 'm20_buy_item',
+    SELL_ITEM = 'm20_sell_item',
+    EQUIP_ITEM = 'm20_equip_item',
+    UNEQUIP_ITEM = 'm20_unequip_item',
+    USE_CONSUMABLE = 'm20_use_consumable',
+    SPELL_CAST = 'm20_spell_cast',
+    SPELL_COST = 'm20_spell_cost'
+  }
 }
 
 ---@enum statuses
