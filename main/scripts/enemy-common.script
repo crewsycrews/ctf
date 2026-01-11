@@ -1,6 +1,10 @@
 local buffs = require("main.scripts.modules.buffs")
 
-go.property("health", 100)
+-- M20 System Modules
+local attrs = require("main.scripts.modules.m20_attributes")
+local m20_skills = require("main.scripts.modules.m20_skills")
+local progression = require("main.scripts.modules.m20_progression")
+
 go.property("speed", 10)
 go.property("damage", 0)
 go.property("target_url", msg.url())
@@ -8,6 +12,7 @@ go.property("score_points", 1)
 go.property("attack_range", 0)      -- >0 enables attack timer/animation logic
 go.property("attack_cooldown", 1.5) -- seconds between attacks when in range
 go.property("detection_range", 300) -- distance to detect and switch target to player
+go.property("hd", 1)                -- Hit Dice for M20 stats (determines all stats)
 
 -- Get approximate radius of target's collision shape
 local function get_target_radius(target_url)
@@ -47,6 +52,10 @@ function init(self)
   self.default_target = self.target_url -- Store original target (totem)
   self.player_url = msg.url("/player")  -- Reference to player
   self.current_target = self.default_target
+
+  -- Initialize M20 stats based on Hit Dice
+  attrs.initialize_monster(self, self.hd, false)
+  m20_skills.initialize_monster_skills(self, self.hd, false)
 end
 
 local function get_direction_from_vector(diff)
@@ -88,9 +97,11 @@ end
 
 local function handle_damage_input(self, message)
   local damage_done = go.get(msg.url(nil, message.other_id, "script"), "damage")
-  self.health = self.health - damage_done
 
-  if self.health > 0 then
+  -- Apply damage to M20 stats (source of truth)
+  attrs.take_damage(self, damage_done)
+
+  if self.m20_stats.hp_current > 0 then
     if play_animation(self, "hurt") then
       timer.delay(0.3, false, function()
         if self.state ~= "death" then
@@ -202,9 +213,16 @@ local function handle_destroy(self)
   local played = play_animation(self, "death")
 
   local function delete_and_score()
-    go.delete(go.get_id())
+    -- Calculate and award XP based on HD
+    local xp_reward = progression.calculate_enemy_xp(self.hd)
+    msg.post("/player", MESSAGES.M20.AWARD_XP, { xp = xp_reward })
+
+    -- Award score points (legacy system)
     msg.post("/gui/gui", MESSAGES.PLAYER.COUNT_SCORE,
       { score = self.score_points })
+
+    -- Delete enemy
+    go.delete(go.get_id())
   end
 
   if played then
@@ -227,5 +245,5 @@ function on_message(self, message_id, message, sender)
     end
   end
 
-  if self.health <= 0 then handle_destroy(self) end
+  if self.m20_stats.hp_current <= 0 then handle_destroy(self) end
 end

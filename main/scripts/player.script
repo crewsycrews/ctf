@@ -2,14 +2,11 @@
 ---@field moving bool
 ---@field dashing bool
 ---@field jumping bool
----@field max_health number Set via go.property
----@field current_health number
 ---@field input quaternion|vector3|vector4
 ---@field dir quaternion|vector3|vector4
 ---@field speed number
 ---@field followers table
 ---@field followers_amount number
----@field health number
 ---@field buffs table
 ---@field dash_on_cooldown bool
 ---@field backward_dash_on_cooldown bool
@@ -25,12 +22,21 @@
 ---@field last_direction string Track last movement direction for idle animations
 ---@field buff_visual_target string
 ---@field orb_id hash The floating orb that casts spells
+---@field m20_stats table M20 stats (STR, DEX, MIND, HP, AC, etc.)
+---@field m20_skills table M20 skills (physical, subterfuge, knowledge, communication)
+---@field signature_spells table Signature spells (reduced HP cost)
 go.property('speed', 200)
-go.property("max_health", 300)
 
 require("main.scripts.common.get_world_rotation")
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")
+
+-- M20 System Modules
+local attrs = require("main.scripts.modules.m20_attributes")
+local m20_skills = require("main.scripts.modules.m20_skills")
+local classes = require("main.scripts.modules.m20_classes")
+local progression = require("main.scripts.modules.m20_progression")
+local magic = require("main.scripts.modules.m20_magic")
 
 
 ---@param self Head
@@ -49,8 +55,24 @@ function init(self)
   self.current_animation = "idle_south"
   self.last_direction = "south"
 
-  self.current_health = self.max_health
   -- followersManipulator.spawn_followers(self)
+
+  -- Initialize M20 stats (Fighter class, Human race by default)
+  -- TODO: Add class/race selection UI in future milestone
+  attrs.initialize_entity(self, "fighter", "human", true)
+  m20_skills.initialize_skills(self, "fighter", "human")
+  classes.apply_class_features(self, "fighter")
+  magic.initialize_signature_spells(self)
+
+  print(string.format("[M20] Player initialized: Level %d %s %s",
+    self.m20_stats.level,
+    self.m20_stats.race:sub(1,1):upper() .. self.m20_stats.race:sub(2),
+    self.m20_stats.class:sub(1,1):upper() .. self.m20_stats.class:sub(2)
+  ))
+  print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d",
+    self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
+    self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
+  ))
 
   -- Spawn floating orb and store reference
   self.orb_id = factory.create("#floating-orb-factory")
@@ -85,7 +107,7 @@ function update(self, dt)
 
   -- checkRotation(self)
 
-  if self.current_health <= 0 then
+  if self.m20_stats.hp_current <= 0 then
     msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
   end
 end
@@ -168,14 +190,55 @@ end
 function on_message(self, message_id, message)
   if message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
     local damage = message.damage
-    self.current_health = self.current_health - damage
-    -- max health(100 number) is a subject to initialize at load time on level init. So we'll need to change next line later
-    msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
-      { health_percent = self.current_health / self.max_health })
 
-    if self.current_health <= 0 then
+    -- Apply damage to M20 stats (source of truth)
+    attrs.take_damage(self, damage)
+
+    -- Update GUI
+    msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
+      { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+
+    if self.m20_stats.hp_current <= 0 then
       msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL,
         { level = "game_over" })
+    end
+
+  elseif message_id == hash(MESSAGES.M20.AWARD_XP) then
+    -- Award XP from enemy kills
+    local xp_amount = message.xp or 0
+    progression.award_xp(self, xp_amount)
+
+    print(string.format("[M20] +%d XP! Total: %d/%d (Level %d)",
+      xp_amount,
+      self.m20_stats.xp,
+      self.m20_stats.xp_to_next_level,
+      self.m20_stats.level
+    ))
+
+    -- Check for level-up
+    if progression.check_level_up(self) then
+      local result = progression.level_up(self, nil) -- Auto-select stat for now
+
+      -- Apply class-specific bonuses
+      classes.apply_class_features(self, self.m20_stats.class)
+
+      -- Update GUI
+      msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
+        { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+
+      print(string.format("[M20] LEVEL UP! Now level %d (+%d HP, total: %d/%d)",
+        result.new_level,
+        result.hp_gained,
+        self.m20_stats.hp_current,
+        self.m20_stats.hp_max
+      ))
+
+      if result.stat_increased then
+        print(string.format("[M20] %s increased to %d!",
+          result.stat_increased,
+          self.m20_stats[result.stat_increased]
+        ))
+      end
     end
   end
 end
