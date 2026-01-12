@@ -2,11 +2,14 @@ require("main.scripts.modules.constants")
 function init(self)
   msg.post(".", "acquire_input_focus")
   self.current_level = nil
+  self.player_class = nil
+  self.player_race = nil
 end
 
 local function get_proxy(level)
   if level == 'menu' then return "/loader#menu" end
   if level == 'game_over' then return "/loader#game_over" end
+  if level == 'class_selection' then return "/loader#class_selection" end
   if level == 1 then return "/loader#level1" end
 end
 
@@ -21,9 +24,25 @@ function on_message(self, message_id, message, sender)
   if message_id == hash("proxy_loaded") then
     msg.post(sender, "init")
     msg.post(sender, "enable")
+
+    -- If level 1 loaded and we have class/race selection, send it to the player
+    if self.current_level == 1 and self.player_class and self.player_race then
+      print("[Loader] Sending class/race to player: " .. self.player_class .. "/" .. self.player_race)
+      msg.post("/level1/player#script", hash("set_class"), {
+        class = self.player_class,
+        race = self.player_race
+      })
+    end
   end
 
   if message_id == hash(MESSAGES.LOAD_LEVEL) then
+    -- Store player class and race if provided
+    if message.player_class then
+      self.player_class = message.player_class
+      self.player_race = message.player_race or "human"
+      print("[Loader] Stored player class/race: " .. self.player_class .. "/" .. self.player_race)
+    end
+
     msg.post(get_proxy(message.level), "load")
     if self.current_level ~= nil then unload_level(self.current_level) end
     self.current_level = message.level

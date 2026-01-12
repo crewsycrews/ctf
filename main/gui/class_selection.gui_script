@@ -1,0 +1,72 @@
+local druid = require("druid.druid")
+require("main.scripts.modules.constants")
+
+--- Handle Fighter class selection
+---@param self table
+local function select_fighter(self)
+  print("[Class Selection] Player selected: Fighter")
+  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
+    level = 1,
+    player_class = "fighter",
+    player_race = "human"
+  })
+end
+
+--- Handle Rogue class selection
+---@param self table
+local function select_rogue(self)
+  print("[Class Selection] Player selected: Rogue")
+  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
+    level = 1,
+    player_class = "rogue",
+    player_race = "human"
+  })
+end
+
+--- Handle Mage class selection
+---@param self table
+local function select_mage(self)
+  print("[Class Selection] Player selected: Mage")
+  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
+    level = 1,
+    player_class = "mage",
+    player_race = "human"
+  })
+end
+
+--- Handle Cleric class selection
+---@param self table
+local function select_cleric(self)
+  print("[Class Selection] Player selected: Cleric")
+  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
+    level = 1,
+    player_class = "cleric",
+    player_race = "human"
+  })
+end
+
+function init(self)
+  msg.post(".", "acquire_input_focus")
+  self.druid = druid.new(self)
+
+  -- Create buttons for each class
+  self.druid:new_button("fighter_button", select_fighter)
+  self.druid:new_button("rogue_button", select_rogue)
+  self.druid:new_button("mage_button", select_mage)
+  self.druid:new_button("cleric_button", select_cleric)
+
+  print("[Class Selection] UI initialized")
+end
+
+function final(self)
+  msg.post(".", "release_input_focus")
+  self.druid:final()
+end
+
+function on_message(self, message_id, message, sender)
+  self.druid:on_message(message_id, message, sender)
+end
+
+function on_input(self, action_id, action)
+  return self.druid:on_input(action_id, action)
+end

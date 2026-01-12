@@ -2,11 +2,6 @@ components {
   id: "enemy-common"
   component: "/main/scripts/enemy-common.script"
   properties {
-    id: "health"
-    value: "50.0"
-    type: PROPERTY_TYPE_NUMBER
-  }
-  properties {
     id: "speed"
     value: "40.0"
     type: PROPERTY_TYPE_NUMBER
@@ -34,6 +29,11 @@ components {
   properties {
     id: "attack_cooldown"
     value: "1.5"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "hd"
+    value: "1.0"
     type: PROPERTY_TYPE_NUMBER
   }
 }

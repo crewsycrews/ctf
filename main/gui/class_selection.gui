@@ -1,0 +1,377 @@
+script: "/main/gui/class_selection.gui_script"
+fonts {
+  name: "PixelFont"
+  font: "/assets/fonts/PixelFont.font"
+}
+textures {
+  name: "ui_elements"
+  texture: "/main/atlases/ui_elements.atlas"
+}
+nodes {
+  position {
+    y: 319.0
+  }
+  scale {
+    x: 1.382
+    y: 1.37
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/background"
+  id: "background"
+  pivot: PIVOT_W
+  layer: "background"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 496.0
+    y: 553.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "CHOOSE YOUR CLASS"
+  font: "PixelFont"
+  id: "title"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 285.0
+    y: 433.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "fighter_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "FIGHTER"
+  font: "PixelFont"
+  id: "fighter_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "fighter_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 285.0
+    y: 303.0
+  }
+  size {
+    x: 180.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Melee warrior\n"
+  "STR 16, DEX 12, MIND 10\n"
+  "\n"
+  "+3 Physical skill\n"
+  "+1 attack & damage\n"
+  "Wear any armor"
+  font: "PixelFont"
+  id: "fighter_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 495.0
+    y: 433.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "rogue_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "ROGUE"
+  font: "PixelFont"
+  id: "rogue_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "rogue_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 495.0
+    y: 303.0
+  }
+  size {
+    x: 180.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Agile striker\n"
+  "STR 12, DEX 16, MIND 10\n"
+  "\n"
+  "+3 Subterfuge skill\n"
+  "Sneak attack bonus\n"
+  "Light armor only"
+  font: "PixelFont"
+  id: "rogue_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 705.0
+    y: 433.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "mage_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "MAGE"
+  font: "PixelFont"
+  id: "mage_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "mage_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 705.0
+    y: 303.0
+  }
+  size {
+    x: 180.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Arcane caster\n"
+  "STR 10, DEX 12, MIND 16\n"
+  "\n"
+  "+3 Knowledge skill\n"
+  "Cast arcane spells\n"
+  "No armor"
+  font: "PixelFont"
+  id: "mage_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 390.0
+    y: 153.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "cleric_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "CLERIC"
+  font: "PixelFont"
+  id: "cleric_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "cleric_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 600.0
+    y: 153.0
+  }
+  size {
+    x: 240.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Divine caster\n"
+  "STR 12, DEX 14, MIND 14\n"
+  "\n"
+  "+3 Communication skill\n"
+  "Cast divine spells, Turn Undead\n"
+  "Light/Medium armor"
+  font: "PixelFont"
+  id: "cleric_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 494.0
+    y: 325.0
+  }
+  scale {
+    x: 3.441881
+    y: 5.327667
+    z: 1.144
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "box"
+  layer: "background"
+  inherit_alpha: true
+  alpha: 0.71
+  size_mode: SIZE_MODE_AUTO
+}
+layers {
+  name: "background"
+}
+layers {
+  name: "ui"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

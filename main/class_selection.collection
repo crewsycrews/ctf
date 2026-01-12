@@ -1,0 +1,10 @@
+name: "class_selection"
+scale_along_z: 0
+embedded_instances {
+  id: "class_selection_gui"
+  data: "components {\n"
+  "  id: \"class_selection\"\n"
+  "  component: \"/main/gui/class_selection.gui\"\n"
+  "}\n"
+  ""
+}

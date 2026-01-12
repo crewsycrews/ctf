@@ -1,0 +1,75 @@
+local druid = require("druid.druid")
+
+local function select_str(self)
+	print("[Stat Selection] Player selected: STR")
+	msg.post(self.requester, "stat_selected", { stat = "STR" })
+	gui.set_enabled(gui.get_node("background"), false)
+	gui.set_enabled(gui.get_node("str_button"), false)
+	gui.set_enabled(gui.get_node("dex_button"), false)
+	gui.set_enabled(gui.get_node("mind_button"), false)
+end
+
+local function select_dex(self)
+	print("[Stat Selection] Player selected: DEX")
+	msg.post(self.requester, "stat_selected", { stat = "DEX" })
+	gui.set_enabled(gui.get_node("background"), false)
+	gui.set_enabled(gui.get_node("str_button"), false)
+	gui.set_enabled(gui.get_node("dex_button"), false)
+	gui.set_enabled(gui.get_node("mind_button"), false)
+end
+
+local function select_mind(self)
+	print("[Stat Selection] Player selected: MIND")
+	msg.post(self.requester, "stat_selected", { stat = "MIND" })
+	gui.set_enabled(gui.get_node("background"), false)
+	gui.set_enabled(gui.get_node("str_button"), false)
+	gui.set_enabled(gui.get_node("dex_button"), false)
+	gui.set_enabled(gui.get_node("mind_button"), false)
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	self.druid = druid.new(self)
+
+	-- Create buttons for each stat
+	self.druid:new_button("str_button", select_str)
+	self.druid:new_button("dex_button", select_dex)
+	self.druid:new_button("mind_button", select_mind)
+
+	-- Start hidden
+	gui.set_enabled(gui.get_node("background"), false)
+	gui.set_enabled(gui.get_node("str_button"), false)
+	gui.set_enabled(gui.get_node("dex_button"), false)
+	gui.set_enabled(gui.get_node("mind_button"), false)
+
+	self.requester = nil
+
+	print("[Stat Selection] UI initialized (hidden)")
+end
+
+function final(self)
+	msg.post(".", "release_input_focus")
+	self.druid:final()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show_stat_selection") then
+		-- Show the stat selection UI
+		print("[Stat Selection] Showing UI for level " .. (message.level or "?"))
+		self.requester = sender
+		gui.set_enabled(gui.get_node("background"), true)
+		gui.set_enabled(gui.get_node("str_button"), true)
+		gui.set_enabled(gui.get_node("dex_button"), true)
+		gui.set_enabled(gui.get_node("mind_button"), true)
+	end
+
+	self.druid:on_message(message_id, message, sender)
+end
+
+function on_input(self, action_id, action)
+	-- Only process input if UI is visible
+	if gui.is_enabled(gui.get_node("background")) then
+		return self.druid:on_input(action_id, action)
+	end
+	return false
+end

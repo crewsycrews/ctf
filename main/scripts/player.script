@@ -25,6 +25,7 @@
 ---@field m20_stats table M20 stats (STR, DEX, MIND, HP, AC, etc.)
 ---@field m20_skills table M20 skills (physical, subterfuge, knowledge, communication)
 ---@field signature_spells table Signature spells (reduced HP cost)
+---@field pending_level_up bool Whether player is waiting to select stat on level-up
 go.property('speed', 200)
 
 require("main.scripts.common.get_world_rotation")
@@ -188,7 +189,31 @@ end
 
 ---@param self Head
 function on_message(self, message_id, message)
-  if message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
+  if message_id == hash("set_class") then
+    -- Re-initialize M20 stats with the selected class and race
+    local selected_class = message.class or "fighter"
+    local selected_race = message.race or "human"
+
+    print(string.format("[M20] Player class selection received: %s %s",
+      selected_race:sub(1,1):upper() .. selected_race:sub(2),
+      selected_class:sub(1,1):upper() .. selected_class:sub(2)
+    ))
+
+    attrs.initialize_entity(self, selected_class, selected_race, true)
+    m20_skills.initialize_skills(self, selected_class, selected_race)
+    classes.apply_class_features(self, selected_class)
+    magic.initialize_signature_spells(self)
+
+    -- Update GUI with new HP
+    msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
+      { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+
+    print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d",
+      self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
+      self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
+    ))
+
+  elseif message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
     local damage = message.damage
 
     -- Apply damage to M20 stats (source of truth)
@@ -217,7 +242,43 @@ function on_message(self, message_id, message)
 
     -- Check for level-up
     if progression.check_level_up(self) then
-      local result = progression.level_up(self, nil) -- Auto-select stat for now
+      -- Check if this is a stat-selection level (3, 6, 9, etc.)
+      local next_level = self.m20_stats.level + 1
+      local needs_stat_choice = (next_level % 3 == 0)
+
+      if needs_stat_choice then
+        -- Show stat selection UI and wait for player choice
+        print(string.format("[M20] Level %d reached! Showing stat selection UI", next_level))
+        msg.post("/gui/gui#stat_selection", "show_stat_selection", { level = next_level })
+        self.pending_level_up = true
+      else
+        -- Auto-level-up for non-stat levels
+        local result = progression.level_up(self, nil)
+
+        -- Apply class-specific bonuses
+        classes.apply_class_features(self, self.m20_stats.class)
+
+        -- Update GUI
+        msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
+          { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+
+        print(string.format("[M20] LEVEL UP! Now level %d (+%d HP, total: %d/%d)",
+          result.new_level,
+          result.hp_gained,
+          self.m20_stats.hp_current,
+          self.m20_stats.hp_max
+        ))
+      end
+    end
+
+  elseif message_id == hash("stat_selected") then
+    -- Handle stat selection response from GUI
+    local selected_stat = message.stat
+    print(string.format("[M20] Stat selected: %s", selected_stat))
+
+    if self.pending_level_up then
+      -- Complete the level-up with the chosen stat
+      local result = progression.level_up(self, selected_stat)
 
       -- Apply class-specific bonuses
       classes.apply_class_features(self, self.m20_stats.class)
@@ -239,6 +300,8 @@ function on_message(self, message_id, message)
           self.m20_stats[result.stat_increased]
         ))
       end
+
+      self.pending_level_up = false
     end
   end
 end
