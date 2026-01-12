@@ -12,7 +12,7 @@ This plan outlines the integration of Microlite20 (M20) tabletop RPG rules into 
 
 ## Implementation Status
 
-**Current Status**: ✅ **Milestone 1 Complete**, ✅ **Milestone 2 Complete (Partial)**
+**Current Status**: ✅ **Milestone 1 Complete**, ✅ **Milestone 2 Complete**, ⏸️ **Milestone 3 Pending**
 
 **Completed Work**:
 - ✅ All M20 core modules created with full type annotations
@@ -22,8 +22,13 @@ This plan outlines the integration of Microlite20 (M20) tabletop RPG rules into 
 - ✅ XP formula finalized: HD² + HD (quadratic scaling for action gameplay)
 - ✅ Spell definitions database created (35+ spells from M20 rules)
 - ✅ M20 message types added to constants
+- ✅ Class selection UI implemented (Fighter/Rogue/Mage/Cleric)
+- ✅ Race selection UI implemented (Human/Elf/Dwarf/Halfling)
+- ✅ Stat selection UI implemented (every 3 levels: STR/DEX/MIND choice)
+- ✅ Enemy prefabs updated with HD properties
+- ✅ Scene flow: Start Menu → Class Selection → Race Selection → Game
 
-**Next Steps**: Continue with Milestone 2 - UI integration and testing
+**Next Steps**: Milestone 3 - HUD enhancements (XP bar, HP numbers) and Spell HP costs
 
 ---
 
@@ -170,25 +175,24 @@ This plan outlines the integration of Microlite20 (M20) tabletop RPG rules into 
 
 ---
 
-## Phase 2: Player & Enemy Integration ✅ PARTIAL COMPLETE
+## Phase 2: Player & Enemy Integration ✅ COMPLETE
 
 ### 2.1 Player Script Integration ✅ COMPLETE
 **File**: `main/scripts/player.script`
 
 **Completed Changes**:
 - ✅ M20 module imports added
-- ✅ Type annotations for m20_stats, m20_skills, signature_spells
-- ✅ Initialize M20 stats as Fighter/Human on init
+- ✅ Type annotations for m20_stats, m20_skills, signature_spells, pending_level_up
+- ✅ Initialize M20 stats with default Fighter/Human (overridden by class selection)
 - ✅ Removed redundant `max_health` and `current_health` properties
 - ✅ All health checks now use `self.m20_stats.hp_current` directly
 - ✅ Damage handler uses `attrs.take_damage()`
 - ✅ XP award message handler with automatic level-up
 - ✅ GUI health updates use M20 stats
 - ✅ Console logging for M20 events (init, XP, level-up)
-
-**Pending Work**:
-- ⏸️ Class selection UI at game start
-- ⏸️ Stat selection on level-up (every 3 levels)
+- ✅ `set_class` message handler to reinitialize stats with chosen class/race
+- ✅ Stat selection logic: automatic for levels 1-2, player choice at 3, 6, 9, etc.
+- ✅ `stat_selected` message handler to complete level-up with chosen stat
 
 ---
 
@@ -204,9 +208,16 @@ This plan outlines the integration of Microlite20 (M20) tabletop RPG rules into 
 - ✅ Damage handler uses `attrs.take_damage()`
 - ✅ Award XP on death using `progression.calculate_enemy_xp(self.hd)`
 
-**Pending Work**:
-- ⏸️ Update enemy prefabs with HD values (Milestone 4)
-- ⏸️ Balance testing with different HD values
+---
+
+### 2.3 Enemy Prefab Updates ✅ COMPLETE
+**Files**: `main/prefabs/enemies/*.go`
+
+**Completed Changes**:
+- ✅ Orc1: HD = 1 (~12 HP, awards 2 XP)
+- ✅ Orc2: HD = 2 (~26 HP, awards 6 XP)
+- ✅ Orc3: HD = 3 (~36 HP, awards 12 XP)
+- ✅ Removed old `health` property from all enemy prefabs
 
 ---
 
@@ -298,31 +309,74 @@ M20 = {
 
 ---
 
-## Phase 5: UI & Feedback ⏸️ PENDING
+## Phase 5: UI & Feedback ⏸️ PARTIAL COMPLETE
 
-### 5.1 Class Selection UI
-**Status**: Not Started
-**Files**: `/main/gui/class_selection.gui` + `.gui_script`
+### 5.1 Class Selection UI ✅ COMPLETE
+**Files**:
+- `/main/gui/class_selection.gui` - Class selection screen UI
+- `/main/gui/class_selection.gui_script` - Button handlers
+- `/main/class_selection.collection` - Scene collection
+- `/main/gui/proxy/class_selection.collectionproxy` - Proxy
 
-**Implementation Plan**:
-1. Create class selection screen at game start
-2. Display 4 classes with stats and descriptions
-3. Set player class on selection
-4. Initialize M20 stats based on selected class
-
----
-
-### 5.2 Level-Up UI
-**Status**: Not Started
-
-**Implementation Plan**:
-1. Level-up notification popup with stats gained
-2. Stat selection UI (every 3 levels): Choose STR, DEX, or MIND
-3. Update player.script to use selected stat instead of auto-select
+**Completed Features**:
+- ✅ Beautiful pixel art UI matching game aesthetic
+- ✅ 4 class buttons: Fighter, Rogue, Mage, Cleric
+- ✅ Class descriptions with stats and abilities
+- ✅ Flows to Race Selection on class choice
+- ✅ Integrated into main scene flow
 
 ---
 
-### 5.3 HUD Enhancements
+### 5.2 Race Selection UI ✅ COMPLETE
+**Files**:
+- `/main/gui/race_selection.gui` - Race selection screen UI
+- `/main/gui/race_selection.gui_script` - Button handlers
+- `/main/race_selection.collection` - Scene collection
+- `/main/gui/proxy/race_selection.collectionproxy` - Proxy
+
+**Completed Features**:
+- ✅ Beautiful pixel art UI matching game aesthetic
+- ✅ 4 race buttons: Human, Elf, Dwarf, Halfling
+- ✅ Race descriptions with stat bonuses
+- ✅ Receives class from class_selection via message
+- ✅ Sends both class + race to loader
+- ✅ Flows to Level 1 on race choice
+
+---
+
+### 5.3 Stat Selection UI ✅ COMPLETE
+**Files**:
+- `/main/gui/stat_selection.gui` - Stat selection popup overlay
+- `/main/gui/stat_selection.gui_script` - Button handlers
+- Added to `/main/gui/gui.collection` - In-game HUD overlay
+
+**Completed Features**:
+- ✅ Popup overlay during gameplay
+- ✅ Appears at levels 3, 6, 9, etc.
+- ✅ 3 stat buttons: STR, DEX, MIND
+- ✅ Descriptions of each stat's benefits
+- ✅ Shows level-up bonuses (+1d6 HP, +1 all attacks, +1 all skills)
+- ✅ Sends selected stat back to player
+- ✅ Hides after selection
+
+---
+
+### 5.4 Scene Flow Integration ✅ COMPLETE
+**Files**:
+- `main/scripts/loader.script` - Scene loader with class/race storage
+- `main/gui/start_gui.gui_script` - Start menu loads class_selection
+- `main/main.collection` - All proxies added
+
+**Completed Flow**:
+1. ✅ Start Menu → Class Selection
+2. ✅ Class Selection → Race Selection (with class stored)
+3. ✅ Race Selection → Level 1 (with class + race stored)
+4. ✅ Loader sends class/race to player on level load
+5. ✅ Player reinitializes M20 stats with chosen values
+
+---
+
+### 5.5 HUD Enhancements ⏸️ PENDING
 **Status**: Not Started
 **File**: `main/gui/player_gui.gui_script`
 
@@ -530,14 +584,25 @@ M20 = {
 
 ---
 
-**Plan Version**: 3.0
+**Plan Version**: 4.0
 **Created**: 2026-01-11
 **Last Updated**: 2026-01-12
-**Status**: 🚧 **In Progress** - Milestone 1 Complete, Milestone 2 Partial
+**Status**: ✅ **Milestone 2 Complete** - Core gameplay systems with full UI integration
 
 ## Changelog
 
-### Version 3.0 (2026-01-12)
+### Version 4.0 (2026-01-12 - Evening Session)
+- ✅ **Milestone 2 marked complete**: Full UI integration for character creation and progression
+- 🎨 **Class Selection UI**: Complete screen with Fighter/Rogue/Mage/Cleric choice
+- 🎨 **Race Selection UI**: Complete screen with Human/Elf/Dwarf/Halfling choice
+- 🎨 **Stat Selection UI**: Popup overlay for level 3, 6, 9 stat increases
+- 🔄 **Scene Flow**: Start Menu → Class → Race → Level 1 fully functional
+- 🏗️ **Loader Integration**: Class/race storage and passing to player
+- 👾 **Enemy Prefabs**: All 3 orc types updated with HD properties
+- 📝 **Updated plan structure**: Separated UI sections, added completion status
+- 🎮 **Next milestone**: HUD enhancements (XP bar, HP display, AC) and Spell HP costs
+
+### Version 3.0 (2026-01-12 - Morning Session)
 - ✅ **Milestone 1 marked complete**: All core M20 modules created
 - ✅ **Milestone 2 partial complete**: Player and enemy scripts integrated
 - 🔧 **Simplified health system**: Removed redundant properties, M20 stats are single source of truth
