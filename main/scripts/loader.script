@@ -10,6 +10,7 @@ local function get_proxy(level)
   if level == 'menu' then return "/loader#menu" end
   if level == 'game_over' then return "/loader#game_over" end
   if level == 'class_selection' then return "/loader#class_selection" end
+  if level == 'race_selection' then return "/loader#race_selection" end
   if level == 1 then return "/loader#level1" end
 end
 
@@ -25,10 +26,19 @@ function on_message(self, message_id, message, sender)
     msg.post(sender, "init")
     msg.post(sender, "enable")
 
+    -- If race_selection loaded and we have a class, send it to the race GUI
+    if self.current_level == 'race_selection' and self.player_class then
+      print("[Loader] Sending class to race selection: " .. self.player_class)
+      msg.post("race_selection:/race_selection_gui#race_selection", hash("set_class"), {
+        class = self.player_class
+      })
+    end
+
     -- If level 1 loaded and we have class/race selection, send it to the player
     if self.current_level == 1 and self.player_class and self.player_race then
       print("[Loader] Sending class/race to player: " .. self.player_class .. "/" .. self.player_race)
-      msg.post("/level1/player#script", hash("set_class"), {
+      -- Delay message to ensure player object is initialized
+      msg.post("secondary:/player", hash("set_class"), {
         class = self.player_class,
         race = self.player_race
       })

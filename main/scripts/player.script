@@ -67,8 +67,8 @@ function init(self)
 
   print(string.format("[M20] Player initialized: Level %d %s %s",
     self.m20_stats.level,
-    self.m20_stats.race:sub(1,1):upper() .. self.m20_stats.race:sub(2),
-    self.m20_stats.class:sub(1,1):upper() .. self.m20_stats.class:sub(2)
+    self.m20_stats.race:sub(1, 1):upper() .. self.m20_stats.race:sub(2),
+    self.m20_stats.class:sub(1, 1):upper() .. self.m20_stats.class:sub(2)
   ))
   print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d",
     self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
@@ -195,8 +195,8 @@ function on_message(self, message_id, message)
     local selected_race = message.race or "human"
 
     print(string.format("[M20] Player class selection received: %s %s",
-      selected_race:sub(1,1):upper() .. selected_race:sub(2),
-      selected_class:sub(1,1):upper() .. selected_class:sub(2)
+      selected_race:sub(1, 1):upper() .. selected_race:sub(2),
+      selected_class:sub(1, 1):upper() .. selected_class:sub(2)
     ))
 
     attrs.initialize_entity(self, selected_class, selected_race, true)
@@ -212,7 +212,6 @@ function on_message(self, message_id, message)
       self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
       self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
     ))
-
   elseif message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
     local damage = message.damage
 
@@ -227,7 +226,6 @@ function on_message(self, message_id, message)
       msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL,
         { level = "game_over" })
     end
-
   elseif message_id == hash(MESSAGES.M20.AWARD_XP) then
     -- Award XP from enemy kills
     local xp_amount = message.xp or 0
@@ -270,7 +268,6 @@ function on_message(self, message_id, message)
         ))
       end
     end
-
   elseif message_id == hash("stat_selected") then
     -- Handle stat selection response from GUI
     local selected_stat = message.stat

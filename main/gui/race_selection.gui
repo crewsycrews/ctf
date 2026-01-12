@@ -1,0 +1,377 @@
+script: "/main/gui/race_selection.gui_script"
+fonts {
+  name: "PixelFont"
+  font: "/assets/fonts/PixelFont.font"
+}
+textures {
+  name: "ui_elements"
+  texture: "/main/atlases/ui_elements.atlas"
+}
+nodes {
+  position {
+    y: 319.0
+  }
+  scale {
+    x: 1.382
+    y: 1.37
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/background"
+  id: "background"
+  pivot: PIVOT_W
+  layer: "background"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 496.0
+    y: 553.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "CHOOSE YOUR RACE"
+  font: "PixelFont"
+  id: "title"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 285.0
+    y: 433.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "human_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "HUMAN"
+  font: "PixelFont"
+  id: "human_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "human_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 285.0
+    y: 303.0
+  }
+  size {
+    x: 180.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Versatile\n"
+  "\n"
+  "+1 to all skill rolls\n"
+  "\n"
+  "Balanced choice for\n"
+  "any class"
+  font: "PixelFont"
+  id: "human_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 495.0
+    y: 433.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "elf_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "ELF"
+  font: "PixelFont"
+  id: "elf_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "elf_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 495.0
+    y: 303.0
+  }
+  size {
+    x: 180.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Magical affinity\n"
+  "\n"
+  "+2 MIND\n"
+  "\n"
+  "Best for Mages\n"
+  "and Clerics"
+  font: "PixelFont"
+  id: "elf_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 705.0
+    y: 433.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "dwarf_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "DWARF"
+  font: "PixelFont"
+  id: "dwarf_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "dwarf_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 705.0
+    y: 303.0
+  }
+  size {
+    x: 180.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Hardy warrior\n"
+  "\n"
+  "+2 STR\n"
+  "\n"
+  "Best for Fighters\n"
+  "and Clerics"
+  font: "PixelFont"
+  id: "dwarf_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 390.0
+    y: 153.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "halfling_button"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 10.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "HALFLING"
+  font: "PixelFont"
+  id: "halfling_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "halfling_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 600.0
+    y: 153.0
+  }
+  size {
+    x: 240.0
+    y: 120.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Nimble and quick\n"
+  "\n"
+  "+2 DEX\n"
+  "\n"
+  "Best for Rogues and\n"
+  "ranged characters"
+  font: "PixelFont"
+  id: "halfling_desc"
+  line_break: true
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 494.0
+    y: 325.0
+  }
+  scale {
+    x: 3.441881
+    y: 5.327667
+    z: 1.144
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "box"
+  layer: "background"
+  inherit_alpha: true
+  alpha: 0.71
+  size_mode: SIZE_MODE_AUTO
+}
+layers {
+  name: "background"
+}
+layers {
+  name: "ui"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

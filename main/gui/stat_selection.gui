@@ -25,6 +25,7 @@ nodes {
   id: "background"
   layer: "background"
   inherit_alpha: true
+  enabled: false
 }
 nodes {
   position {
@@ -97,6 +98,7 @@ nodes {
   layer: "ui"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+  enabled: false
 }
 nodes {
   position {
@@ -166,6 +168,7 @@ nodes {
   layer: "ui"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+  enabled: false
 }
 nodes {
   position {
@@ -235,6 +238,7 @@ nodes {
   layer: "ui"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+  enabled: false
 }
 nodes {
   position {

@@ -6,9 +6,8 @@ require("main.scripts.modules.constants")
 local function select_fighter(self)
   print("[Class Selection] Player selected: Fighter")
   msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
-    level = 1,
-    player_class = "fighter",
-    player_race = "human"
+    level = 'race_selection',
+    player_class = "fighter"
   })
 end
 
@@ -17,9 +16,8 @@ end
 local function select_rogue(self)
   print("[Class Selection] Player selected: Rogue")
   msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
-    level = 1,
-    player_class = "rogue",
-    player_race = "human"
+    level = 'race_selection',
+    player_class = "rogue"
   })
 end
 
@@ -28,9 +26,8 @@ end
 local function select_mage(self)
   print("[Class Selection] Player selected: Mage")
   msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
-    level = 1,
-    player_class = "mage",
-    player_race = "human"
+    level = 'race_selection',
+    player_class = "mage"
   })
 end
 
@@ -39,9 +36,8 @@ end
 local function select_cleric(self)
   print("[Class Selection] Player selected: Cleric")
   msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, {
-    level = 1,
-    player_class = "cleric",
-    player_race = "human"
+    level = 'race_selection',
+    player_class = "cleric"
   })
 end
 
