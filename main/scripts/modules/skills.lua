@@ -95,8 +95,21 @@ skills.ice_barrage = function(performer)
 
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
     { type = ELEMENTS[2] })
+
   local spellGO = factory.create("#ice-spell-factory")
-  msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
+
+  -- Calculate rotation towards mouse
+  local player_pos = go.get_position()
+  local dir_to_mouse = performer.mouse_world_pos - player_pos
+  local rotation = vmath.quat()
+  if vmath.length(dir_to_mouse) > 1 then
+    local angle = math.atan2(player_pos.x - performer.mouse_world_pos.x, performer.mouse_world_pos.y - player_pos.y)
+    rotation = vmath.quat_rotation_z(angle)
+  end
+  go.set_rotation(rotation, spellGO)
+
+  -- Tell the spell to follow the player
+  msg.post(spellGO, "follow_target", { target = go.get_id() })
   performer.ice_barrage_on_cooldown = true
   performer.ice_barrage_active = true
   timer.delay(SKILLS.COOLDOWNS.ice_barrage, false,
@@ -118,8 +131,18 @@ skills.fireball = function(performer)
   performer.fireball_on_cooldown = true
   msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
     { type = ELEMENTS[1] })
+
+  -- Calculate rotation towards mouse
+  local player_pos = go.get_position()
+  local dir_to_mouse = performer.mouse_world_pos - player_pos
+  local rotation = vmath.quat()
+  if vmath.length(dir_to_mouse) > 1 then
+    local angle = math.atan2(player_pos.x - performer.mouse_world_pos.x, performer.mouse_world_pos.y - player_pos.y)
+    rotation = vmath.quat_rotation_z(angle)
+  end
+
   local spellGO = factory.create("#fireball-spell-factory")
-  go.set_rotation(go.get_rotation(), spellGO)
+  go.set_rotation(rotation, spellGO)
   timer.delay(SKILLS.COOLDOWNS.fireball, false,
     function(self, handle, time_elapsed)
       performer.fireball_on_cooldown = false

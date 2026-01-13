@@ -10,6 +10,7 @@
 ---@field buffs table
 ---@field dash_on_cooldown bool
 ---@field backward_dash_on_cooldown bool
+---@field fireball_on_cooldown bool
 ---@field ice_barrage_on_cooldown bool
 ---@field ice_barrage_active bool
 ---@field thunderclap_on_cooldown bool
@@ -18,10 +19,11 @@
 ---@field windwalk_active bool
 ---@field score number
 ---@field pointer quaternion|vector3|vector4
+---@field mouse_screen_pos vector3 Current mouse position on screen
+---@field mouse_world_pos vector3 Current mouse position in world
 ---@field current_animation string
 ---@field last_direction string Track last movement direction for idle animations
 ---@field buff_visual_target string
----@field orb_id hash The floating orb that casts spells
 ---@field m20_stats table M20 stats (STR, DEX, MIND, HP, AC, etc.)
 ---@field m20_skills table M20 skills (physical, subterfuge, knowledge, communication)
 ---@field signature_spells table Signature spells (reduced HP cost)
@@ -51,10 +53,21 @@ function init(self)
   self.dir = vmath.vector3(1, 0, 0)
   self.score = 0
   self.pointer = vmath.vector3(0, 0, 0)
+  self.mouse_screen_pos = vmath.vector3(0, 0, 0)
+  self.mouse_world_pos = vmath.vector3(0, 0, 0)
   self.buffs = {}
   self.buff_visual_target = "#sprite"
   self.current_animation = "idle_south"
   self.last_direction = "south"
+
+  -- Initialize spell cooldown states
+  self.fireball_on_cooldown = false
+  self.ice_barrage_on_cooldown = false
+  self.ice_barrage_active = false
+  self.thunderclap_on_cooldown = false
+  self.thunderclap_active = false
+  self.windwalk_on_cooldown = false
+  self.windwalk_active = false
 
   -- followersManipulator.spawn_followers(self)
 
@@ -74,10 +87,6 @@ function init(self)
     self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
     self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
   ))
-
-  -- Spawn floating orb and store reference
-  self.orb_id = factory.create("#floating-orb-factory")
-  msg.post(self.orb_id, "set_player", { player_id = go.get_id() })
 end
 
 ---@param self Head
@@ -85,6 +94,9 @@ function final(self) msg.post(".", "release_input_focus") end
 
 ---@param self Head
 function update(self, dt)
+  -- Convert screen coordinates to world coordinates for spell targeting
+  self.mouse_world_pos = camera.screen_to_world(go.get_id("/camera"), self.mouse_screen_pos)
+
   -- Handle dashing or normal movement
   if self.dashing or self.moving then
     local target_position = go.get_position()
@@ -105,8 +117,6 @@ function update(self, dt)
   self.input.y = 0
   self.dir = vmath.normalize(self.dir)
   self.moving = false
-
-  -- checkRotation(self)
 
   if self.m20_stats.hp_current <= 0 then
     msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
@@ -169,27 +179,35 @@ function on_input(self, action_id, action)
     end
   end
 
-  -- Delegate attacking spells to the orb
+  -- Cast spells directly from player
   if action_id == hash("scroll_down") then
-    msg.post(self.orb_id, "cast_ice_barrage")
+    skills.ice_barrage(self)
   end
   if action_id == hash("touch") then
-    msg.post(self.orb_id, "cast_fireball")
+    skills.fireball(self)
   end
   if action_id == hash("scroll_up") then
-    msg.post(self.orb_id, "cast_thunderclap")
+    skills.thunderclap(self)
   end
-  -- Windwalk stays on player as it's a defensive buff
-  if action_id == hash("tail_action_2") then skills.windwalk(self) end
+  if action_id == hash("tail_action_2") then
+    skills.windwalk(self)
+  end
+
+  -- Track mouse position for spell targeting
   if not action_id then
     self.pointer.x = action.x
     self.pointer.y = action.y
+    self.mouse_screen_pos.x = action.x
+    self.mouse_screen_pos.y = action.y
   end
 end
 
 ---@param self Head
 function on_message(self, message_id, message)
-  if message_id == hash("set_class") then
+  if message_id == hash("get_mouse_screen_pos") then
+    -- Respond to spell requests for mouse screen position
+    msg.post(message.requester, "mouse_screen_pos_response", { mouse_screen_pos = self.mouse_screen_pos })
+  elseif message_id == hash("set_class") then
     -- Re-initialize M20 stats with the selected class and race
     local selected_class = message.class or "fighter"
     local selected_race = message.race or "human"

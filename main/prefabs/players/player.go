@@ -15,9 +15,21 @@ embedded_components {
   ""
 }
 embedded_components {
-  id: "floating-orb-factory"
+  id: "fireball-spell-factory"
   type: "factory"
-  data: "prototype: \"/main/prefabs/orbs/floating_orb.go\"\n"
+  data: "prototype: \"/main/prefabs/spells/fireball.go\"\n"
+  ""
+}
+embedded_components {
+  id: "ice-spell-factory"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/spells/ice_barrage.go\"\n"
+  ""
+}
+embedded_components {
+  id: "thunderclap-spell-factory"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/spells/thunderclap.go\"\n"
   ""
 }
 embedded_components {

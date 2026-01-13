@@ -1,0 +1,27 @@
+---@class ChannellingSelf
+---@field target url|nil Target to follow (optional)
+
+---@param self ChannellingSelf
+function init(self)
+	self.target = nil
+end
+
+---@param self ChannellingSelf
+---@param dt number
+function update(self, dt)
+	-- Follow target if set
+	if self.target then
+		local target_pos = go.get_position(self.target)
+		go.set_position(target_pos)
+	end
+end
+
+---@param self ChannellingSelf
+---@param message_id hash
+---@param message table
+---@param sender url
+function on_message(self, message_id, message, sender)
+	if message_id == hash("follow_target") then
+		self.target = message.target
+	end
+end

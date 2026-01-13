@@ -8,6 +8,10 @@ components {
   }
 }
 components {
+  id: "channelling"
+  component: "/main/scripts/skills/channelling.script"
+}
+components {
   id: "one_time_buff_applier"
   component: "/main/scripts/skills/one_time_buff_applier.script"
   properties {
@@ -34,9 +38,6 @@ embedded_components {
     z: 0.70710677
     w: 0.70710677
   }
-  scale {
-    y: 1.5
-  }
 }
 embedded_components {
   id: "collisionobject"
@@ -51,8 +52,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 2.0\n"
-  "      y: 172.0\n"
+  "      y: 195.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
@@ -63,15 +63,15 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 1.0\n"
-  "      y: 61.0\n"
+  "      y: 74.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
   "    index: 3\n"
   "    count: 3\n"
   "  }\n"
-  "  data: 56.2755\n"
-  "  data: 51.14124\n"
+  "  data: 42.430992\n"
+  "  data: 73.57399\n"
   "  data: 10.0\n"
   "  data: 33.239\n"
   "  data: 58.707\n"
