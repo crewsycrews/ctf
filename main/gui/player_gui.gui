@@ -19,7 +19,8 @@ nodes {
   type: TYPE_BOX
   id: "south-west"
   xanchor: XANCHOR_LEFT
-  pivot: PIVOT_SE
+  yanchor: YANCHOR_BOTTOM
+  pivot: PIVOT_SW
   adjust_mode: ADJUST_MODE_ZOOM
   alpha: 0.0
 }
@@ -164,7 +165,6 @@ nodes {
   yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_SE
   adjust_mode: ADJUST_MODE_ZOOM
-  layer: "static"
   alpha: 0.0
 }
 nodes {
@@ -384,6 +384,22 @@ nodes {
 }
 nodes {
   position {
+    y: -22.0
+  }
+  size {
+    x: 200.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "Totem"
+  font: "PixelFont"
+  id: "totem_hp"
+  parent: "totem-border"
+  layer: "changeable"
+  inherit_alpha: true
+}
+nodes {
+  position {
     x: 457.0
     y: -23.0
   }
@@ -438,7 +454,7 @@ nodes {
 }
 nodes {
   position {
-    x: 440.0
+    x: 600.0
   }
   size {
     x: 1.0
@@ -453,8 +469,7 @@ nodes {
 }
 nodes {
   position {
-    x: 169.0
-    y: 10.0
+    y: 29.0
   }
   size {
     x: 338.0
@@ -490,7 +505,23 @@ nodes {
 }
 nodes {
   position {
-    x: 29.0
+    x: 7.0
+    y: 19.0
+  }
+  size {
+    x: 150.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "HP: 0/0"
+  font: "PixelFont"
+  id: "hp_text"
+  parent: "hp-border"
+  layer: "changeable"
+  inherit_alpha: true
+}
+nodes {
+  position {
     y: 341.0
   }
   scale {
@@ -505,6 +536,93 @@ nodes {
   layer: "static"
   size_mode: SIZE_MODE_AUTO
   enabled: false
+}
+nodes {
+  position {
+    y: 15.0
+  }
+  size {
+    x: 400.0
+    y: 25.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "xp-border"
+  parent: "south"
+  layer: "static"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    x: -193.0
+  }
+  size {
+    x: 386.0
+    y: 10.0
+  }
+  color {
+    y: 0.749
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "xp_bar"
+  pivot: PIVOT_W
+  parent: "xp-border"
+  layer: "changeable"
+}
+nodes {
+  position {
+    y: -1.0
+  }
+  size {
+    x: 200.0
+    y: 10.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "LVL 1"
+  font: "PixelFont"
+  id: "level_text"
+  parent: "xp-border"
+  layer: "changeable"
+}
+nodes {
+  position {
+    x: -194.0
+    y: 49.0
+  }
+  size {
+    x: 36.0
+    y: 36.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/ac"
+  id: "ac-icon"
+  parent: "south"
+  layer: "static"
+  alpha: 0.7
+}
+nodes {
+  size {
+    x: 36.0
+    y: 36.0
+  }
+  type: TYPE_TEXT
+  text: "AC\n"
+  "14"
+  font: "PixelFont"
+  id: "ac_text"
+  parent: "ac-icon"
+  layer: "changeable"
 }
 layers {
   name: "static"

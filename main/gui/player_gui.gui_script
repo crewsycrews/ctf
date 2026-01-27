@@ -1,3 +1,20 @@
+---@class PlayerGUISelf
+---@field fire node
+---@field water node
+---@field wind node
+---@field earth node
+---@field head_fire node
+---@field head_wind node
+---@field head_water node
+---@field player_health node
+---@field totem_health node
+---@field score number
+---@field hp_text? node M20 HP text display node (if exists)
+---@field xp_bar? node M20 XP bar node (if exists)
+---@field level_text? node M20 Level text node (if exists)
+---@field ac_text? node M20 AC text node (if exists)
+
+---@param self PlayerGUISelf
 function init(self)
   self.fire = gui.get_node("fire")
   self.water = gui.get_node("water")
@@ -9,6 +26,13 @@ function init(self)
   self.player_health = gui.get_node("player_health")
   self.totem_health = gui.get_node("totem_health")
   self.score = 0
+
+  -- Try to get M20 stat nodes (may not exist in current GUI)
+  -- These will be nil if not present, which is fine
+  pcall(function() self.hp_text = gui.get_node("hp_text") end)
+  pcall(function() self.xp_bar = gui.get_node("xp_bar") end)
+  pcall(function() self.level_text = gui.get_node("level_text") end)
+  pcall(function() self.ac_text = gui.get_node("ac_text") end)
 end
 
 local function handle_spell_animation(message_id, node)
@@ -29,6 +53,33 @@ local function set_totem_health(self, percent)
     gui.EASING_OUTCUBIC, 1)
 end
 
+--- Update M20 stats display (HP, XP, Level, AC)
+---@param self PlayerGUISelf
+---@param stats table M20 stats table
+local function update_m20_stats(self, stats)
+  -- Update HP text (e.g., "45/60")
+  if self.hp_text then
+    gui.set_text(self.hp_text, string.format("%d/%d", stats.hp_current, stats.hp_max))
+  end
+
+  -- Update XP bar
+  if self.xp_bar then
+    local xp_percent = stats.xp / stats.xp_to_next_level
+    gui.set_scale(self.xp_bar, vmath.vector3(xp_percent, 1, 1))
+  end
+
+  -- Update level text (e.g., "Lvl 3")
+  if self.level_text then
+    gui.set_text(self.level_text, string.format("Lvl %d", stats.level))
+  end
+
+  -- Update AC text (e.g., "AC 14")
+  if self.ac_text then
+    gui.set_text(self.ac_text, string.format("AC\n%d", stats.ac))
+  end
+end
+
+---@param self PlayerGUISelf
 function on_message(self, message_id, message, sender)
   if message_id == hash(MESSAGES.SKILLS.COOLDOWN) or message_id ==
       hash(MESSAGES.SKILLS.NORMAL) then
@@ -42,6 +93,7 @@ function on_message(self, message_id, message, sender)
   if message_id == hash(MESSAGES.TOTEM.SET_HEALTH) then
     set_totem_health(self, message.health_percent)
   end
+
   if message_id == hash(MESSAGES.PLAYER.COUNT_SCORE) then
     self.score = self.score + message.score
     local scoreNode = gui.get_node("score")
@@ -52,5 +104,10 @@ function on_message(self, message_id, message, sender)
     --     msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "menu" })
     --   end)
     -- end
+  end
+
+  -- M20 stat updates
+  if message_id == hash(MESSAGES.M20.UPDATE_STATS) then
+    update_m20_stats(self, message.stats)
   end
 end

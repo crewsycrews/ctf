@@ -5,7 +5,7 @@ local followersManipulator = require('main.scripts.modules.followers')
 local skills = {}
 
 ---Push unit forward in current direction
----@param performer Head
+---@param performer Hero
 skills.dash = function(performer)
   if performer.dash_on_cooldown or performer.dashing then return end
   performer.dash_on_cooldown = true
@@ -55,7 +55,7 @@ skills.jump = function(performer)
 end
 
 ---Push unit backward from current direction
----@param performer Head
+---@param performer Hero
 skills.backward_dash = function(performer)
   if performer.backward_dash_on_cooldown or performer.dashing then return end
   performer.backward_dash_on_cooldown = true
@@ -87,7 +87,7 @@ skills.backward_dash = function(performer)
   end)
 end
 
----@param performer Head
+---@param performer Hero
 skills.ice_barrage = function(performer)
   if performer.ice_barrage_on_cooldown or performer.ice_barrage_active then
     return
@@ -125,7 +125,7 @@ skills.ice_barrage = function(performer)
     end)
 end
 
----@param performer Head
+---@param performer Hero
 skills.fireball = function(performer)
   if performer.fireball_on_cooldown then return end
   performer.fireball_on_cooldown = true
@@ -151,7 +151,7 @@ skills.fireball = function(performer)
     end)
 end
 
----@param performer Head
+---@param performer Hero
 skills.thunderclap = function(performer)
   if performer.thunderclap_on_cooldown or performer.thunderclap_active then
     return
@@ -176,7 +176,7 @@ skills.thunderclap = function(performer)
     end)
 end
 
----@param performer Head
+---@param performer Hero
 skills.windwalk = function(performer)
   if performer.windwalk_on_cooldown or performer.windwalk_active then return end
   performer.windwalk_on_cooldown = true

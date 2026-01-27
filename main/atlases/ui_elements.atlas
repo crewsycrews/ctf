@@ -19,4 +19,7 @@ images {
 images {
   image: "/assets/ui/victory.png"
 }
+images {
+  image: "/assets/ui/ac.png"
+}
 extrude_borders: 2

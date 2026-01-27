@@ -1,4 +1,4 @@
----@class Head
+---@class Hero
 ---@field moving bool
 ---@field dashing bool
 ---@field jumping bool
@@ -28,6 +28,7 @@
 ---@field m20_skills table M20 skills (physical, subterfuge, knowledge, communication)
 ---@field signature_spells table Signature spells (reduced HP cost)
 ---@field pending_level_up bool Whether player is waiting to select stat on level-up
+---@field original_speed number Store original speed during dashes
 go.property('speed', 200)
 
 require("main.scripts.common.get_world_rotation")
@@ -42,7 +43,22 @@ local progression = require("main.scripts.modules.m20_progression")
 local magic = require("main.scripts.modules.m20_magic")
 
 
----@param self Head
+--- Send M20 stats to GUI for display
+---@param self Hero
+local function update_gui_stats(self)
+  msg.post("/gui/gui", hash(MESSAGES.M20.UPDATE_STATS), {
+    stats = {
+      hp_current = self.m20_stats.hp_current,
+      hp_max = self.m20_stats.hp_max,
+      xp = self.m20_stats.xp,
+      xp_to_next_level = self.m20_stats.xp_to_next_level,
+      level = self.m20_stats.level,
+      ac = self.m20_stats.ac
+    }
+  })
+end
+
+---@param self Hero
 function init(self)
   msg.post(".", "acquire_input_focus")
   camera.follow(nil, go.get_id())
@@ -87,12 +103,15 @@ function init(self)
     self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
     self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
   ))
+
+  -- Send initial M20 stats to GUI
+  update_gui_stats(self)
 end
 
----@param self Head
+---@param self Hero
 function final(self) msg.post(".", "release_input_focus") end
 
----@param self Head
+---@param self Hero
 function update(self, dt)
   -- Convert screen coordinates to world coordinates for spell targeting
   self.mouse_world_pos = camera.screen_to_world(go.get_id("/camera"), self.mouse_screen_pos)
@@ -123,7 +142,7 @@ function update(self, dt)
   end
 end
 
----@param self Head
+---@param self Hero
 function on_input(self, action_id, action)
   -- Handle movement input
   if action_id == hash("up") then
@@ -202,7 +221,7 @@ function on_input(self, action_id, action)
   end
 end
 
----@param self Head
+---@param self Hero
 function on_message(self, message_id, message)
   if message_id == hash("get_mouse_screen_pos") then
     -- Respond to spell requests for mouse screen position
@@ -230,6 +249,9 @@ function on_message(self, message_id, message)
       self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
       self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
     ))
+
+    -- Update M20 stats display
+    update_gui_stats(self)
   elseif message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
     local damage = message.damage
 
@@ -239,6 +261,7 @@ function on_message(self, message_id, message)
     -- Update GUI
     msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
       { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+    update_gui_stats(self)
 
     if self.m20_stats.hp_current <= 0 then
       msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL,
@@ -255,6 +278,9 @@ function on_message(self, message_id, message)
       self.m20_stats.xp_to_next_level,
       self.m20_stats.level
     ))
+
+    -- Update GUI XP bar
+    update_gui_stats(self)
 
     -- Check for level-up
     if progression.check_level_up(self) then
@@ -277,6 +303,7 @@ function on_message(self, message_id, message)
         -- Update GUI
         msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
           { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+        update_gui_stats(self)
 
         print(string.format("[M20] LEVEL UP! Now level %d (+%d HP, total: %d/%d)",
           result.new_level,
@@ -301,6 +328,7 @@ function on_message(self, message_id, message)
       -- Update GUI
       msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
         { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
+      update_gui_stats(self)
 
       print(string.format("[M20] LEVEL UP! Now level %d (+%d HP, total: %d/%d)",
         result.new_level,
