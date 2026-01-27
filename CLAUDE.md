@@ -17,7 +17,7 @@ The game is currently being enhanced with Microlite20 tabletop RPG mechanics for
 
 - **Implementation Plan**: See [M20_IMPLEMENTATION_PLAN.md](M20_IMPLEMENTATION_PLAN.md) for detailed roadmap
 - **M20 Rules Reference**: See [docs/Microlite20.pdf](docs/Microlite20.pdf) for complete M20 rules
-- **Current Status**: Milestone 1 complete (core modules), Milestone 2 partial (player/enemy integration)
+- **Current Status**: Milestone 1-3 complete (core modules, player/enemy integration, HP-based spell casting, HUD enhancements)
 - **Key Features**: STR/DEX/MIND stats, d20 combat resolution, XP/leveling, 4 character classes, HP-based spell casting
 
 ## Build and Development Commands
@@ -169,29 +169,35 @@ MESSAGES.M20 = {
 ```
 
 **Integration Status**:
-- ✅ Player: Initialized as Fighter/Human, gains XP on kills, levels up automatically
-- ✅ Enemies: Stats generated from HD property, award XP on death
-- ⏸️ Spells: Modules ready, integration pending (Milestone 3)
-- ⏸️ UI: HUD/character sheet pending (Milestone 2)
+- ✅ Player: Initialized with class/race selection, gains XP on kills, levels up with stat selection at levels 3/6/9
+- ✅ Enemies: Stats generated from HD property, award XP on death (HD² + HD formula)
+- ✅ Spells: HP-based casting implemented (no cooldowns), costs deducted in real-time
+- ✅ UI: Full HUD with HP/XP/Level/AC display, spell HP cost overlays, class/race/stat selection screens
+
+**Recent Changes (Milestone 3 - Completed)**:
+- Replaced spell cooldowns with M20 HP costs (3 HP for level 1 spells, 5 HP for level 2)
+- Added red HP cost text overlays to all spell icons in HUD
+- Integrated `m20_magic.can_cast_spell()` and `m20_magic.cast_spell()` into skill functions
+- Fixed input handling bug (added `action.pressed` checks to prevent multi-cast)
+- HP bar updates in real-time after each spell cast
+- Movement skills (dash, jump, backward_dash) retain cooldowns as intended
 
 ### Skill System
 
-All player abilities have:
-- **Cooldown duration** - Time before reuse (defined in `SKILLS.COOLDOWNS`)
-- **Active duration** - How long effect lasts (defined in `SKILLS.DURATIONS`)
-- **UI feedback** - Messages to GUI for cooldown indicators
+Player abilities are divided into **movement skills** (with cooldowns) and **spells** (with HP costs):
 
-Implemented in `main/scripts/modules/skills.lua`:
+**Movement Skills** (cooldown-based):
+- **Dash** (3s cooldown, 0.4s duration): Forward movement + invulnerability
+- **Jump** (3s cooldown, 0.8s duration): Scale animation
+- **Backward Dash** (3s cooldown, 0.4s duration): Backward movement
 
-| Skill | Cooldown | Duration | Effect |
-|-------|----------|----------|--------|
-| Dash | 3s | 0.4s | Forward movement + invulnerability |
-| Jump | 3s | 0.8s | Scale animation |
-| Backward Dash | 3s | 0.4s | Backward movement |
-| Ice Barrage | 6s | 3s | Freeze enemies in area |
-| Fireball | 0.3s | instant | Fast projectile |
-| Thunderclap | 5s | 0.5s | Slow enemies in area |
-| Windwalk | 5s | 0.5s | Invisibility |
+**Spells** (M20 HP cost-based, no cooldowns):
+- **Fireball** (3 HP, instant): Fast projectile (Magic Missile, Level 1)
+- **Ice Barrage** (5 HP, 3s duration): Freeze enemies in area (Hold Person, Level 2)
+- **Thunderclap** (5 HP, 0.5s duration): Slow enemies in area (Gust of Wind, Level 2)
+- **Windwalk** (3 HP, 0.5s duration): Invisibility (Invisibility, Level 1)
+
+All implemented in `main/scripts/modules/skills.lua` with M20 spell casting integration.
 
 ### Factory-Based Spawning
 

@@ -74,6 +74,32 @@ nodes {
 }
 nodes {
   position {
+    x: 4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "3HP"
+  font: "PixelFont"
+  id: "head_wind_cost"
+  parent: "head_wind"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+nodes {
+  position {
     x: 70.0
     y: 10.0
   }
@@ -111,6 +137,32 @@ nodes {
 }
 nodes {
   position {
+    x: 4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "3HP"
+  font: "PixelFont"
+  id: "head_water_cost"
+  parent: "head_water"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+nodes {
+  position {
     x: 132.0
     y: 10.0
   }
@@ -145,6 +197,32 @@ nodes {
   id: "head_fire"
   parent: "fire-border1"
   layer: "changeable"
+}
+nodes {
+  position {
+    x: 4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "3HP"
+  font: "PixelFont"
+  id: "head_fire_cost"
+  parent: "head_fire"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 nodes {
   position {
@@ -217,6 +295,33 @@ nodes {
 }
 nodes {
   position {
+    x: -4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "3HP"
+  font: "PixelFont"
+  id: "wind_cost"
+  pivot: PIVOT_SE
+  parent: "wind"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+nodes {
+  position {
     x: -71.0
     y: 10.0
   }
@@ -252,6 +357,33 @@ nodes {
   pivot: PIVOT_SE
   parent: "earth-border"
   layer: "changeable"
+}
+nodes {
+  position {
+    x: -4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "5HP"
+  font: "PixelFont"
+  id: "earth_cost"
+  pivot: PIVOT_SE
+  parent: "earth"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 nodes {
   position {
@@ -293,6 +425,33 @@ nodes {
 }
 nodes {
   position {
+    x: -4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "5HP"
+  font: "PixelFont"
+  id: "water_cost"
+  pivot: PIVOT_SE
+  parent: "water"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+nodes {
+  position {
     x: -193.0
     y: 10.0
   }
@@ -328,6 +487,33 @@ nodes {
   pivot: PIVOT_SE
   parent: "fire-border"
   layer: "changeable"
+}
+nodes {
+  position {
+    x: -4.0
+    y: 4.0
+  }
+  size {
+    x: 40.0
+    y: 12.0
+  }
+  color {
+    x: 1.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "3HP"
+  font: "PixelFont"
+  id: "fire_cost"
+  pivot: PIVOT_SE
+  parent: "fire"
+  layer: "changeable"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 nodes {
   position {

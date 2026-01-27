@@ -198,17 +198,17 @@ function on_input(self, action_id, action)
     end
   end
 
-  -- Cast spells directly from player
-  if action_id == hash("scroll_down") then
+  -- Cast spells directly from player (only on press, not release)
+  if action_id == hash("scroll_down") and action.pressed then
     skills.ice_barrage(self)
   end
-  if action_id == hash("touch") then
+  if action_id == hash("touch") and action.pressed then
     skills.fireball(self)
   end
-  if action_id == hash("scroll_up") then
+  if action_id == hash("scroll_up") and action.pressed then
     skills.thunderclap(self)
   end
-  if action_id == hash("tail_action_2") then
+  if action_id == hash("tail_action_2") and action.pressed then
     skills.windwalk(self)
   end
 
