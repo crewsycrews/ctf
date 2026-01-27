@@ -27,6 +27,8 @@
 ---@field m20_stats table M20 stats (STR, DEX, MIND, HP, AC, etc.)
 ---@field m20_skills table M20 skills (physical, subterfuge, knowledge, communication)
 ---@field signature_spells table Signature spells (reduced HP cost)
+---@field spellbook table Learned spells (spell_id -> true)
+---@field equipment table Equipment slots (armor, weapon, shield, consumables)
 ---@field pending_level_up bool Whether player is waiting to select stat on level-up
 ---@field original_speed number Store original speed during dashes
 go.property('speed', 200)
@@ -41,6 +43,7 @@ local m20_skills = require("main.scripts.modules.m20_skills")
 local classes = require("main.scripts.modules.m20_classes")
 local progression = require("main.scripts.modules.m20_progression")
 local magic = require("main.scripts.modules.m20_magic")
+local equipment = require("main.scripts.modules.m20_equipment")
 
 
 --- Send M20 stats to GUI for display
@@ -53,7 +56,8 @@ local function update_gui_stats(self)
       xp = self.m20_stats.xp,
       xp_to_next_level = self.m20_stats.xp_to_next_level,
       level = self.m20_stats.level,
-      ac = self.m20_stats.ac
+      ac = self.m20_stats.ac,
+      gold = self.m20_stats.gold or 0
     }
   })
 end
@@ -88,20 +92,27 @@ function init(self)
   -- followersManipulator.spawn_followers(self)
 
   -- Initialize M20 stats (Fighter class, Human race by default)
-  -- TODO: Add class/race selection UI in future milestone
+  -- This will be overridden by class/race selection
   attrs.initialize_entity(self, "fighter", "human", true)
   m20_skills.initialize_skills(self, "fighter", "human")
   classes.apply_class_features(self, "fighter")
   magic.initialize_signature_spells(self)
+
+  -- Initialize equipment system (empty inventory)
+  equipment.initialize_equipment(self)
+
+  -- Initialize spellbook (no spells learned - must purchase from shop)
+  magic.initialize_spellbook(self)
 
   print(string.format("[M20] Player initialized: Level %d %s %s",
     self.m20_stats.level,
     self.m20_stats.race:sub(1, 1):upper() .. self.m20_stats.race:sub(2),
     self.m20_stats.class:sub(1, 1):upper() .. self.m20_stats.class:sub(2)
   ))
-  print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d",
+  print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d | Gold:%d",
     self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
-    self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
+    self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac,
+    self.m20_stats.gold
   ))
 
   -- Send initial M20 stats to GUI
@@ -241,13 +252,18 @@ function on_message(self, message_id, message)
     classes.apply_class_features(self, selected_class)
     magic.initialize_signature_spells(self)
 
+    -- Re-initialize equipment and spellbook (player starts fresh)
+    equipment.initialize_equipment(self)
+    magic.initialize_spellbook(self)
+
     -- Update GUI with new HP
     msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
       { health_percent = self.m20_stats.hp_current / self.m20_stats.hp_max })
 
-    print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d",
+    print(string.format("[M20] Stats - STR:%d DEX:%d MIND:%d | HP:%d/%d AC:%d | Gold:%d",
       self.m20_stats.STR, self.m20_stats.DEX, self.m20_stats.MIND,
-      self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac
+      self.m20_stats.hp_current, self.m20_stats.hp_max, self.m20_stats.ac,
+      self.m20_stats.gold
     ))
 
     -- Update M20 stats display
@@ -346,5 +362,77 @@ function on_message(self, message_id, message)
 
       self.pending_level_up = false
     end
+  elseif message_id == hash(MESSAGES.M20.GOLD_PICKUP) then
+    -- Handle gold pickup from coins
+    local gold_amount = message.amount or 0
+    local new_gold = attrs.add_gold(self, gold_amount)
+
+    print(string.format("[M20] Picked up %d gold! Total: %d", gold_amount, new_gold))
+
+    -- Update GUI to show new gold amount
+    update_gui_stats(self)
+  elseif message_id == hash(MESSAGES.M20.SHOP_OPEN) then
+    -- Open shop and send player stats
+    print("[Player] Opening shop")
+    msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_OPEN), {
+      player_stats = {
+        m20_stats = self.m20_stats,
+        spellbook = self.spellbook
+      }
+    })
+  elseif message_id == hash(MESSAGES.M20.SHOP_CLOSE) then
+    -- Shop closed, no action needed
+    print("[Player] Shop closed")
+  elseif message_id == hash(MESSAGES.M20.SHOP_BUY_SPELL) then
+    -- Handle spell purchase
+    local spell_id = message.spell_id
+    local spell_name = message.spell_name
+    local price = message.price
+
+    print(string.format("[Player] Attempting to buy %s (%s) for %dg", spell_name, spell_id, price))
+
+    -- Check if already learned
+    if magic.knows_spell(self, spell_id) then
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = false,
+        message = "Already learned " .. spell_name
+      })
+      return
+    end
+
+    -- Check if enough gold
+    if not attrs.has_gold(self, price) then
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = false,
+        message = "Not enough gold (need " .. price .. "g)"
+      })
+      return
+    end
+
+    -- Deduct gold
+    local success, new_gold = attrs.remove_gold(self, price)
+    if not success then
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = false,
+        message = "Transaction failed"
+      })
+      return
+    end
+
+    -- Learn spell
+    magic.learn_spell(self, spell_id)
+
+    print(string.format("[Player] Successfully learned %s! Gold: %d -> %d", spell_name, new_gold + price, new_gold))
+
+    -- Update GUI
+    update_gui_stats(self)
+
+    -- Send success result to shop
+    msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+      success = true,
+      message = "Learned " .. spell_name .. "!",
+      new_gold = new_gold,
+      spell_id = spell_id
+    })
   end
 end

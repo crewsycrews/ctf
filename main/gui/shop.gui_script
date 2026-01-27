@@ -1,0 +1,163 @@
+local druid = require("druid.druid")
+require("main.scripts.modules.constants")
+
+local shop = require("main.scripts.modules.m20_shop")
+local magic = require("main.scripts.modules.m20_magic")
+
+---@class ShopGUISelf
+---@field druid table
+---@field player_gold_text node
+---@field status_text node
+---@field spell_buttons table
+---@field player_stats table
+
+-- Spell IDs matching the game's implemented spells
+local SHOP_SPELLS = {
+  {id = "magic_missile", name = "Fireball", price = 50},  -- M20 Magic Missile = game Fireball
+  {id = "hold_person", name = "Ice Barrage", price = 100},  -- M20 Hold Person = game Ice Barrage
+  {id = "gust_of_wind", name = "Thunderclap", price = 100},  -- M20 Gust of Wind = game Thunderclap
+  {id = "invisibility", name = "Windwalk", price = 50}   -- M20 Invisibility = game Windwalk
+}
+
+--- Show status message
+---@param self ShopGUISelf
+---@param message string
+---@param is_error boolean
+local function show_status(self, message, is_error)
+  gui.set_text(self.status_text, message)
+
+  if is_error then
+    gui.set_color(self.status_text, vmath.vector4(1, 0, 0, 1))
+  else
+    gui.set_color(self.status_text, vmath.vector4(0, 1, 0, 1))
+  end
+
+  -- Clear message after 3 seconds
+  timer.delay(3, false, function()
+    gui.set_text(self.status_text, "")
+  end)
+end
+
+--- Update button states based on player gold and learned spells
+---@param self ShopGUISelf
+local function update_button_states(self)
+  for i, spell_data in ipairs(SHOP_SPELLS) do
+    local button_text_node = gui.get_node("spell_" .. i .. "_button_text")
+    local already_learned = magic.knows_spell(self.player_stats, spell_data.id)
+
+    if already_learned then
+      gui.set_text(button_text_node, "OWNED")
+      gui.set_color(button_text_node, vmath.vector4(0.5, 0.5, 0.5, 1))
+    elseif self.player_stats.m20_stats.gold < spell_data.price then
+      gui.set_color(button_text_node, vmath.vector4(0.7, 0.7, 0.7, 1))
+    else
+      gui.set_text(button_text_node, "BUY")
+      gui.set_color(button_text_node, vmath.vector4(1, 1, 1, 1))
+    end
+  end
+end
+
+--- Handle spell purchase
+---@param self ShopGUISelf
+---@param spell_index number
+local function buy_spell(self, spell_index)
+  local spell_data = SHOP_SPELLS[spell_index]
+
+  print(string.format("[Shop] Attempting to buy %s for %dg", spell_data.name, spell_data.price))
+
+  -- Send purchase request to player
+  msg.post("/player", hash(MESSAGES.M20.SHOP_BUY_SPELL), {
+    spell_id = spell_data.id,
+    spell_name = spell_data.name,
+    price = spell_data.price
+  })
+end
+
+--- Handle close button
+---@param self ShopGUISelf
+local function close_shop(self)
+  print("[Shop] Closing shop")
+  msg.post("/player", hash(MESSAGES.M20.SHOP_CLOSE))
+  gui.set_enabled(gui.get_node("background"), false)
+  gui.set_enabled(gui.get_node("overlay"), false)
+end
+
+---@param self ShopGUISelf
+function init(self)
+  msg.post(".", "acquire_input_focus")
+  self.druid = druid.new(self)
+
+  -- Get UI nodes
+  self.player_gold_text = gui.get_node("player_gold")
+  self.status_text = gui.get_node("status_text")
+
+  -- Create buttons
+  self.druid:new_button("spell_1_button", function() buy_spell(self, 1) end)
+  self.druid:new_button("spell_2_button", function() buy_spell(self, 2) end)
+  self.druid:new_button("spell_3_button", function() buy_spell(self, 3) end)
+  self.druid:new_button("spell_4_button", function() buy_spell(self, 4) end)
+  self.druid:new_button("close_button", function() close_shop(self) end)
+
+  -- Initialize player stats (will be updated via message)
+  self.player_stats = {
+    m20_stats = {gold = 0},
+    spellbook = {}
+  }
+
+  -- Start hidden
+  gui.set_enabled(gui.get_node("background"), false)
+  gui.set_enabled(gui.get_node("overlay"), false)
+
+  print("[Shop] UI initialized")
+end
+
+function final(self)
+  msg.post(".", "release_input_focus")
+  self.druid:final()
+end
+
+---@param self ShopGUISelf
+function on_message(self, message_id, message, sender)
+  self.druid:on_message(message_id, message, sender)
+
+  -- Open shop and update stats
+  if message_id == hash(MESSAGES.M20.SHOP_OPEN) then
+    print("[Shop] Opening shop")
+    self.player_stats = message.player_stats
+
+    -- Update gold display
+    gui.set_text(self.player_gold_text, tostring(self.player_stats.m20_stats.gold))
+
+    -- Update button states
+    update_button_states(self)
+
+    -- Show shop
+    gui.set_enabled(gui.get_node("background"), true)
+    gui.set_enabled(gui.get_node("overlay"), true)
+    gui.set_text(self.status_text, "")
+  end
+
+  -- Purchase result
+  if message_id == hash(MESSAGES.M20.SHOP_PURCHASE_RESULT) then
+    if message.success then
+      -- Update local player stats
+      self.player_stats.m20_stats.gold = message.new_gold
+      self.player_stats.spellbook[message.spell_id] = true
+
+      -- Update gold display
+      gui.set_text(self.player_gold_text, tostring(message.new_gold))
+
+      -- Update button states
+      update_button_states(self)
+
+      show_status(self, message.message, false)
+    else
+      show_status(self, message.message, true)
+    end
+  end
+end
+
+---@param self ShopGUISelf
+function on_input(self, action_id, action)
+  return self.druid:on_input(action_id, action)
+end

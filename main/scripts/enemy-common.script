@@ -221,6 +221,22 @@ local function handle_destroy(self)
     msg.post("/gui/gui", MESSAGES.PLAYER.COUNT_SCORE,
       { score = self.score_points })
 
+    -- Drop gold coins at enemy position
+    if self.m20_stats and self.m20_stats.gold_drop and self.m20_stats.gold_drop > 0 then
+      local enemy_pos = go.get_position()
+
+      -- Spawn gold coin prefab at enemy position
+      local gold_coin_id = factory.create("/main_collection#gold_coin_factory", enemy_pos)
+
+      -- Set gold amount on the coin
+      if gold_coin_id then
+        msg.post(gold_coin_id, hash("set_gold_amount"), {
+          amount = self.m20_stats.gold_drop
+        })
+        print(string.format("[M20] Enemy dropped %d gold", self.m20_stats.gold_drop))
+      end
+    end
+
     -- Delete enemy
     go.delete(go.get_id())
   end

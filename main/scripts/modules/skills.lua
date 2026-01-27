@@ -103,6 +103,12 @@ skills.ice_barrage = function(performer)
   local spell = spells.get_spell_from_ctf("ice_barrage")
   if not spell then return end
 
+  -- Check if player has learned this spell
+  if not magic.knows_spell(performer, spell.id) then
+    print("[M20] Cannot cast ice_barrage: Spell not learned (purchase from shop)")
+    return
+  end
+
   -- Check if player has enough HP to cast
   local can_cast, error_msg = magic.can_cast_spell(performer, spell.level, false)
   if not can_cast then
@@ -161,6 +167,12 @@ skills.fireball = function(performer)
   local spell = spells.get_spell_from_ctf("fireball")
   if not spell then return end
 
+  -- Check if player has learned this spell
+  if not magic.knows_spell(performer, spell.id) then
+    print("[M20] Cannot cast fireball: Spell not learned (purchase from shop)")
+    return
+  end
+
   -- Check if player has enough HP to cast
   local can_cast, error_msg = magic.can_cast_spell(performer, spell.level, false)
   if not can_cast then
@@ -213,6 +225,12 @@ skills.thunderclap = function(performer)
   local spell = spells.get_spell_from_ctf("thunderclap")
   if not spell then return end
 
+  -- Check if player has learned this spell
+  if not magic.knows_spell(performer, spell.id) then
+    print("[M20] Cannot cast thunderclap: Spell not learned (purchase from shop)")
+    return
+  end
+
   -- Check if player has enough HP to cast
   local can_cast, error_msg = magic.can_cast_spell(performer, spell.level, false)
   if not can_cast then
@@ -262,6 +280,12 @@ skills.windwalk = function(performer)
   -- M20: Invisibility (Level 1) costs 3 HP
   local spell = spells.get_spell_from_ctf("windwalk")
   if not spell then return end
+
+  -- Check if player has learned this spell
+  if not magic.knows_spell(performer, spell.id) then
+    print("[M20] Cannot cast windwalk: Spell not learned (purchase from shop)")
+    return
+  end
 
   -- Check if player has enough HP to cast
   local can_cast, error_msg = magic.can_cast_spell(performer, spell.level, false)

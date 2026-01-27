@@ -1,0 +1,52 @@
+--- Gold Pickup Script
+--- Handles collision with player and awards gold
+--- @script gold_pickup
+
+local attrs = require("main.scripts.modules.m20_attributes")
+
+go.property("gold_amount", 5)  -- Default gold amount
+
+---@param self table Script context
+function init(self)
+    -- Set random gold amount based on monster HD if not set externally
+    -- This will be set by the enemy when spawning the gold
+    self.picked_up = false
+
+    -- Optional: Add a floating animation
+    go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, go.get_position().y + 5, go.EASING_INOUTSINE, 1)
+end
+
+---@param self table Script context
+---@param message_id hash Message identifier
+---@param message table Message data
+---@param sender url Sender URL
+function on_message(self, message_id, message, sender)
+    -- Handle gold amount setting from spawner
+    if message_id == hash("set_gold_amount") then
+        self.gold_amount = message.amount or self.gold_amount
+        return
+    end
+
+    if message_id == hash("collision_response") then
+        -- Check if collided with player
+        local player_url = msg.url("/main_collection/player")
+
+        if sender == player_url and not self.picked_up then
+            self.picked_up = true
+
+            -- Award gold to player
+            local player_go = player_url
+            local player_script_url = msg.url(player_go.socket, player_go.path, "player")
+
+            -- Send message to player to add gold
+            msg.post(player_script_url, hash(MESSAGES.M20.GOLD_PICKUP), {
+                amount = self.gold_amount
+            })
+
+            print(string.format("[M20] Player picked up %d gold", self.gold_amount))
+
+            -- Delete gold coin
+            go.delete()
+        end
+    end
+end

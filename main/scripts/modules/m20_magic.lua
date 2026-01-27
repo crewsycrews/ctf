@@ -272,4 +272,106 @@ function M.get_all_signature_spells(entity)
     return signatures
 end
 
+-- ============================================================================
+-- SPELLBOOK SYSTEM (for purchasable spells)
+-- ============================================================================
+
+--- Initialize spellbook for an entity
+--- Players start with NO spells learned - must purchase them
+---@param entity table Entity with m20_stats
+function M.initialize_spellbook(entity)
+    assert(entity, "Entity must exist")
+
+    -- Spellbook is a set of spell IDs (from m20_spells.lua)
+    -- e.g., { fireball = true, ice_barrage = true }
+    entity.spellbook = {}
+end
+
+--- Learn a new spell (add to spellbook)
+---@param entity table Entity with spellbook
+---@param spell_id string Spell identifier (e.g., "fireball", "ice_barrage")
+---@return boolean success True if spell was learned
+---@return string? message Error message if failed
+function M.learn_spell(entity, spell_id)
+    assert(entity, "Entity must exist")
+
+    if not entity.spellbook then
+        M.initialize_spellbook(entity)
+    end
+
+    -- Check if spell is already learned
+    if entity.spellbook[spell_id] then
+        return false, "Spell already learned"
+    end
+
+    -- Add spell to spellbook
+    entity.spellbook[spell_id] = true
+
+    return true, "Learned " .. spell_id
+end
+
+--- Forget a spell (remove from spellbook)
+---@param entity table Entity with spellbook
+---@param spell_id string Spell identifier
+---@return boolean success True if spell was forgotten
+---@return string? message Error message if failed
+function M.forget_spell(entity, spell_id)
+    assert(entity, "Entity must exist")
+
+    if not entity.spellbook or not entity.spellbook[spell_id] then
+        return false, "Spell not in spellbook"
+    end
+
+    entity.spellbook[spell_id] = nil
+
+    return true, "Forgot " .. spell_id
+end
+
+--- Check if entity knows a spell
+---@param entity table Entity with spellbook
+---@param spell_id string Spell identifier
+---@return boolean knows True if spell is in spellbook
+function M.knows_spell(entity, spell_id)
+    if not entity or not entity.spellbook then
+        return false
+    end
+
+    return entity.spellbook[spell_id] == true
+end
+
+--- Get all learned spells
+---@param entity table Entity with spellbook
+---@return string[] spell_ids Array of learned spell IDs
+function M.get_learned_spells(entity)
+    if not entity or not entity.spellbook then
+        return {}
+    end
+
+    local spells = {}
+    for spell_id, _ in pairs(entity.spellbook) do
+        table.insert(spells, spell_id)
+    end
+
+    -- Sort alphabetically for consistent ordering
+    table.sort(spells)
+
+    return spells
+end
+
+--- Get count of learned spells
+---@param entity table Entity with spellbook
+---@return number count Number of spells in spellbook
+function M.get_spell_count(entity)
+    if not entity or not entity.spellbook then
+        return 0
+    end
+
+    local count = 0
+    for _, _ in pairs(entity.spellbook) do
+        count = count + 1
+    end
+
+    return count
+end
+
 return M

@@ -39,6 +39,14 @@ instances {
     y: 1556.0
   }
 }
+instances {
+  id: "shop"
+  prototype: "/main/prefabs/buildings/shop_trigger.go"
+  position {
+    x: 5250.0
+    y: 1729.0
+  }
+}
 collection_instances {
   id: "gui"
   collection: "/main/gui/gui.collection"
@@ -88,6 +96,16 @@ embedded_instances {
   "  data: \"sound: \\\"/assets/sounds/level1.ogg\\\"\\n"
   "looping: 1\\n"
   "gain: 0.1\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "factories"
+  data: "embedded_components {\n"
+  "  id: \"gold_coin_factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/prefabs/pickups/gold_coin.go\\\"\\n"
   "\"\n"
   "}\n"
   ""

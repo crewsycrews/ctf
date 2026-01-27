@@ -201,7 +201,8 @@ function M.initialize_entity(entity, class_name, race, use_template)
         race = race,
 
         -- Gold (for shop system)
-        gold = 0
+        -- Players start with 150 gold, monsters start with 0
+        gold = class_name and 150 or 0
     }
 
     -- Set current HP to max
@@ -353,6 +354,55 @@ function M.pay_spell_cost(entity, spell_level, is_signature)
 
     entity.m20_stats.hp_current = entity.m20_stats.hp_current - cost
     return true
+end
+
+--- Add gold to entity
+---@param entity table Entity with m20_stats
+---@param amount number Gold to add
+---@return number new_gold New gold total
+function M.add_gold(entity, amount)
+    assert(entity and entity.m20_stats, "Entity must have m20_stats")
+    assert(amount >= 0, "Gold amount must be non-negative")
+
+    entity.m20_stats.gold = (entity.m20_stats.gold or 0) + amount
+    return entity.m20_stats.gold
+end
+
+--- Remove gold from entity (with check)
+---@param entity table Entity with m20_stats
+---@param amount number Gold to remove
+---@return boolean success Whether gold was removed (false if insufficient)
+---@return number remaining Gold remaining after removal
+function M.remove_gold(entity, amount)
+    assert(entity and entity.m20_stats, "Entity must have m20_stats")
+    assert(amount >= 0, "Gold amount must be non-negative")
+
+    local current_gold = entity.m20_stats.gold or 0
+
+    if current_gold < amount then
+        return false, current_gold
+    end
+
+    entity.m20_stats.gold = current_gold - amount
+    return true, entity.m20_stats.gold
+end
+
+--- Check if entity has enough gold
+---@param entity table Entity with m20_stats
+---@param amount number Gold required
+---@return boolean has_gold Whether entity has enough gold
+function M.has_gold(entity, amount)
+    assert(entity and entity.m20_stats, "Entity must have m20_stats")
+    return (entity.m20_stats.gold or 0) >= amount
+end
+
+--- Set starting gold for new player character
+---@param entity table Entity with m20_stats
+---@param amount? number Starting gold (default: 150)
+function M.set_starting_gold(entity, amount)
+    assert(entity and entity.m20_stats, "Entity must have m20_stats")
+    amount = amount or 150  -- Default starting gold
+    entity.m20_stats.gold = amount
 end
 
 return M

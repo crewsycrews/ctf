@@ -13,6 +13,7 @@
 ---@field xp_bar? node M20 XP bar node (if exists)
 ---@field level_text? node M20 Level text node (if exists)
 ---@field ac_text? node M20 AC text node (if exists)
+---@field gold_text? node M20 Gold text display node (if exists)
 
 ---@param self PlayerGUISelf
 function init(self)
@@ -33,6 +34,7 @@ function init(self)
   pcall(function() self.xp_bar = gui.get_node("xp_bar") end)
   pcall(function() self.level_text = gui.get_node("level_text") end)
   pcall(function() self.ac_text = gui.get_node("ac_text") end)
+  pcall(function() self.gold_text = gui.get_node("gold_text") end)
 end
 
 local function handle_spell_animation(message_id, node)
@@ -53,7 +55,7 @@ local function set_totem_health(self, percent)
     gui.EASING_OUTCUBIC, 1)
 end
 
---- Update M20 stats display (HP, XP, Level, AC)
+--- Update M20 stats display (HP, XP, Level, AC, Gold)
 ---@param self PlayerGUISelf
 ---@param stats table M20 stats table
 local function update_m20_stats(self, stats)
@@ -76,6 +78,11 @@ local function update_m20_stats(self, stats)
   -- Update AC text (e.g., "AC 14")
   if self.ac_text then
     gui.set_text(self.ac_text, string.format("AC\n%d", stats.ac))
+  end
+
+  -- Update gold text (e.g., "150")
+  if self.gold_text then
+    gui.set_text(self.gold_text, string.format("%d", stats.gold or 0))
   end
 end
 

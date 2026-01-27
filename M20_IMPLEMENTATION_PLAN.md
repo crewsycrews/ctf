@@ -12,7 +12,7 @@ This plan outlines the integration of Microlite20 (M20) tabletop RPG rules into 
 
 ## Implementation Status
 
-**Current Status**: ✅ **Milestone 1 Complete**, ✅ **Milestone 2 Complete**, ⏸️ **Milestone 3 Pending**
+**Current Status**: ✅ **Milestone 1 Complete**, ✅ **Milestone 2 Complete**, ✅ **Milestone 3 Complete**
 
 **Completed Work**:
 - ✅ All M20 core modules created with full type annotations
@@ -27,8 +27,10 @@ This plan outlines the integration of Microlite20 (M20) tabletop RPG rules into 
 - ✅ Stat selection UI implemented (every 3 levels: STR/DEX/MIND choice)
 - ✅ Enemy prefabs updated with HD properties
 - ✅ Scene flow: Start Menu → Class Selection → Race Selection → Game
+- ✅ Spell HP costs integrated (no cooldowns for spells)
+- ✅ HUD enhancements complete (HP text, XP bar, Level, AC display, spell HP cost overlays)
 
-**Next Steps**: Milestone 3 - HUD enhancements (XP bar, HP numbers) and Spell HP costs
+**Next Steps**: Milestone 4 - Enemy Improvements (Totem integration, wave HD progression) or Additional Features (Spell DC/Resistance, Floating Combat Text)
 
 ---
 
@@ -250,30 +252,32 @@ M20 = {
 
 ---
 
-## Phase 3: Magic System Integration ⏸️ PENDING
+## Phase 3: Magic System Integration ✅ COMPLETE
 
-### 3.1 Spell HP Cost Integration
-**Status**: Not Started
+### 3.1 Spell HP Cost Integration ✅ COMPLETE
+**Status**: Complete
 
-**Implementation Plan**:
-1. Modify spell casting in `main/scripts/modules/skills.lua`:
-   - Remove cooldown checks
-   - Add HP cost checks using `magic.can_cast_spell()`
+**Implemented Features**:
+1. ✅ Modified spell casting in `main/scripts/modules/skills.lua`:
+   - Removed cooldown checks for spells (movement skills keep cooldowns)
+   - Added HP cost checks using `magic.can_cast_spell()`
    - Deduct HP on cast using `magic.cast_spell()`
-   - Display HP cost in UI tooltips
-2. Update floating orb script for spell casting
-3. Add signature spell selection (1 per spell level)
+   - GUI updates HP display after each spell cast
+2. ✅ Added HP cost overlays to all spell icons in GUI
+3. ✅ Fixed input handling (added `action.pressed` checks to prevent multi-cast)
 
-**CTF Spell HP Costs**:
-- Fireball (Magic Missile, 1st): 3 HP (2 HP signature)
-- Ice Barrage (Hold Person, 2nd): 5 HP (4 HP signature)
-- Thunderclap (Gust of Wind, 2nd): 5 HP (4 HP signature)
-- Windwalk (Invisibility, 1st): 3 HP (2 HP signature)
+**CTF Spell HP Costs** (Implemented):
+- Fireball (Magic Missile, 1st): 3 HP
+- Ice Barrage (Hold Person, 2nd): 5 HP
+- Thunderclap (Gust of Wind, 2nd): 5 HP
+- Windwalk (Invisibility, 1st): 3 HP
+
+**Note**: Signature spell selection system not yet implemented (future enhancement)
 
 ---
 
-### 3.2 Spell DC & Resistance
-**Status**: Not Started
+### 3.2 Spell DC & Resistance ⏸️ PENDING
+**Status**: Not Started (Optional Enhancement)
 
 **Implementation Plan**:
 1. Modify `one_time_buff_applier.script`:
@@ -309,7 +313,7 @@ M20 = {
 
 ---
 
-## Phase 5: UI & Feedback ⏸️ PARTIAL COMPLETE
+## Phase 5: UI & Feedback ✅ MOSTLY COMPLETE
 
 ### 5.1 Class Selection UI ✅ COMPLETE
 **Files**:
@@ -376,15 +380,18 @@ M20 = {
 
 ---
 
-### 5.5 HUD Enhancements ⏸️ PENDING
-**Status**: Not Started
-**File**: `main/gui/player_gui.gui_script`
+### 5.5 HUD Enhancements ✅ COMPLETE
+**Status**: Complete
+**Files**:
+- `main/gui/player_gui.gui` - GUI layout with M20 UI elements
+- `main/gui/player_gui.gui_script` - Script with M20 stat update handlers
 
-**Implementation Plan**:
-- Add XP bar with level indicator
-- Display current/max HP numbers (from M20 stats)
-- Display AC value
-- Add spell HP cost overlays on icons
+**Implemented Features**:
+- ✅ XP bar with level indicator (displays "Lvl X" and XP progress)
+- ✅ Display current/max HP numbers (format: "HP: 45/60")
+- ✅ Display AC value (format: "AC\n14")
+- ✅ Spell HP cost overlays on all spell icons (red text: "3HP" or "5HP")
+- ✅ Real-time updates after spell casts, damage, XP gains, level-ups
 
 ---
 
@@ -584,12 +591,22 @@ M20 = {
 
 ---
 
-**Plan Version**: 4.0
+**Plan Version**: 5.0
 **Created**: 2026-01-11
-**Last Updated**: 2026-01-12
-**Status**: ✅ **Milestone 2 Complete** - Core gameplay systems with full UI integration
+**Last Updated**: 2026-01-27
+**Status**: ✅ **Milestone 3 Complete** - Full M20 integration with HP-based spell casting and complete HUD
 
 ## Changelog
+
+### Version 5.0 (2026-01-27)
+- ✅ **Milestone 3 marked complete**: HP-based spell casting and HUD enhancements fully implemented
+- 🎮 **Spell HP Costs**: All 4 spells (fireball, ice_barrage, thunderclap, windwalk) use M20 HP costs (3 HP for level 1, 5 HP for level 2)
+- 🎨 **HUD Complete**: HP text (current/max), XP bar, Level display, AC display, spell HP cost overlays
+- ⚡ **Real-time Updates**: GUI updates after each spell cast, damage, XP gain, and level-up
+- 🔧 **Input Fix**: Added `action.pressed` checks to prevent spell multi-casting
+- 🎯 **Movement Skills**: Dash, jump, backward_dash retain cooldowns as intended (not HP-based)
+- 📝 **Plan Updated**: Marked Phase 3 complete, Phase 5 mostly complete
+- 🚀 **Next Steps**: Phase 4 (Enemy improvements, Totem integration) or additional features (Spell DC/Resistance, Floating Combat Text, Character Sheet)
 
 ### Version 4.0 (2026-01-12 - Evening Session)
 - ✅ **Milestone 2 marked complete**: Full UI integration for character creation and progression

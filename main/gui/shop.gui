@@ -1,0 +1,543 @@
+script: "/main/gui/shop.gui_script"
+fonts {
+  name: "PixelFont"
+  font: "/assets/fonts/PixelFont.font"
+}
+textures {
+  name: "ui_elements"
+  texture: "/main/atlases/ui_elements.atlas"
+}
+textures {
+  name: "spell"
+  texture: "/main/atlases/spell.atlas"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 327.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/background"
+  id: "background"
+  layer: "background"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -1.333333
+    y: 217.33333
+  }
+  scale {
+    x: 2.5
+    y: 2.5
+  }
+  size {
+    x: 100.0
+    y: 20.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "SPELL SHOP"
+  font: "PixelFont"
+  id: "title"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "background"
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -1.333333
+    y: 167.33333
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 40.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  texture: "spell/tile000"
+  id: "gold_icon"
+  parent: "background"
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 30.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    y: 0.843
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "150"
+  font: "PixelFont"
+  id: "player_gold"
+  pivot: PIVOT_W
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "gold_icon"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 102.666664
+    y: 87.333336
+  }
+  size {
+    x: 500.0
+    y: 350.0
+  }
+  type: TYPE_BOX
+  id: "spell_list_container"
+  parent: "background"
+  layer: "ui"
+  alpha: 0.0
+}
+nodes {
+  size {
+    x: 200.0
+    y: 50.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "spell_1_bg"
+  pivot: PIVOT_W
+  parent: "spell_list_container"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    x: 10.0
+    y: 25.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Fireball - 50g"
+  font: "PixelFont"
+  id: "spell_1_text"
+  pivot: PIVOT_W
+  parent: "spell_1_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 160.0
+    y: 25.0
+  }
+  scale {
+    x: 0.15
+    y: 0.15
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "spell_1_button"
+  parent: "spell_1_bg"
+  layer: "ui"
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "spell_1_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "spell_1_button"
+  layer: "ui"
+}
+nodes {
+  position {
+    y: -60.0
+  }
+  size {
+    x: 200.0
+    y: 50.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "spell_2_bg"
+  pivot: PIVOT_W
+  parent: "spell_1_bg"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    x: 10.0
+    y: 25.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Ice Barrage - 100g"
+  font: "PixelFont"
+  id: "spell_2_text"
+  pivot: PIVOT_W
+  parent: "spell_2_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 160.0
+    y: 25.0
+  }
+  scale {
+    x: 0.15
+    y: 0.15
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "spell_2_button"
+  parent: "spell_2_bg"
+  layer: "ui"
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "spell_2_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "spell_2_button"
+  layer: "ui"
+}
+nodes {
+  position {
+    y: -60.0
+  }
+  size {
+    x: 200.0
+    y: 50.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "spell_3_bg"
+  pivot: PIVOT_W
+  parent: "spell_2_bg"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    x: 10.0
+    y: 25.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Thunderclap - 100g"
+  font: "PixelFont"
+  id: "spell_3_text"
+  pivot: PIVOT_W
+  parent: "spell_3_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 160.0
+    y: 25.0
+  }
+  scale {
+    x: 0.15
+    y: 0.15
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "spell_3_button"
+  parent: "spell_3_bg"
+  layer: "ui"
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "spell_3_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "spell_3_button"
+  layer: "ui"
+}
+nodes {
+  position {
+    y: -60.0
+  }
+  size {
+    x: 200.0
+    y: 50.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "spell_4_bg"
+  pivot: PIVOT_W
+  parent: "spell_3_bg"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    x: 10.0
+    y: 25.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Windwalk - 50g"
+  font: "PixelFont"
+  id: "spell_4_text"
+  pivot: PIVOT_W
+  parent: "spell_4_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 160.0
+    y: 25.0
+  }
+  scale {
+    x: 0.15
+    y: 0.15
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "spell_4_button"
+  parent: "spell_4_bg"
+  layer: "ui"
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "spell_4_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "spell_4_button"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: -1.333333
+    y: -135.33333
+  }
+  size {
+    x: 400.0
+    y: 40.0
+  }
+  color {
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  font: "PixelFont"
+  id: "status_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "background"
+  layer: "ui"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -1.333333
+    y: -187.33333
+  }
+  scale {
+    x: 0.2
+    y: 0.2
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "close_button"
+  parent: "background"
+  layer: "ui"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "CLOSE"
+  font: "PixelFont"
+  id: "close_text"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "close_button"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: -1.333333
+    y: -7.666667
+  }
+  scale {
+    x: 3.5
+    y: 4.5
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "overlay"
+  parent: "background"
+  layer: "background"
+  inherit_alpha: true
+  alpha: 0.8
+  size_mode: SIZE_MODE_AUTO
+}
+layers {
+  name: "background"
+}
+layers {
+  name: "ui"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
