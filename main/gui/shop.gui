@@ -14,23 +14,28 @@ textures {
 nodes {
   position {
     x: 480.0
-    y: 327.0
+    y: 259.0
   }
-  scale {
-    x: 1.5
-    y: 1.5
+  size {
+    x: 720.0
+    y: 480.0
+  }
+  color {
+    x: 0.4
+    y: 0.4
+    z: 0.4
   }
   type: TYPE_BOX
-  texture: "ui_elements/background"
   id: "background"
   layer: "background"
   inherit_alpha: true
+  alpha: 0.0
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
-    x: -1.333333
-    y: 217.33333
+    x: 355.66666
+    y: 275.3333
   }
   scale {
     x: 2.5
@@ -61,12 +66,11 @@ nodes {
   }
   parent: "background"
   layer: "ui"
-  inherit_alpha: true
 }
 nodes {
   position {
-    x: -1.333333
-    y: 167.33333
+    x: 303.66666
+    y: -63.66667
   }
   scale {
     x: 1.5
@@ -81,7 +85,6 @@ nodes {
   id: "gold_icon"
   parent: "background"
   layer: "ui"
-  inherit_alpha: true
 }
 nodes {
   position {
@@ -114,8 +117,8 @@ nodes {
 }
 nodes {
   position {
-    x: 102.666664
-    y: 87.333336
+    x: 254.66666
+    y: 222.33334
   }
   size {
     x: 500.0
@@ -128,13 +131,16 @@ nodes {
   alpha: 0.0
 }
 nodes {
+  position {
+    y: 10.666666
+  }
   size {
     x: 200.0
     y: 50.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
-  id: "spell_1_bg"
+  id: "spell_5_bg"
   pivot: PIVOT_W
   parent: "spell_list_container"
   layer: "ui"
@@ -147,8 +153,8 @@ nodes {
 }
 nodes {
   position {
-    x: 10.0
-    y: 25.0
+    x: 27.333332
+    y: 13.0
   }
   size {
     x: 150.0
@@ -164,13 +170,13 @@ nodes {
   font: "PixelFont"
   id: "spell_1_text"
   pivot: PIVOT_W
-  parent: "spell_1_bg"
+  parent: "spell_5_bg"
   layer: "ui"
 }
 nodes {
   position {
-    x: 160.0
-    y: 25.0
+    x: 100.66668
+    y: -22.000002
   }
   scale {
     x: 0.15
@@ -179,8 +185,8 @@ nodes {
   type: TYPE_BOX
   texture: "ui_elements/button"
   id: "spell_1_button"
-  parent: "spell_1_bg"
-  layer: "ui"
+  parent: "spell_5_bg"
+  layer: "button"
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
@@ -202,7 +208,7 @@ nodes {
     z: 1.0
   }
   parent: "spell_1_button"
-  layer: "ui"
+  layer: "button-text"
 }
 nodes {
   position {
@@ -216,7 +222,7 @@ nodes {
   texture: "ui_elements/border"
   id: "spell_2_bg"
   pivot: PIVOT_W
-  parent: "spell_1_bg"
+  parent: "spell_list_container"
   layer: "ui"
   slice9 {
     x: 7.0
@@ -227,8 +233,8 @@ nodes {
 }
 nodes {
   position {
-    x: 10.0
-    y: 25.0
+    x: 27.333332
+    y: 13.0
   }
   size {
     x: 150.0
@@ -249,8 +255,8 @@ nodes {
 }
 nodes {
   position {
-    x: 160.0
-    y: 25.0
+    x: 100.666664
+    y: -22.000002
   }
   scale {
     x: 0.15
@@ -260,7 +266,7 @@ nodes {
   texture: "ui_elements/button"
   id: "spell_2_button"
   parent: "spell_2_bg"
-  layer: "ui"
+  layer: "button"
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
@@ -282,11 +288,11 @@ nodes {
     z: 1.0
   }
   parent: "spell_2_button"
-  layer: "ui"
+  layer: "button-text"
 }
 nodes {
   position {
-    y: -60.0
+    y: -130.66667
   }
   size {
     x: 200.0
@@ -296,7 +302,7 @@ nodes {
   texture: "ui_elements/border"
   id: "spell_3_bg"
   pivot: PIVOT_W
-  parent: "spell_2_bg"
+  parent: "spell_list_container"
   layer: "ui"
   slice9 {
     x: 7.0
@@ -307,8 +313,8 @@ nodes {
 }
 nodes {
   position {
-    x: 10.0
-    y: 25.0
+    x: 27.333332
+    y: 13.0
   }
   size {
     x: 150.0
@@ -325,12 +331,12 @@ nodes {
   id: "spell_3_text"
   pivot: PIVOT_W
   parent: "spell_3_bg"
-  layer: "ui"
+  layer: "button"
 }
 nodes {
   position {
-    x: 160.0
-    y: 25.0
+    x: 100.666664
+    y: -22.000002
   }
   scale {
     x: 0.15
@@ -340,7 +346,7 @@ nodes {
   texture: "ui_elements/button"
   id: "spell_3_button"
   parent: "spell_3_bg"
-  layer: "ui"
+  layer: "button"
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
@@ -362,11 +368,11 @@ nodes {
     z: 1.0
   }
   parent: "spell_3_button"
-  layer: "ui"
+  layer: "button-text"
 }
 nodes {
   position {
-    y: -60.0
+    y: -204.0
   }
   size {
     x: 200.0
@@ -376,7 +382,7 @@ nodes {
   texture: "ui_elements/border"
   id: "spell_4_bg"
   pivot: PIVOT_W
-  parent: "spell_3_bg"
+  parent: "spell_list_container"
   layer: "ui"
   slice9 {
     x: 7.0
@@ -387,8 +393,8 @@ nodes {
 }
 nodes {
   position {
-    x: 10.0
-    y: 25.0
+    x: 27.333332
+    y: 13.0
   }
   size {
     x: 150.0
@@ -409,8 +415,8 @@ nodes {
 }
 nodes {
   position {
-    x: 160.0
-    y: 25.0
+    x: 100.666664
+    y: -22.000002
   }
   scale {
     x: 0.15
@@ -420,7 +426,7 @@ nodes {
   texture: "ui_elements/button"
   id: "spell_4_button"
   parent: "spell_4_bg"
-  layer: "ui"
+  layer: "button"
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
@@ -442,7 +448,7 @@ nodes {
     z: 1.0
   }
   parent: "spell_4_button"
-  layer: "ui"
+  layer: "button-text"
 }
 nodes {
   position {
@@ -467,12 +473,11 @@ nodes {
   }
   parent: "background"
   layer: "ui"
-  inherit_alpha: true
 }
 nodes {
   position {
-    x: -1.333333
-    y: -187.33333
+    x: 357.66666
+    y: -134.33333
   }
   scale {
     x: 0.2
@@ -483,7 +488,6 @@ nodes {
   id: "close_button"
   parent: "background"
   layer: "ui"
-  inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
@@ -512,32 +516,17 @@ nodes {
   parent: "close_button"
   layer: "ui"
 }
-nodes {
-  position {
-    x: -1.333333
-    y: -7.666667
-  }
-  scale {
-    x: 3.5
-    y: 4.5
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  type: TYPE_BOX
-  id: "overlay"
-  parent: "background"
-  layer: "background"
-  inherit_alpha: true
-  alpha: 0.8
-  size_mode: SIZE_MODE_AUTO
-}
 layers {
   name: "background"
 }
 layers {
   name: "ui"
+}
+layers {
+  name: "button"
+}
+layers {
+  name: "button-text"
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

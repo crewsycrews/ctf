@@ -380,9 +380,6 @@ function on_message(self, message_id, message)
         spellbook = self.spellbook
       }
     })
-  elseif message_id == hash(MESSAGES.M20.SHOP_CLOSE) then
-    -- Shop closed, no action needed
-    print("[Player] Shop closed")
   elseif message_id == hash(MESSAGES.M20.SHOP_BUY_SPELL) then
     -- Handle spell purchase
     local spell_id = message.spell_id

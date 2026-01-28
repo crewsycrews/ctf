@@ -13,10 +13,10 @@ local magic = require("main.scripts.modules.m20_magic")
 
 -- Spell IDs matching the game's implemented spells
 local SHOP_SPELLS = {
-  {id = "magic_missile", name = "Fireball", price = 50},  -- M20 Magic Missile = game Fireball
-  {id = "hold_person", name = "Ice Barrage", price = 100},  -- M20 Hold Person = game Ice Barrage
-  {id = "gust_of_wind", name = "Thunderclap", price = 100},  -- M20 Gust of Wind = game Thunderclap
-  {id = "invisibility", name = "Windwalk", price = 50}   -- M20 Invisibility = game Windwalk
+  { id = "magic_missile", name = "Fireball",    price = 50 },  -- M20 Magic Missile = game Fireball
+  { id = "hold_person",   name = "Ice Barrage", price = 100 }, -- M20 Hold Person = game Ice Barrage
+  { id = "gust_of_wind",  name = "Thunderclap", price = 100 }, -- M20 Gust of Wind = game Thunderclap
+  { id = "invisibility",  name = "Windwalk",    price = 50 }   -- M20 Invisibility = game Windwalk
 }
 
 --- Show status message
@@ -77,9 +77,8 @@ end
 ---@param self ShopGUISelf
 local function close_shop(self)
   print("[Shop] Closing shop")
-  msg.post("/player", hash(MESSAGES.M20.SHOP_CLOSE))
+  msg.post("/shop", hash(MESSAGES.M20.SHOP_CLOSE))
   gui.set_enabled(gui.get_node("background"), false)
-  gui.set_enabled(gui.get_node("overlay"), false)
 end
 
 ---@param self ShopGUISelf
@@ -100,13 +99,12 @@ function init(self)
 
   -- Initialize player stats (will be updated via message)
   self.player_stats = {
-    m20_stats = {gold = 0},
+    m20_stats = { gold = 0 },
     spellbook = {}
   }
 
   -- Start hidden
   gui.set_enabled(gui.get_node("background"), false)
-  gui.set_enabled(gui.get_node("overlay"), false)
 
   print("[Shop] UI initialized")
 end
@@ -133,7 +131,6 @@ function on_message(self, message_id, message, sender)
 
     -- Show shop
     gui.set_enabled(gui.get_node("background"), true)
-    gui.set_enabled(gui.get_node("overlay"), true)
     gui.set_text(self.status_text, "")
   end
 

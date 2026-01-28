@@ -7,10 +7,9 @@ local camera = require("orthographic.camera")
 
 ---@param self table
 function init(self)
-  self.player_in_zone = false
   self.shop_open = false
   self.shop_name = "Spell shop"
-  self.trigger_size = vmath.vector3(80, 80, 0)   -- Box shape size from collision object
+  self.trigger_size = vmath.vector3(80, 80, 0) -- Box shape size from collision object
   msg.post(".", "acquire_input_focus")
   print("[Shop Trigger] Shop trigger initialized at " .. tostring(go.get_position()))
 end
@@ -20,29 +19,11 @@ end
 ---@param message table
 ---@param sender url
 function on_message(self, message_id, message, sender)
-  if message_id == hash("trigger_response") then
-    -- Check if it's the player entering or exiting
-    local sender_str = tostring(sender)
-
-    -- Extract just the game object path (before #collisionobject)
-    local sender_go = sender_str:match("([^#]+)")
-
-    if sender_go == "/secondary_collection/player" or sender_str:find("/player") then
-      if message.enter and not self.player_in_zone then
-        -- Player entered shop zone
-        self.player_in_zone = true
-        print("[Shop Trigger] Player entered shop zone (click to open)")
-      elseif not message.enter and self.player_in_zone then
-        -- Player exited shop zone
-        self.player_in_zone = false
-        print("[Shop Trigger] Player exited shop zone")
-
-        -- Close shop if it was open
-        if self.shop_open then
-          self.shop_open = false
-          msg.post("/player", hash(MESSAGES.M20.SHOP_CLOSE))
-        end
-      end
+  if message_id == hash(MESSAGES.M20.SHOP_CLOSE) then
+    -- Shop closed message
+    if self.shop_open then
+      self.shop_open = false
+      print("[Shop Trigger] Shop closed")
     end
   end
 end
@@ -50,32 +31,24 @@ end
 ---@param self table
 ---@param action_id hash
 ---@param action table
----@return boolean
 function on_input(self, action_id, action)
   if action_id == hash("touch") and action.pressed then
-    -- Only process clicks when player is in zone
-    if not self.player_in_zone then
-      return false
-    end
-
     -- Convert screen position to world position
     local world_pos = camera.screen_to_world(go.get_id("/camera"), vmath.vector3(action.x, action.y, 0))
     local shop_pos = go.get_position()
-
+    pprint(world_pos, shop_pos)
     -- Check if click is within shop trigger bounds
     local dx = math.abs(world_pos.x - shop_pos.x)
     local dy = math.abs(world_pos.y - shop_pos.y)
 
     if dx <= self.trigger_size.x / 2 and dy <= self.trigger_size.y / 2 then
       -- Clicked on shop while in zone
+      pprint(dx, dy)
       if not self.shop_open then
         self.shop_open = true
         print("[Shop Trigger] Shop opened by click")
         msg.post("/player", hash(MESSAGES.M20.SHOP_OPEN))
-        return true
       end
     end
   end
-
-  return false
 end
