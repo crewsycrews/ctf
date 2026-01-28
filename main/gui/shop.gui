@@ -53,7 +53,7 @@ nodes {
   type: TYPE_TEXT
   text: "SPELL SHOP"
   font: "PixelFont"
-  id: "title"
+  id: "spell_header"
   outline {
     x: 1.0
     y: 1.0
@@ -153,8 +153,8 @@ nodes {
 }
 nodes {
   position {
-    x: 27.333332
-    y: 13.0
+    x: 46.333332
+    y: 9.0
   }
   size {
     x: 150.0
@@ -233,8 +233,8 @@ nodes {
 }
 nodes {
   position {
-    x: 27.333332
-    y: 13.0
+    x: 30.333332
+    y: 9.0
   }
   size {
     x: 150.0
@@ -313,8 +313,8 @@ nodes {
 }
 nodes {
   position {
-    x: 27.333332
-    y: 13.0
+    x: 32.333332
+    y: 9.0
   }
   size {
     x: 150.0
@@ -393,8 +393,8 @@ nodes {
 }
 nodes {
   position {
-    x: 27.333332
-    y: 13.0
+    x: 35.333332
+    y: 9.0
   }
   size {
     x: 150.0
@@ -476,8 +476,7 @@ nodes {
 }
 nodes {
   position {
-    x: 357.66666
-    y: -134.33333
+    y: 319.6667
   }
   scale {
     x: 0.2
@@ -969,48 +968,6 @@ nodes {
   font: "PixelFont"
   id: "weapon_3_special"
   parent: "weapon_3_bg"
-  layer: "ui"
-}
-nodes {
-  position {
-    x: -340.33334
-    y: -134.33333
-  }
-  scale {
-    x: 0.2
-    y: 0.2
-  }
-  type: TYPE_BOX
-  texture: "ui_elements/button"
-  id: "close_button1"
-  parent: "background"
-  layer: "ui"
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  scale {
-    x: 7.0
-    y: 7.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  type: TYPE_TEXT
-  text: "CLOSE"
-  font: "PixelFont"
-  id: "close_text1"
-  outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-  shadow {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-  parent: "close_button1"
   layer: "ui"
 }
 layers {
