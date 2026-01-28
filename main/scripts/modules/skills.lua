@@ -6,6 +6,7 @@ local followersManipulator = require('main.scripts.modules.followers')
 local spells = require("main.scripts.modules.m20_spells")
 local magic = require("main.scripts.modules.m20_magic")
 local attrs = require("main.scripts.modules.m20_attributes")
+local weapon_attacks = require("main.scripts.modules.weapon_attacks")
 
 local skills = {}
 
@@ -332,6 +333,18 @@ skills.windwalk = function(performer)
       ac = performer.m20_stats.ac
     }
   })
+end
+
+---Melee weapon attack
+---@param performer Hero
+skills.melee_attack = function(performer)
+  -- Perform weapon attack using equipped weapon
+  local result = weapon_attacks.melee_attack(performer, performer.mouse_world_pos)
+
+  if result then
+    print(string.format("[Melee Attack] %s: hit=%s, targets=%d, damage=%d",
+      result.behavior, tostring(result.hit), #result.targets, result.damage))
+  end
 end
 
 return skills

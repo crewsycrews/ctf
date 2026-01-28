@@ -21,6 +21,7 @@ MESSAGES = {
     SHOP_OPEN = 'm20_shop_open',
     SHOP_CLOSE = 'm20_shop_close',
     SHOP_BUY_SPELL = 'm20_shop_buy_spell',
+    SHOP_BUY_WEAPON = 'm20_shop_buy_weapon',
     SHOP_PURCHASE_RESULT = 'm20_shop_purchase_result',
     BUY_ITEM = 'm20_buy_item',
     SELL_ITEM = 'm20_sell_item',

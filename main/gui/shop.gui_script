@@ -3,6 +3,7 @@ require("main.scripts.modules.constants")
 
 local shop = require("main.scripts.modules.m20_shop")
 local magic = require("main.scripts.modules.m20_magic")
+local weapons = require("main.scripts.modules.m20_weapons")
 
 ---@class ShopGUISelf
 ---@field druid table
@@ -17,6 +18,13 @@ local SHOP_SPELLS = {
   { id = "hold_person",   name = "Ice Barrage", price = 100 }, -- M20 Hold Person = game Ice Barrage
   { id = "gust_of_wind",  name = "Thunderclap", price = 100 }, -- M20 Gust of Wind = game Thunderclap
   { id = "invisibility",  name = "Windwalk",    price = 50 }   -- M20 Invisibility = game Windwalk
+}
+
+-- Weapon shop items
+local SHOP_WEAPONS = {
+  { id = "spear",      name = "Spear",      price = 2,   damage = "1d8", special = "Pierce" },
+  { id = "battleaxe",  name = "Battleaxe",  price = 10,  damage = "1d8", special = "Cleave" },
+  { id = "longsword",  name = "Longsword",  price = 15,  damage = "1d8", special = "Balanced" }
 }
 
 --- Show status message
@@ -73,6 +81,22 @@ local function buy_spell(self, spell_index)
   })
 end
 
+--- Handle weapon purchase
+---@param self ShopGUISelf
+---@param weapon_index number
+local function buy_weapon(self, weapon_index)
+  local weapon_data = SHOP_WEAPONS[weapon_index]
+
+  print(string.format("[Shop] Attempting to buy %s for %dg", weapon_data.name, weapon_data.price))
+
+  -- Send purchase request to player
+  msg.post("/player", hash(MESSAGES.M20.SHOP_BUY_WEAPON), {
+    weapon_id = weapon_data.id,
+    weapon_name = weapon_data.name,
+    price = weapon_data.price
+  })
+end
+
 --- Handle close button
 ---@param self ShopGUISelf
 local function close_shop(self)
@@ -90,11 +114,18 @@ function init(self)
   self.player_gold_text = gui.get_node("player_gold")
   self.status_text = gui.get_node("status_text")
 
-  -- Create buttons
+  -- Create spell buttons
   self.druid:new_button("spell_1_button", function() buy_spell(self, 1) end)
   self.druid:new_button("spell_2_button", function() buy_spell(self, 2) end)
   self.druid:new_button("spell_3_button", function() buy_spell(self, 3) end)
   self.druid:new_button("spell_4_button", function() buy_spell(self, 4) end)
+
+  -- Create weapon buttons
+  self.druid:new_button("weapon_1_button", function() buy_weapon(self, 1) end)
+  self.druid:new_button("weapon_2_button", function() buy_weapon(self, 2) end)
+  self.druid:new_button("weapon_3_button", function() buy_weapon(self, 3) end)
+
+  -- Close button
   self.druid:new_button("close_button", function() close_shop(self) end)
 
   -- Initialize player stats (will be updated via message)
@@ -139,7 +170,16 @@ function on_message(self, message_id, message, sender)
     if message.success then
       -- Update local player stats
       self.player_stats.m20_stats.gold = message.new_gold
-      self.player_stats.spellbook[message.spell_id] = true
+
+      -- Update spellbook if spell was purchased
+      if message.spell_id then
+        self.player_stats.spellbook[message.spell_id] = true
+      end
+
+      -- Update equipped weapon if weapon was purchased
+      if message.weapon_id then
+        self.player_stats.equipped_weapon = message.weapon_id
+      end
 
       -- Update gold display
       gui.set_text(self.player_gold_text, tostring(message.new_gold))

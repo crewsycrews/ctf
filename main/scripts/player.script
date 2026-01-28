@@ -44,6 +44,7 @@ local classes = require("main.scripts.modules.m20_classes")
 local progression = require("main.scripts.modules.m20_progression")
 local magic = require("main.scripts.modules.m20_magic")
 local equipment = require("main.scripts.modules.m20_equipment")
+local weapons = require("main.scripts.modules.m20_weapons")
 
 
 --- Send M20 stats to GUI for display
@@ -103,6 +104,9 @@ function init(self)
 
   -- Initialize spellbook (no spells learned - must purchase from shop)
   magic.initialize_spellbook(self)
+
+  -- Equip starting weapon (unarmed by default)
+  weapons.equip_weapon(self, "unarmed")
 
   print(string.format("[M20] Player initialized: Level %d %s %s",
     self.m20_stats.level,
@@ -214,13 +218,17 @@ function on_input(self, action_id, action)
     skills.ice_barrage(self)
   end
   if action_id == hash("touch") and action.pressed then
-    skills.fireball(self)
+    skills.melee_attack(self)
   end
   if action_id == hash("scroll_up") and action.pressed then
     skills.thunderclap(self)
   end
   if action_id == hash("tail_action_2") and action.pressed then
     skills.windwalk(self)
+  end
+  -- Melee attack with equipped weapon (right-click / tail_action_1)
+  if action_id == hash("tail_action_1") and action.pressed then
+    skills.fireball(self)
   end
 
   -- Track mouse position for spell targeting
@@ -431,5 +439,52 @@ function on_message(self, message_id, message)
       new_gold = new_gold,
       spell_id = spell_id
     })
+  elseif message_id == hash(MESSAGES.M20.SHOP_BUY_WEAPON) then
+    -- Handle weapon purchase
+    local weapon_id = message.weapon_id
+    local weapon = weapons.get_weapon(weapon_id)
+
+    if not weapon then
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = false,
+        message = "Unknown weapon"
+      })
+      return
+    end
+
+    print(string.format("[Player] Attempting to buy %s for %dg", weapon.name, weapon.cost))
+
+    -- Check if enough gold
+    if not weapons.can_afford(self, weapon_id) then
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = false,
+        message = "Not enough gold (need " .. weapon.cost .. "g)"
+      })
+      return
+    end
+
+    -- Purchase and equip weapon
+    local success = weapons.purchase_weapon(self, weapon_id)
+
+    if success then
+      print(string.format("[Player] Successfully purchased and equipped %s! Gold: %d",
+        weapon.name, self.m20_stats.gold))
+
+      -- Update GUI
+      update_gui_stats(self)
+
+      -- Send success result to shop
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = true,
+        message = "Equipped " .. weapon.name .. "!",
+        new_gold = self.m20_stats.gold,
+        weapon_id = weapon_id
+      })
+    else
+      msg.post("/gui/gui#shop", hash(MESSAGES.M20.SHOP_PURCHASE_RESULT), {
+        success = false,
+        message = "Purchase failed"
+      })
+    end
   end
 end

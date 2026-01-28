@@ -69,7 +69,7 @@ nodes {
 }
 nodes {
   position {
-    x: 303.66666
+    x: -19.333344
     y: -63.66667
   }
   scale {
@@ -514,6 +514,503 @@ nodes {
     z: 1.0
   }
   parent: "close_button"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: -342.33334
+    y: 275.3333
+  }
+  scale {
+    x: 2.5
+    y: 2.5
+  }
+  size {
+    x: 100.0
+    y: 20.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "WEAPON SHOP"
+  font: "PixelFont"
+  id: "weapons_header"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "background"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: -443.33334
+    y: 222.33334
+  }
+  size {
+    x: 500.0
+    y: 350.0
+  }
+  type: TYPE_BOX
+  id: "weapon_list_container"
+  parent: "background"
+  layer: "ui"
+  alpha: 0.0
+}
+nodes {
+  position {
+    x: 102.0
+    y: -4.333334
+  }
+  size {
+    x: 200.0
+    y: 80.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "weapon_1_bg"
+  parent: "weapon_list_container"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    y: 25.0
+  }
+  size {
+    x: 200.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Spear"
+  font: "PixelFont"
+  id: "weapon_1_name"
+  parent: "weapon_1_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    y: -19.000002
+  }
+  size {
+    x: 100.0
+    y: 30.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "weapon_1_button"
+  parent: "weapon_1_bg"
+  layer: "button"
+}
+nodes {
+  size {
+    x: 100.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "weapon_1_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "weapon_1_button"
+  layer: "button-text"
+}
+nodes {
+  position {
+    x: 71.0
+    y: 24.0
+  }
+  size {
+    x: 50.0
+    y: 30.0
+  }
+  color {
+    x: 0.749
+    y: 0.608
+    z: 0.188
+  }
+  type: TYPE_TEXT
+  text: "10 gp"
+  font: "PixelFont"
+  id: "weapon_1_price"
+  parent: "weapon_1_bg"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -19.666668
+    y: 8.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "1d8"
+  font: "PixelFont"
+  id: "weapon_1_damage"
+  parent: "weapon_1_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 22.333332
+    y: 8.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Pierce"
+  font: "PixelFont"
+  id: "weapon_1_special"
+  parent: "weapon_1_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 102.0
+    y: -101.333336
+  }
+  size {
+    x: 200.0
+    y: 80.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "weapon_2_bg"
+  parent: "weapon_list_container"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    y: 25.0
+  }
+  size {
+    x: 200.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Axe"
+  font: "PixelFont"
+  id: "weapon_2_name"
+  parent: "weapon_2_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    y: -19.000002
+  }
+  size {
+    x: 100.0
+    y: 30.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "weapon_2_button"
+  parent: "weapon_2_bg"
+  layer: "button"
+}
+nodes {
+  size {
+    x: 100.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "weapon_2_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "weapon_2_button"
+  layer: "button-text"
+}
+nodes {
+  position {
+    x: 71.0
+    y: 24.0
+  }
+  size {
+    x: 50.0
+    y: 30.0
+  }
+  color {
+    x: 0.749
+    y: 0.608
+    z: 0.188
+  }
+  type: TYPE_TEXT
+  text: "10 gp"
+  font: "PixelFont"
+  id: "weapon_2_price"
+  parent: "weapon_2_bg"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -19.666668
+    y: 8.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "1d8"
+  font: "PixelFont"
+  id: "weapon_2_damage"
+  parent: "weapon_2_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 22.333332
+    y: 8.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Cleave"
+  font: "PixelFont"
+  id: "weapon_2_special"
+  parent: "weapon_2_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 102.0
+    y: -204.33334
+  }
+  size {
+    x: 200.0
+    y: 80.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/border"
+  id: "weapon_3_bg"
+  parent: "weapon_list_container"
+  layer: "ui"
+  slice9 {
+    x: 7.0
+    y: 8.0
+    z: 7.0
+    w: 8.0
+  }
+}
+nodes {
+  position {
+    y: 25.0
+  }
+  size {
+    x: 200.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Longsword"
+  font: "PixelFont"
+  id: "weapon_3_name"
+  parent: "weapon_3_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    y: -19.000002
+  }
+  size {
+    x: 100.0
+    y: 30.0
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "weapon_3_button"
+  parent: "weapon_3_bg"
+  layer: "button"
+}
+nodes {
+  size {
+    x: 100.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "BUY"
+  font: "PixelFont"
+  id: "weapon_3_button_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "weapon_3_button"
+  layer: "button-text"
+}
+nodes {
+  position {
+    x: 71.0
+    y: 24.0
+  }
+  size {
+    x: 50.0
+    y: 30.0
+  }
+  color {
+    x: 0.749
+    y: 0.608
+    z: 0.188
+  }
+  type: TYPE_TEXT
+  text: "10 gp"
+  font: "PixelFont"
+  id: "weapon_3_price"
+  parent: "weapon_3_bg"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -29.666668
+    y: 8.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "1d8"
+  font: "PixelFont"
+  id: "weapon_3_damage"
+  parent: "weapon_3_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: 22.333332
+    y: 8.0
+  }
+  size {
+    x: 150.0
+    y: 40.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Balanced"
+  font: "PixelFont"
+  id: "weapon_3_special"
+  parent: "weapon_3_bg"
+  layer: "ui"
+}
+nodes {
+  position {
+    x: -340.33334
+    y: -134.33333
+  }
+  scale {
+    x: 0.2
+    y: 0.2
+  }
+  type: TYPE_BOX
+  texture: "ui_elements/button"
+  id: "close_button1"
+  parent: "background"
+  layer: "ui"
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "CLOSE"
+  font: "PixelFont"
+  id: "close_text1"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "close_button1"
   layer: "ui"
 }
 layers {
