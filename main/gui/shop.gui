@@ -117,12 +117,12 @@ nodes {
 }
 nodes {
   position {
-    x: 254.66666
-    y: 222.33334
+    x: 354.66666
+    y: 109.33334
   }
   size {
-    x: 500.0
-    y: 350.0
+    x: 210.0
+    y: 300.0
   }
   type: TYPE_BOX
   id: "spell_list_container"
@@ -132,16 +132,15 @@ nodes {
 }
 nodes {
   position {
-    y: 10.666666
+    y: 110.66666
   }
   size {
     x: 200.0
-    y: 50.0
+    y: 60.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
-  id: "spell_5_bg"
-  pivot: PIVOT_W
+  id: "spell_1_bg"
   parent: "spell_list_container"
   layer: "ui"
   slice9 {
@@ -153,8 +152,7 @@ nodes {
 }
 nodes {
   position {
-    x: 46.333332
-    y: 9.0
+    y: 13.0
   }
   size {
     x: 150.0
@@ -166,37 +164,30 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Fireball - 50g"
+  text: "Fireball"
   font: "PixelFont"
   id: "spell_1_text"
-  pivot: PIVOT_W
-  parent: "spell_5_bg"
+  parent: "spell_1_bg"
   layer: "ui"
 }
 nodes {
   position {
-    x: 100.66668
-    y: -22.000002
+    y: -9.000002
   }
-  scale {
-    x: 0.15
-    y: 0.15
+  size {
+    x: 100.0
+    y: 30.0
   }
   type: TYPE_BOX
   texture: "ui_elements/button"
   id: "spell_1_button"
-  parent: "spell_5_bg"
+  parent: "spell_1_bg"
   layer: "button"
-  size_mode: SIZE_MODE_AUTO
 }
 nodes {
-  scale {
-    x: 7.0
-    y: 7.0
-  }
   size {
-    x: 200.0
-    y: 100.0
+    x: 100.0
+    y: 50.0
   }
   type: TYPE_TEXT
   text: "BUY"
@@ -212,16 +203,36 @@ nodes {
 }
 nodes {
   position {
-    y: -60.0
+    x: -77.0
+    y: 14.0
+  }
+  size {
+    x: 25.0
+    y: 25.0
+  }
+  color {
+    x: 0.4
+    y: 0.4
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "50g"
+  font: "PixelFont"
+  id: "spell_1_price"
+  parent: "spell_1_bg"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: 44.666664
   }
   size {
     x: 200.0
-    y: 50.0
+    y: 60.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
   id: "spell_2_bg"
-  pivot: PIVOT_W
   parent: "spell_list_container"
   layer: "ui"
   slice9 {
@@ -233,8 +244,7 @@ nodes {
 }
 nodes {
   position {
-    x: 30.333332
-    y: 9.0
+    y: 13.0
   }
   size {
     x: 150.0
@@ -246,37 +256,30 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Ice Barrage - 100g"
+  text: "Ice Barrage"
   font: "PixelFont"
   id: "spell_2_text"
-  pivot: PIVOT_W
   parent: "spell_2_bg"
   layer: "ui"
 }
 nodes {
   position {
-    x: 100.666664
-    y: -22.000002
+    y: -9.000002
   }
-  scale {
-    x: 0.15
-    y: 0.15
+  size {
+    x: 100.0
+    y: 30.0
   }
   type: TYPE_BOX
   texture: "ui_elements/button"
   id: "spell_2_button"
   parent: "spell_2_bg"
   layer: "button"
-  size_mode: SIZE_MODE_AUTO
 }
 nodes {
-  scale {
-    x: 7.0
-    y: 7.0
-  }
   size {
-    x: 200.0
-    y: 100.0
+    x: 100.0
+    y: 50.0
   }
   type: TYPE_TEXT
   text: "BUY"
@@ -292,16 +295,36 @@ nodes {
 }
 nodes {
   position {
-    y: -130.66667
+    x: -77.0
+    y: 14.0
+  }
+  size {
+    x: 25.0
+    y: 25.0
+  }
+  color {
+    x: 0.4
+    y: 0.4
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "100g"
+  font: "PixelFont"
+  id: "spell_2_price"
+  parent: "spell_2_bg"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -22.333334
   }
   size {
     x: 200.0
-    y: 50.0
+    y: 60.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
   id: "spell_3_bg"
-  pivot: PIVOT_W
   parent: "spell_list_container"
   layer: "ui"
   slice9 {
@@ -313,8 +336,7 @@ nodes {
 }
 nodes {
   position {
-    x: 32.333332
-    y: 9.0
+    y: 13.0
   }
   size {
     x: 150.0
@@ -326,37 +348,30 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Thunderclap - 100g"
+  text: "Thunderclap"
   font: "PixelFont"
   id: "spell_3_text"
-  pivot: PIVOT_W
   parent: "spell_3_bg"
-  layer: "button"
+  layer: "ui"
 }
 nodes {
   position {
-    x: 100.666664
-    y: -22.000002
+    y: -9.000002
   }
-  scale {
-    x: 0.15
-    y: 0.15
+  size {
+    x: 100.0
+    y: 30.0
   }
   type: TYPE_BOX
   texture: "ui_elements/button"
   id: "spell_3_button"
   parent: "spell_3_bg"
   layer: "button"
-  size_mode: SIZE_MODE_AUTO
 }
 nodes {
-  scale {
-    x: 7.0
-    y: 7.0
-  }
   size {
-    x: 200.0
-    y: 100.0
+    x: 100.0
+    y: 50.0
   }
   type: TYPE_TEXT
   text: "BUY"
@@ -372,16 +387,36 @@ nodes {
 }
 nodes {
   position {
-    y: -204.0
+    x: -77.0
+    y: 14.0
+  }
+  size {
+    x: 25.0
+    y: 25.0
+  }
+  color {
+    x: 0.4
+    y: 0.4
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "100g"
+  font: "PixelFont"
+  id: "spell_3_price"
+  parent: "spell_3_bg"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -89.333336
   }
   size {
     x: 200.0
-    y: 50.0
+    y: 60.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
   id: "spell_4_bg"
-  pivot: PIVOT_W
   parent: "spell_list_container"
   layer: "ui"
   slice9 {
@@ -393,8 +428,7 @@ nodes {
 }
 nodes {
   position {
-    x: 35.333332
-    y: 9.0
+    y: 13.0
   }
   size {
     x: 150.0
@@ -406,37 +440,30 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Windwalk - 50g"
+  text: "Windwalk"
   font: "PixelFont"
   id: "spell_4_text"
-  pivot: PIVOT_W
   parent: "spell_4_bg"
   layer: "ui"
 }
 nodes {
   position {
-    x: 100.666664
-    y: -22.000002
+    y: -9.000002
   }
-  scale {
-    x: 0.15
-    y: 0.15
+  size {
+    x: 100.0
+    y: 30.0
   }
   type: TYPE_BOX
   texture: "ui_elements/button"
   id: "spell_4_button"
   parent: "spell_4_bg"
   layer: "button"
-  size_mode: SIZE_MODE_AUTO
 }
 nodes {
-  scale {
-    x: 7.0
-    y: 7.0
-  }
   size {
-    x: 200.0
-    y: 100.0
+    x: 100.0
+    y: 50.0
   }
   type: TYPE_TEXT
   text: "BUY"
@@ -449,6 +476,27 @@ nodes {
   }
   parent: "spell_4_button"
   layer: "button-text"
+}
+nodes {
+  position {
+    x: -77.0
+    y: 14.0
+  }
+  size {
+    x: 25.0
+    y: 25.0
+  }
+  color {
+    x: 0.4
+    y: 0.4
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "50g"
+  font: "PixelFont"
+  id: "spell_4_price"
+  parent: "spell_4_bg"
+  inherit_alpha: true
 }
 nodes {
   position {
@@ -478,25 +526,20 @@ nodes {
   position {
     y: 319.6667
   }
-  scale {
-    x: 0.2
-    y: 0.2
+  size {
+    x: 120.0
+    y: 50.0
   }
   type: TYPE_BOX
   texture: "ui_elements/button"
   id: "close_button"
   parent: "background"
   layer: "ui"
-  size_mode: SIZE_MODE_AUTO
 }
 nodes {
-  scale {
-    x: 7.0
-    y: 7.0
-  }
   size {
-    x: 200.0
-    y: 100.0
+    x: 150.0
+    y: 50.0
   }
   type: TYPE_TEXT
   text: "CLOSE"
@@ -552,12 +595,12 @@ nodes {
 }
 nodes {
   position {
-    x: -443.33334
-    y: 222.33334
+    x: -345.33334
+    y: 113.33334
   }
   size {
-    x: 500.0
-    y: 350.0
+    x: 210.0
+    y: 300.0
   }
   type: TYPE_BOX
   id: "weapon_list_container"
@@ -567,8 +610,8 @@ nodes {
 }
 nodes {
   position {
-    x: 102.0
-    y: -4.333334
+    x: -1.0
+    y: 99.666664
   }
   size {
     x: 200.0
@@ -647,9 +690,9 @@ nodes {
     y: 30.0
   }
   color {
-    x: 0.749
-    y: 0.608
-    z: 0.188
+    x: 0.4
+    y: 0.4
+    z: 0.0
   }
   type: TYPE_TEXT
   text: "10 gp"
@@ -702,8 +745,8 @@ nodes {
 }
 nodes {
   position {
-    x: 102.0
-    y: -101.333336
+    x: -1.0
+    y: 2.666664
   }
   size {
     x: 200.0
@@ -782,9 +825,9 @@ nodes {
     y: 30.0
   }
   color {
-    x: 0.749
-    y: 0.608
-    z: 0.188
+    x: 0.4
+    y: 0.4
+    z: 0.0
   }
   type: TYPE_TEXT
   text: "10 gp"
@@ -837,8 +880,8 @@ nodes {
 }
 nodes {
   position {
-    x: 102.0
-    y: -204.33334
+    x: -1.0
+    y: -100.33334
   }
   size {
     x: 200.0
@@ -917,9 +960,9 @@ nodes {
     y: 30.0
   }
   color {
-    x: 0.749
-    y: 0.608
-    z: 0.188
+    x: 0.4
+    y: 0.4
+    z: 0.0
   }
   type: TYPE_TEXT
   text: "10 gp"
