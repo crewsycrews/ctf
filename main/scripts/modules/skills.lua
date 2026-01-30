@@ -343,7 +343,7 @@ skills.melee_attack = function(performer)
 
   if result then
     print(string.format("[Melee Attack] %s: hit=%s, targets=%d, damage=%d",
-      result.behavior, tostring(result.hit), #result.targets, result.damage))
+      result.attack_type, tostring(result.hit), #result.targets, result.damage))
   end
 end
 

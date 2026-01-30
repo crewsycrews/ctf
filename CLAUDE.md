@@ -17,8 +17,8 @@ The game is currently being enhanced with Microlite20 tabletop RPG mechanics for
 
 - **Implementation Plan**: See [M20_IMPLEMENTATION_PLAN.md](M20_IMPLEMENTATION_PLAN.md) for detailed roadmap
 - **M20 Rules Reference**: See [docs/Microlite20.pdf](docs/Microlite20.pdf) for complete M20 rules
-- **Current Status**: Milestone 1-3 complete (core modules, player/enemy integration, HP-based spell casting, HUD enhancements)
-- **Key Features**: STR/DEX/MIND stats, d20 combat resolution, XP/leveling, 4 character classes, HP-based spell casting
+- **Current Status**: Core M20 complete (Milestones 1-5): modules, player/enemy integration, HP-based spell casting, HUD, shop system, weapon attacks
+- **Key Features**: STR/DEX/MIND stats, d20 combat resolution, XP/leveling, 4 character classes, HP-based spell casting, weapon system with 3 attack types, gold-based shop economy
 
 ## Build and Development Commands
 
@@ -157,6 +157,8 @@ entity.m20_stats = {
 - `m20_classes.lua` - Character classes (Fighter, Rogue, Mage, Cleric)
 - `m20_magic.lua` - HP-based spell casting
 - `m20_spells.lua` - Spell database (35+ spells from M20 rules)
+- `m20_weapons.lua` - Weapon system with 3 attack types (melee/ranged/magic)
+- `m20_shop.lua` - Shop economy and transaction handling
 
 **M20 Messages** (in `constants.lua`):
 ```lua
@@ -173,18 +175,21 @@ MESSAGES.M20 = {
 - ✅ Enemies: Stats generated from HD property, award XP on death (HD² + HD formula)
 - ✅ Spells: HP-based casting implemented (no cooldowns), costs deducted in real-time
 - ✅ UI: Full HUD with HP/XP/Level/AC display, spell HP cost overlays, class/race/stat selection screens
+- ✅ Weapons: 3 weapon types (Longsword/STR, Longbow/DEX, Staff/MIND) with stat-based damage
+- ✅ Shop: Gold-based economy, spell/weapon purchases, inventory management
 
-**Recent Changes (Milestone 3 - Completed)**:
-- Replaced spell cooldowns with M20 HP costs (3 HP for level 1 spells, 5 HP for level 2)
-- Added red HP cost text overlays to all spell icons in HUD
-- Integrated `m20_magic.can_cast_spell()` and `m20_magic.cast_spell()` into skill functions
-- Fixed input handling bug (added `action.pressed` checks to prevent multi-cast)
-- HP bar updates in real-time after each spell cast
-- Movement skills (dash, jump, backward_dash) retain cooldowns as intended
+**Recent Changes (Through Milestone 5)**:
+- ✅ Replaced spell cooldowns with M20 HP costs (3 HP for level 1, 5 HP for level 2)
+- ✅ Added HP cost text overlays to spell icons in HUD
+- ✅ Integrated M20 spell casting with `m20_magic.can_cast_spell()` and `m20_magic.cast_spell()`
+- ✅ Movement skills (dash, jump, backward_dash) retain cooldowns as intended
+- ✅ Implemented weapon attack system with 3 weapon types (melee, ranged, magic)
+- ✅ Added shop UI with spell/weapon purchases using gold currency
+- ✅ Weapon attacks use stat-based damage (1d8 + STR/DEX/MIND bonus)
 
 ### Skill System
 
-Player abilities are divided into **movement skills** (with cooldowns) and **spells** (with HP costs):
+Player abilities are divided into **movement skills** (cooldowns), **spells** (HP costs), and **weapon attacks** (stat-based):
 
 **Movement Skills** (cooldown-based):
 - **Dash** (3s cooldown, 0.4s duration): Forward movement + invulnerability
@@ -197,7 +202,12 @@ Player abilities are divided into **movement skills** (with cooldowns) and **spe
 - **Thunderclap** (5 HP, 0.5s duration): Slow enemies in area (Gust of Wind, Level 2)
 - **Windwalk** (3 HP, 0.5s duration): Invisibility (Invisibility, Level 1)
 
-All implemented in `main/scripts/modules/skills.lua` with M20 spell casting integration.
+**Weapon Attacks** (stat-based damage, no costs):
+- **Longsword** (STR-based): 1d8 + STR bonus, melee hitbox
+- **Longbow** (DEX-based): 1d8 + DEX bonus, ranged projectile
+- **Staff** (MIND-based): 1d8 + MIND bonus, magic projectile
+
+All implemented in `main/scripts/modules/skills.lua` and `main/scripts/modules/weapon_attacks.lua`.
 
 ### Factory-Based Spawning
 
@@ -205,6 +215,43 @@ Dynamic entities use Defold's factory system:
 - Spells spawn via `factory.create()` from player collection
 - Enemies spawn via factory references in level collections
 - Enables object pooling and lifecycle management
+
+### Weapon System
+
+The game features 3 weapon types with distinct attack patterns:
+
+**Weapon Definitions** (`main/scripts/modules/m20_weapons.lua`):
+- Each weapon has: `id`, `name`, `attack_type` (melee/ranged/magic), `attack_stat` (STR/DEX/MIND), `damage` (dice notation), `cost`, `range`, `speed`
+- **Longsword**: STR-based melee with short-range hitbox
+- **Longbow**: DEX-based ranged with projectile
+- **Staff**: MIND-based magic projectile
+
+**Attack Resolution**:
+- Uses `m20_combat.resolve_attack()` for d20 + attack bonus vs enemy AC
+- Damage: weapon damage dice + stat bonus (e.g., 1d8 + STR bonus)
+- Attack bonus: level + stat bonus (e.g., level 3 + 2 STR = +5)
+- Implemented in `main/scripts/modules/weapon_attacks.lua`
+
+**Equipment System**:
+- Player starts with no weapon (must purchase from shop)
+- `player.equipped_weapon` stores current weapon data
+- Weapons can be equipped/unequipped via shop UI
+
+### Shop System
+
+The game features a gold-based economy with spell and weapon purchases:
+
+**Implementation** (`main/gui/shop.gui` + `shop.gui_script`):
+- **Gold Currency**: `player.m20_stats.gold` tracks player wealth
+- **Spell Shop**: Purchase 4 spells (Fireball 50g, Ice Barrage 100g, Thunderclap 100g, Windwalk 50g)
+- **Weapon Shop**: Purchase 3 weapons (Longsword, Longbow, Staff - all 50g each)
+- **UI States**: Buttons show "BUY", "OWNED"/"EQUIPPED", or grayed out when insufficient gold
+- **Transactions**: Handled by `m20_shop.buy_spell()` and player script for weapons
+
+**Shop Messages** (in `constants.lua`):
+- `M20.SHOP_OPEN`, `M20.SHOP_CLOSE` - Shop UI lifecycle
+- `M20.SHOP_BUY_SPELL`, `M20.SHOP_BUY_WEAPON` - Purchase requests
+- `M20.BUY_ITEM`, `M20.SELL_ITEM` - Generic transactions
 
 ### Camera and Coordinate Systems
 
@@ -289,12 +336,23 @@ end
 
 ### Adding a New Spell
 
-1. Create game object in `main/prefabs/spells/{spell_name}.go`
-2. Add to `main/prefabs/players/snake.collection` as factory component
-3. Implement spell logic in `main/scripts/modules/skills.lua`
-4. Add cooldown to `SKILLS.COOLDOWNS` in `constants.lua`
-5. Add duration to `SKILLS.DURATIONS` if applicable
-6. Update UI in `main/gui/player_gui.gui_script` for cooldown indicator
+1. Add spell definition to `main/scripts/modules/m20_spells.lua` with M20 properties (level, school, cost)
+2. Create game object in `main/prefabs/spells/{spell_name}.go` (if visual effect needed)
+3. Add factory to `main/prefabs/players/snake.collection` (if spawning game objects)
+4. Implement spell logic in `main/scripts/modules/skills.lua`, using `m20_magic.can_cast_spell()` and `m20_magic.cast_spell()`
+5. Add duration to `SKILLS.SKILL_DURATIONS` in `constants.lua` if applicable (HP cost comes from M20 spell definition)
+6. Update UI in `main/gui/player_gui.gui_script` to display HP cost
+7. Add spell to shop in `main/gui/shop.gui_script` if purchasable
+
+### Adding a New Weapon
+
+1. Add weapon definition to `M.WEAPONS` table in `main/scripts/modules/m20_weapons.lua`
+2. Specify: `id`, `name`, `attack_type` (melee/ranged/magic), `attack_stat` (STR/DEX/MIND), `damage` (dice notation), `cost`, `range`, `speed`, `special` (description)
+3. Add to `get_shop_weapons()` return list if purchasable
+4. Create visual assets (sprites, animations) in `main/atlases/` if needed
+5. Implement attack behavior in `main/scripts/modules/weapon_attacks.lua` based on `attack_type`
+6. For projectile weapons, create game object in `main/prefabs/spells/` and add factory
+7. Update shop UI in `main/gui/shop.gui` to display new weapon slot
 
 ### Reading and Modifying Game State
 
@@ -304,11 +362,13 @@ The game uses `shared_state = 1` in `game.project`, meaning all scripts share gl
 
 The player script (`main/scripts/player.script`) handles:
 - Movement via WASD input
-- Health management (max 100, game over at 0)
+- M20 stats integration (HP, XP, AC, gold) - `player.m20_stats` is the single source of truth
 - Score tracking (victory at 50 points)
-- Skill activation via input handlers
+- Skill activation (movement, spells, weapon attacks) via input handlers
 - Camera following
 - Sprite animation based on movement direction
+- Shop interactions (weapon purchases, spell purchases)
+- Level-up stat selection UI
 
 ## Dependencies
 
@@ -340,13 +400,15 @@ Use nearest-neighbor filtering for all textures to maintain sharp pixel art.
 
 Defined in `input/game.input_binding`:
 - **WASD** - Movement
-- **Space** - Dash
-- **Q** - Jump
-- **E** - Backward Dash
-- **Left Click** - Fireball
-- **Right Click** - Windwalk
-- **Scroll Up** - Thunderclap
-- **Scroll Down** - Ice Barrage
+- **Space** - Dash (movement skill)
+- **Q** - Jump (movement skill)
+- **E** - Backward Dash (movement skill)
+- **Left Click** - Weapon Attack (requires equipped weapon) or Fireball spell
+- **Right Click** - Windwalk spell
+- **Scroll Up** - Thunderclap spell
+- **Scroll Down** - Ice Barrage spell
+
+Note: Input bindings use action names like `touch`, `head_action_1`, etc. which map to game actions in player script.
 
 ## Victory/Defeat Conditions
 
@@ -361,6 +423,9 @@ Defined in `input/game.input_binding`:
 - **Bat enemy:** `main/scripts/units/bat.script` is empty, relies entirely on `enemy-common.script`
 - **Physics quirk:** Using 0.02 scale factor for Box2D - verify collision shapes match this scale
 - **Build manifests:** `.der` files in root are build signing keys - do not commit changes
+- **M20 as single source of truth:** Health is stored in `entity.m20_stats.hp_current`, not redundant `entity.health` properties
+- **Gold economy:** Enemies drop gold on death, stored in `player.m20_stats.gold`, used for shop purchases
+- **Weapon attacks placeholder:** Enemy detection in `weapon_attacks.lua` is currently a stub (returns empty list) - visual effects and physics queries pending
 
 ## Project Links
 

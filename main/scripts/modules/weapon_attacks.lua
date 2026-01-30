@@ -11,7 +11,7 @@ local dice = require("main.scripts.modules.m20_dice")
 ---@field hit boolean Whether attack hit
 ---@field damage number Damage dealt
 ---@field targets table[] List of entities hit
----@field behavior string Attack behavior used
+---@field attack_type string Attack type used ("melee", "ranged", "magic")
 
 --- Find enemies in an arc from the player
 ---@param player_pos vector3 Player position
@@ -38,36 +38,32 @@ local function find_enemies_in_arc(player_pos, mouse_pos, arc_degrees, range)
     return enemies_in_arc
 end
 
---- Create visual attack effect based on weapon behavior
+--- Create visual attack effect based on weapon type
 ---@param player_pos vector3 Player position
 ---@param mouse_pos vector3 Mouse/target position
----@param behavior string Attack behavior ("pierce", "wide_sweep", "balanced", "normal")
+---@param attack_type string Attack type ("melee", "ranged", "magic")
 ---@param range number Range multiplier
----@param arc number Arc width in degrees
-local function create_attack_visual(player_pos, mouse_pos, behavior, range, arc)
+local function create_attack_visual(player_pos, mouse_pos, attack_type, range)
     local dir = mouse_pos - player_pos
     local angle = math.atan2(dir.y, dir.x)
     local rotation = vmath.quat_rotation_z(angle)
 
-    -- Create different visual effects based on behavior
-    if behavior == "pierce" then
-        -- Long, narrow thrust animation
-        -- Spawn pierce effect factory
-        print(string.format("[Weapon Attack] Pierce attack: angle=%.1f°, range=%.1fx",
+    -- Create different visual effects based on attack type
+    if attack_type == "melee" then
+        -- Short-range slash animation
+        print(string.format("[Weapon Attack] Melee attack: angle=%.1f°, range=%.1fx",
             math.deg(angle), range))
-    elseif behavior == "wide_sweep" then
-        -- Wide arc swing animation
-        -- Spawn sweep effect factory
-        print(string.format("[Weapon Attack] Wide sweep attack: angle=%.1f°, arc=%d°",
-            math.deg(angle), arc))
-    elseif behavior == "balanced" or behavior == "normal" then
-        -- Medium arc slash animation
-        -- Spawn slash effect factory
-        print(string.format("[Weapon Attack] Balanced attack: angle=%.1f°, arc=%d°",
-            math.deg(angle), arc))
+    elseif attack_type == "ranged" then
+        -- Long-range arrow/projectile
+        print(string.format("[Weapon Attack] Ranged attack: angle=%.1f°, range=%.1fx",
+            math.deg(angle), range))
+    elseif attack_type == "magic" then
+        -- Medium-range magic projectile
+        print(string.format("[Weapon Attack] Magic attack: angle=%.1f°, range=%.1fx",
+            math.deg(angle), range))
     end
 
-    -- TODO: Spawn actual visual effect game object
+    -- TODO: Spawn actual visual effect game object or projectile
     -- factory.create("#weapon_effect_factory", player_pos, rotation)
 end
 
@@ -91,21 +87,21 @@ function M.weapon_attack(performer, mouse_world_pos)
 
     local player_pos = go.get_position()
 
-    print(string.format("[Weapon Attack] %s attack - behavior:%s speed:%.1fx range:%.1fx arc:%d°",
-        weapon.name, params.behavior, params.speed, params.range, params.arc))
+    print(string.format("[Weapon Attack] %s attack - type:%s speed:%.1fx range:%.1fx",
+        weapon.name, params.type, params.speed, params.range))
 
     -- Create visual effect
-    create_attack_visual(player_pos, mouse_world_pos, params.behavior, params.range, params.arc)
+    create_attack_visual(player_pos, mouse_world_pos, params.type, params.range)
 
-    -- Find enemies in attack arc
-    local enemies = find_enemies_in_arc(player_pos, mouse_world_pos, params.arc, params.range)
+    -- Find enemies in attack arc (using fixed 60° arc for now)
+    local enemies = find_enemies_in_arc(player_pos, mouse_world_pos, 60, params.range)
 
     -- Attack each enemy found
     local result = {
         hit = #enemies > 0,
         damage = 0,
         targets = {},
-        behavior = params.behavior
+        attack_type = params.type
     }
 
     for _, enemy_url in ipairs(enemies) do
@@ -141,47 +137,7 @@ function M.weapon_attack(performer, mouse_world_pos)
     return result
 end
 
---- Spear attack - long range pierce
----@param performer table Player entity
----@param mouse_world_pos vector3 Target position
----@return AttackResult? result
-function M.spear_attack(performer, mouse_world_pos)
-    local weapon = weapons.get_equipped_weapon(performer)
-    if not weapon or weapon.id ~= "spear" then return nil end
-
-    -- Spear has extra long range and narrow arc - hits single target
-    return M.weapon_attack(performer, mouse_world_pos)
-end
-
---- Axe attack - wide sweep hitting multiple enemies
----@param performer table Player entity
----@param mouse_world_pos vector3 Target position
----@return AttackResult? result
-function M.axe_attack(performer, mouse_world_pos)
-    local weapon = weapons.get_equipped_weapon(performer)
-    if not weapon or (weapon.id ~= "battleaxe" and weapon.id ~= "greataxe") then
-        return nil
-    end
-
-    -- Axe has wide arc - can hit multiple enemies
-    return M.weapon_attack(performer, mouse_world_pos)
-end
-
---- Sword attack - balanced medium range and arc
----@param performer table Player entity
----@param mouse_world_pos vector3 Target position
----@return AttackResult? result
-function M.sword_attack(performer, mouse_world_pos)
-    local weapon = weapons.get_equipped_weapon(performer)
-    if not weapon or (weapon.id ~= "longsword" and weapon.id ~= "shortsword") then
-        return nil
-    end
-
-    -- Sword has balanced stats
-    return M.weapon_attack(performer, mouse_world_pos)
-end
-
---- Generic melee attack - delegates to appropriate weapon attack
+--- Generic melee attack - uses equipped weapon (melee, ranged, or magic)
 ---@param performer table Player entity
 ---@param mouse_world_pos vector3 Target position
 ---@return AttackResult? result

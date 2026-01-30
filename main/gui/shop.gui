@@ -596,7 +596,7 @@ nodes {
 nodes {
   position {
     x: -345.33334
-    y: 113.33334
+    y: 96.33334
   }
   size {
     x: 210.0
@@ -610,12 +610,12 @@ nodes {
 }
 nodes {
   position {
-    x: -1.0
+    x: 5.0
     y: 99.666664
   }
   size {
-    x: 200.0
-    y: 80.0
+    x: 220.0
+    y: 120.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
@@ -631,7 +631,7 @@ nodes {
 }
 nodes {
   position {
-    y: 25.0
+    y: 40.0
   }
   size {
     x: 200.0
@@ -643,7 +643,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Spear"
+  text: "Longsword"
   font: "PixelFont"
   id: "weapon_1_name"
   parent: "weapon_1_bg"
@@ -651,7 +651,7 @@ nodes {
 }
 nodes {
   position {
-    y: -19.000002
+    y: -38.000004
   }
   size {
     x: 100.0
@@ -682,8 +682,8 @@ nodes {
 }
 nodes {
   position {
-    x: 71.0
-    y: 24.0
+    x: 80.0
+    y: 40.0
   }
   size {
     x: 50.0
@@ -695,7 +695,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "10 gp"
+  text: "50gp"
   font: "PixelFont"
   id: "weapon_1_price"
   parent: "weapon_1_bg"
@@ -703,8 +703,8 @@ nodes {
 }
 nodes {
   position {
-    x: -19.666668
-    y: 8.0
+    x: 70.0
+    y: -20.0
   }
   size {
     x: 150.0
@@ -716,7 +716,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "1d8"
+  text: "1d8+STR"
   font: "PixelFont"
   id: "weapon_1_damage"
   parent: "weapon_1_bg"
@@ -724,8 +724,7 @@ nodes {
 }
 nodes {
   position {
-    x: 22.333332
-    y: 8.0
+    y: 9.0
   }
   size {
     x: 150.0
@@ -737,7 +736,8 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Pierce"
+  text: "Melee weapon with\n"
+  "short-range hitbox."
   font: "PixelFont"
   id: "weapon_1_special"
   parent: "weapon_1_bg"
@@ -745,12 +745,12 @@ nodes {
 }
 nodes {
   position {
-    x: -1.0
-    y: 2.666664
+    x: 5.0
+    y: -28.333336
   }
   size {
-    x: 200.0
-    y: 80.0
+    x: 220.0
+    y: 120.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
@@ -766,7 +766,7 @@ nodes {
 }
 nodes {
   position {
-    y: 25.0
+    y: 40.0
   }
   size {
     x: 200.0
@@ -778,7 +778,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Axe"
+  text: "Longbow"
   font: "PixelFont"
   id: "weapon_2_name"
   parent: "weapon_2_bg"
@@ -786,7 +786,7 @@ nodes {
 }
 nodes {
   position {
-    y: -19.000002
+    y: -38.0
   }
   size {
     x: 100.0
@@ -817,8 +817,8 @@ nodes {
 }
 nodes {
   position {
-    x: 71.0
-    y: 24.0
+    x: 80.0
+    y: 40.0
   }
   size {
     x: 50.0
@@ -830,7 +830,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "10 gp"
+  text: "50gp"
   font: "PixelFont"
   id: "weapon_2_price"
   parent: "weapon_2_bg"
@@ -838,8 +838,8 @@ nodes {
 }
 nodes {
   position {
-    x: -19.666668
-    y: 8.0
+    x: 70.0
+    y: -20.0
   }
   size {
     x: 150.0
@@ -851,7 +851,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "1d8"
+  text: "1d8+DEX"
   font: "PixelFont"
   id: "weapon_2_damage"
   parent: "weapon_2_bg"
@@ -859,7 +859,6 @@ nodes {
 }
 nodes {
   position {
-    x: 22.333332
     y: 8.0
   }
   size {
@@ -872,7 +871,8 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Cleave"
+  text: "Ranged weapon with\n"
+  "long-range projectile"
   font: "PixelFont"
   id: "weapon_2_special"
   parent: "weapon_2_bg"
@@ -880,12 +880,12 @@ nodes {
 }
 nodes {
   position {
-    x: -1.0
-    y: -100.33334
+    x: 5.0
+    y: -160.33334
   }
   size {
-    x: 200.0
-    y: 80.0
+    x: 220.0
+    y: 120.0
   }
   type: TYPE_BOX
   texture: "ui_elements/border"
@@ -901,7 +901,7 @@ nodes {
 }
 nodes {
   position {
-    y: 25.0
+    y: 40.0
   }
   size {
     x: 200.0
@@ -913,7 +913,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Longsword"
+  text: "Staff"
   font: "PixelFont"
   id: "weapon_3_name"
   parent: "weapon_3_bg"
@@ -921,7 +921,7 @@ nodes {
 }
 nodes {
   position {
-    y: -19.000002
+    y: -38.0
   }
   size {
     x: 100.0
@@ -952,8 +952,8 @@ nodes {
 }
 nodes {
   position {
-    x: 71.0
-    y: 24.0
+    x: 80.0
+    y: 40.0
   }
   size {
     x: 50.0
@@ -965,7 +965,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "10 gp"
+  text: "50gp"
   font: "PixelFont"
   id: "weapon_3_price"
   parent: "weapon_3_bg"
@@ -973,8 +973,8 @@ nodes {
 }
 nodes {
   position {
-    x: -29.666668
-    y: 8.0
+    x: 68.0
+    y: -20.0
   }
   size {
     x: 150.0
@@ -986,7 +986,7 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "1d8"
+  text: "1d8+MIND"
   font: "PixelFont"
   id: "weapon_3_damage"
   parent: "weapon_3_bg"
@@ -994,7 +994,6 @@ nodes {
 }
 nodes {
   position {
-    x: 22.333332
     y: 8.0
   }
   size {
@@ -1007,7 +1006,8 @@ nodes {
     z: 0.0
   }
   type: TYPE_TEXT
-  text: "Balanced"
+  text: "Magic weapon with\n"
+  "spell projectile"
   font: "PixelFont"
   id: "weapon_3_special"
   parent: "weapon_3_bg"

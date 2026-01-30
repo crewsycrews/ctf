@@ -105,8 +105,8 @@ function init(self)
   -- Initialize spellbook (no spells learned - must purchase from shop)
   magic.initialize_spellbook(self)
 
-  -- Equip starting weapon (unarmed by default)
-  weapons.equip_weapon(self, "unarmed")
+  -- Player starts with no weapon equipped (must purchase from shop)
+  -- weapons.equip_weapon(self, "unarmed")
 
   print(string.format("[M20] Player initialized: Level %d %s %s",
     self.m20_stats.level,

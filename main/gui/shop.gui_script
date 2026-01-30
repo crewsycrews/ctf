@@ -20,12 +20,8 @@ local SHOP_SPELLS = {
   { id = "invisibility",  name = "Windwalk",    price = 50 }   -- M20 Invisibility = game Windwalk
 }
 
--- Weapon shop items
-local SHOP_WEAPONS = {
-  { id = "spear",      name = "Spear",      price = 2,   damage = "1d8", special = "Pierce" },
-  { id = "battleaxe",  name = "Battleaxe",  price = 10,  damage = "1d8", special = "Cleave" },
-  { id = "longsword",  name = "Longsword",  price = 15,  damage = "1d8", special = "Balanced" }
-}
+-- Weapon shop items - loaded from m20_weapons module
+local SHOP_WEAPONS = weapons.get_shop_weapons()
 
 --- Show status message
 ---@param self ShopGUISelf
@@ -46,6 +42,25 @@ local function show_status(self, message, is_error)
   end)
 end
 
+--- Populate weapon display data
+---@param self ShopGUISelf
+local function populate_weapon_data(self)
+  for i, weapon in ipairs(SHOP_WEAPONS) do
+    -- Set weapon name
+    gui.set_text(gui.get_node("weapon_" .. i .. "_name"), weapon.name)
+
+    -- Set weapon price
+    gui.set_text(gui.get_node("weapon_" .. i .. "_price"), weapon.cost .. "g")
+
+    -- Set weapon damage (showing stat bonus info)
+    local damage_text = weapon.damage .. " + " .. weapon.attack_stat
+    gui.set_text(gui.get_node("weapon_" .. i .. "_damage"), damage_text)
+
+    -- Set special property (attack type)
+    gui.set_text(gui.get_node("weapon_" .. i .. "_special"), weapon.special)
+  end
+end
+
 --- Update button states based on player gold and learned spells
 ---@param self ShopGUISelf
 local function update_button_states(self)
@@ -57,6 +72,24 @@ local function update_button_states(self)
       gui.set_text(button_text_node, "OWNED")
       gui.set_color(button_text_node, vmath.vector4(0.5, 0.5, 0.5, 1))
     elseif self.player_stats.m20_stats.gold < spell_data.price then
+      gui.set_color(button_text_node, vmath.vector4(0.7, 0.7, 0.7, 1))
+    else
+      gui.set_text(button_text_node, "BUY")
+      gui.set_color(button_text_node, vmath.vector4(1, 1, 1, 1))
+    end
+  end
+
+  -- Update weapon button states
+  for i, weapon in ipairs(SHOP_WEAPONS) do
+    local button_text_node = gui.get_node("weapon_" .. i .. "_button_text")
+    local already_owned = self.player_stats.equipped_weapon and
+                          self.player_stats.equipped_weapon.weapon_id == weapon.id
+
+    if already_owned then
+      gui.set_text(button_text_node, "EQUIPPED")
+      gui.set_color(button_text_node, vmath.vector4(0.5, 0.5, 0.5, 1))
+    elseif self.player_stats.m20_stats.gold < weapon.cost then
+      gui.set_text(button_text_node, "BUY")
       gui.set_color(button_text_node, vmath.vector4(0.7, 0.7, 0.7, 1))
     else
       gui.set_text(button_text_node, "BUY")
@@ -87,13 +120,13 @@ end
 local function buy_weapon(self, weapon_index)
   local weapon_data = SHOP_WEAPONS[weapon_index]
 
-  print(string.format("[Shop] Attempting to buy %s for %dg", weapon_data.name, weapon_data.price))
+  print(string.format("[Shop] Attempting to buy %s for %dg", weapon_data.name, weapon_data.cost))
 
   -- Send purchase request to player
   msg.post("/player", hash(MESSAGES.M20.SHOP_BUY_WEAPON), {
     weapon_id = weapon_data.id,
     weapon_name = weapon_data.name,
-    price = weapon_data.price
+    price = weapon_data.cost
   })
 end
 
@@ -157,7 +190,10 @@ function on_message(self, message_id, message, sender)
     -- Update gold display
     gui.set_text(self.player_gold_text, tostring(self.player_stats.m20_stats.gold))
 
-    -- Update button states
+    -- Populate weapon data (static info)
+    populate_weapon_data(self)
+
+    -- Update button states (dynamic info based on player)
     update_button_states(self)
 
     -- Show shop

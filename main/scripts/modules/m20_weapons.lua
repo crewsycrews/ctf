@@ -7,137 +7,53 @@ local M = {}
 ---@class WeaponDefinition
 ---@field id string Weapon ID
 ---@field name string Display name
----@field category string "light" | "one_handed" | "two_handed" | "ranged"
+---@field attack_type string "melee" | "ranged" | "magic"
+---@field attack_stat string "STR" | "DEX" | "MIND"
 ---@field damage string Damage dice notation (e.g., "1d8")
 ---@field cost number Gold piece cost
----@field range number? Range increment in feet (for ranged/thrown weapons)
----@field special string? Special properties description
----@field attack_behavior string "normal" | "pierce" | "wide_sweep" | "balanced"
----@field attack_speed number Attack speed multiplier (1.0 = normal)
----@field attack_range number Attack reach multiplier (1.0 = normal)
----@field attack_arc number Attack arc in degrees (for melee weapons)
+---@field range number Attack range multiplier
+---@field speed number Attack speed multiplier (1.0 = normal)
+---@field special string Special properties description
 
 ---@class EquippedWeapon
 ---@field weapon_id string ID of equipped weapon
 ---@field damage_bonus number Current damage bonus from stats/class
 ---@field attack_bonus number Current attack bonus from stats/class
 
--- Weapon definitions from M20 rules (Page 5)
+-- Weapon definitions - 3 core weapons (one per primary stat)
 M.WEAPONS = {
-  -- STARTER WEAPONS (Light/Simple)
-  {
-    id = "unarmed",
-    name = "Unarmed Strike",
-    category = "light",
-    damage = "1d3",
-    cost = 0,
-    attack_behavior = "normal",
-    attack_speed = 1.2,
-    attack_range = 0.6,
-    attack_arc = 60,
-    special = "Natural weapon"
-  },
-  {
-    id = "dagger",
-    name = "Dagger",
-    category = "light",
-    damage = "1d4",
-    cost = 2,
-    range = 10,
-    attack_behavior = "normal",
-    attack_speed = 1.3,
-    attack_range = 0.7,
-    attack_arc = 45,
-    special = "Can be thrown"
-  },
-
-  -- THREE SHOP WEAPONS (Main feature weapons)
-  {
-    id = "spear",
-    name = "Spear",
-    category = "one_handed",
-    damage = "1d8",
-    cost = 10,
-    range = 20,
-    attack_behavior = "pierce",
-    attack_speed = 1.0,
-    attack_range = 1.5,     -- Longer reach for piercing
-    attack_arc = 30,        -- Narrow arc for thrust attacks
-    special = "Reach weapon, can be thrown, piercing attacks hit single targets at long range"
-  },
-  {
-    id = "battleaxe",
-    name = "Battleaxe",
-    category = "one_handed",
-    damage = "1d8",
-    cost = 10,
-    attack_behavior = "wide_sweep",
-    attack_speed = 0.7,     -- Slower attacks
-    attack_range = 1.0,
-    attack_arc = 120,       -- Wide sweeping arc
-    special = "Slow, wide cleaving attacks that can hit multiple enemies"
-  },
   {
     id = "longsword",
     name = "Longsword",
-    category = "one_handed",
+    attack_type = "melee",
+    attack_stat = "STR",
     damage = "1d8",
-    cost = 10,
-    attack_behavior = "balanced",
-    attack_speed = 1.0,
-    attack_range = 1.1,
-    attack_arc = 75,
-    special = "Balanced weapon, good for versatile combat"
-  },
-
-  -- ADDITIONAL WEAPONS (for variety)
-  {
-    id = "shortsword",
-    name = "Shortsword",
-    category = "light",
-    damage = "1d6",
-    cost = 10,
-    attack_behavior = "normal",
-    attack_speed = 1.2,
-    attack_range = 0.9,
-    attack_arc = 60,
-    special = "Light weapon, faster attacks"
-  },
-  {
-    id = "mace",
-    name = "Mace",
-    category = "one_handed",
-    damage = "1d8",
-    cost = 12,
-    attack_behavior = "normal",
-    attack_speed = 0.9,
-    attack_range = 0.9,
-    attack_arc = 70,
-    special = "Bludgeoning damage"
-  },
-  {
-    id = "greatsword",
-    name = "Greatsword",
-    category = "two_handed",
-    damage = "2d6",
     cost = 50,
-    attack_behavior = "wide_sweep",
-    attack_speed = 0.6,
-    attack_range = 1.2,
-    attack_arc = 100,
-    special = "Two-handed, slow but powerful"
+    range = 1.0,
+    speed = 1.0,
+    special = "Melee weapon with\nshort-range hitbox."
   },
   {
-    id = "greataxe",
-    name = "Greataxe",
-    category = "two_handed",
-    damage = "1d10",
-    cost = 20,
-    attack_behavior = "wide_sweep",
-    attack_speed = 0.65,
-    attack_range = 1.1,
-    attack_arc = 110,
-    special = "Two-handed, devastating cleaves"
+    id = "longbow",
+    name = "Longbow",
+    attack_type = "ranged",
+    attack_stat = "DEX",
+    damage = "1d8",
+    cost = 50,
+    range = 3.0,
+    speed = 1.0,
+    special = "Ranged weapon with\nlong-range projectile"
+  },
+  {
+    id = "staff",
+    name = "Staff",
+    attack_type = "magic",
+    attack_stat = "MIND",
+    damage = "1d8",
+    cost = 50,
+    range = 2.0,
+    speed = 1.0,
+    special = "Magic weapon with\nspell projectile"
   }
 }
 
@@ -158,9 +74,9 @@ end
 ---@return WeaponDefinition[]
 function M.get_shop_weapons()
   return {
-    M.WEAPON_BY_ID.spear,
-    M.WEAPON_BY_ID.battleaxe,
-    M.WEAPON_BY_ID.longsword
+    M.WEAPON_BY_ID.longsword,
+    M.WEAPON_BY_ID.longbow,
+    M.WEAPON_BY_ID.staff
   }
 end
 
@@ -178,20 +94,10 @@ function M.calculate_attack_bonus(entity, weapon_id)
   -- Base: Level
   local bonus = stats.level
 
-  -- Melee weapons use STR, light weapons can use DEX
-  if weapon.category == "ranged" then
-    bonus = bonus + math.floor((stats.DEX - 10) / 2)
-  elseif weapon.category == "light" then
-    -- Fighters and Rogues can use DEX for light weapons (M20 rules page 2)
-    local dex_bonus = math.floor((stats.DEX - 10) / 2)
-    local str_bonus = math.floor((stats.STR - 10) / 2)
-    bonus = bonus + math.max(dex_bonus, str_bonus)
-  else
-    bonus = bonus + math.floor((stats.STR - 10) / 2)
-  end
-
-  -- Class bonuses (Fighter gets +1 per 5 levels, already in level progression)
-  -- This is handled in m20_classes.lua
+  -- Add stat bonus based on weapon's attack_stat
+  local stat_value = stats[weapon.attack_stat] or 10
+  local stat_bonus = math.floor((stat_value - 10) / 2)
+  bonus = bonus + stat_bonus
 
   return bonus
 end
@@ -207,16 +113,11 @@ function M.calculate_damage_bonus(entity, weapon_id)
   local stats = entity.m20_stats
   if not stats then return 0 end
 
-  -- Melee weapons add STR bonus (x2 for two-handed)
-  local str_bonus = math.floor((stats.STR - 10) / 2)
+  -- All weapons add their corresponding stat bonus to damage
+  local stat_value = stats[weapon.attack_stat] or 10
+  local stat_bonus = math.floor((stat_value - 10) / 2)
 
-  if weapon.category == "two_handed" then
-    return str_bonus * 2
-  elseif weapon.category == "ranged" then
-    return 0     -- Ranged weapons don't add stat bonus
-  else
-    return str_bonus
-  end
+  return stat_bonus
 end
 
 --- Equip weapon on entity
@@ -237,11 +138,11 @@ function M.equip_weapon(entity, weapon_id)
     damage_bonus = M.calculate_damage_bonus(entity, weapon_id)
   }
 
-  print(string.format("[M20 Weapons] Equipped %s: +%d atk, +%d dmg, %s behavior",
+  print(string.format("[M20 Weapons] Equipped %s: +%d atk, +%d dmg (%s)",
     weapon.name,
     entity.equipped_weapon.attack_bonus,
     entity.equipped_weapon.damage_bonus,
-    weapon.attack_behavior))
+    weapon.attack_type))
 
   return true
 end
@@ -256,16 +157,16 @@ end
 
 --- Get attack parameters for equipped weapon (for animation/collision system)
 ---@param entity table Entity with equipped_weapon
----@return table? attack_params {speed: number, range: number, arc: number, behavior: string}
+---@return table? attack_params {speed: number, range: number, type: string, stat: string, damage_dice: string}
 function M.get_attack_params(entity)
   local weapon = M.get_equipped_weapon(entity)
   if not weapon then return nil end
 
   return {
-    speed = weapon.attack_speed,
-    range = weapon.attack_range,
-    arc = weapon.attack_arc,
-    behavior = weapon.attack_behavior,
+    speed = weapon.speed,
+    range = weapon.range,
+    type = weapon.attack_type,
+    stat = weapon.attack_stat,
     damage_dice = weapon.damage,
     attack_bonus = entity.equipped_weapon.attack_bonus,
     damage_bonus = entity.equipped_weapon.damage_bonus
