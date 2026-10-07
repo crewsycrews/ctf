@@ -50,3 +50,7 @@ key_trigger {
   input: KEY_F
   action: "extract"
 }
+key_trigger {
+  input: KEY_ESC
+  action: "garden_close"
+}

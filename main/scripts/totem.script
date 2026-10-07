@@ -1,11 +1,2 @@
 local Runtime = require("main.scripts.modules.runtime")
-local C = require("main.scripts.modules.catalog")
-function init(self)
-  local pos = go.get_position()
-  Runtime.get().exit = { x = pos.x, y = pos.y }
-end
-function update(self, dt)
-  Runtime.tick(dt)
-  local w = Runtime.get()
-  go.set("#sprite", "tint", Runtime.color(w.run.elapsed >= C.balance.exit_time and "wind" or "earth"))
-end
+function update(self, dt) Runtime.tick(dt) end

@@ -1,0 +1,99 @@
+local Garden = require("main.scripts.modules.garden")
+local Session = require("main.scripts.modules.session")
+local C = require("main.scripts.modules.catalog")
+local camera = require("orthographic.camera")
+local trees = { fire = "tree_4", water = "tree_3", earth = "tree_5", wind = "tree_3" }
+
+local function tint(element, alpha)
+  local color = C.colors[element] or { 1, 1, 1 }
+  return vmath.vector4(color[1], color[2], color[3], alpha or 1)
+end
+local function refresh(self, profile)
+  for slot, id in ipairs(self.plots) do
+    local tree = profile.trees[slot]
+    go.set(msg.url(nil, id, "soil"), "tint", vmath.vector4(0.55, 0.36, 0.22, 1))
+    local tree_url, marker = msg.url(nil, id, "tree"), msg.url(nil, id, "marker")
+    msg.post(tree_url, tree and "enable" or "disable")
+    msg.post(marker, tree and profile.selected[tree.element] == slot and "enable" or "disable")
+    if tree then
+      sprite.play_flipbook(tree_url, hash(trees[tree.element]))
+      local scale = (tree.stage == "seedling" and 0.35 or tree.stage == "growing" and 0.65 or 1.4)
+      if tree.element == "wind" then
+        go.set(tree_url, "scale", vmath.vector3(scale * 0.75, scale * 1.2, 1))
+      else go.set(tree_url, "scale", vmath.vector3(scale, scale, 1)) end
+      go.set(tree_url, "tint", tint(tree.element))
+      go.set(marker, "tint", tint(tree.secondary or tree.element))
+    end
+    local text = tostring(slot)
+    if tree then
+      text = C.tree_name(tree)
+      if tree.stage == "seedling" then text = text .. " / needs care"
+      elseif tree.remaining then text = text .. " / 1 victory" end
+      if profile.selected[tree.element] == slot then text = text .. " *" end
+    end
+    label.set_text(msg.url(nil, id, "name"), text)
+  end
+  self.profile = profile
+end
+function init(self)
+  msg.post(".", "acquire_input_focus")
+  self.state, self.keys, self.plots = Garden.new(), {}, {}
+  go.set_position(vmath.vector3(self.state.x, self.state.y, 0.2))
+  camera.follow(nil, go.get_id())
+  for slot = 1, C.balance.plots do
+    local pos = Garden.plot(slot)
+    self.plots[slot] = factory.create("#plots", vmath.vector3(pos.x, pos.y, (1080 - pos.y) / 4000))
+  end
+  self.effect = factory.create("#effects", vmath.vector3(0, 0, -0.8))
+  msg.post(msg.url(nil, self.effect, "sprite"), "disable")
+end
+function update(self, dt)
+  local p, state = Session.get(), self.state
+  if not p then return end
+  if p ~= self.profile then refresh(self, p) end
+  if not Session.blocked() then
+    Garden.move(state, (self.keys.right and 1 or 0) - (self.keys.left and 1 or 0),
+      (self.keys.up and 1 or 0) - (self.keys.down and 1 or 0), math.min(dt, 0.05), p)
+  end
+  local pos = go.get_position()
+  local moving = pos.x ~= state.x or pos.y ~= state.y
+  if moving ~= self.moving then
+    sprite.play_flipbook("#sprite", hash(moving and "bolotniy-hodok" or "bolotniy"))
+    self.moving = moving
+  end
+  if moving and pos.x ~= state.x then sprite.set_hflip("#sprite", state.x < pos.x) end
+  go.set_position(vmath.vector3(state.x, state.y, (1080 - state.y) / 4000))
+  if state.action ~= (self.action or 0) then
+    self.action, self.action_time = state.action, 0.55
+    local plot = Garden.plot(state.action_slot)
+    go.set_position(vmath.vector3(plot.x, plot.y, 0.4), self.effect)
+    go.set(msg.url(nil, self.effect, "sprite"), "tint", tint(p.trees[state.action_slot].element))
+    msg.post(msg.url(nil, self.effect, "sprite"), "enable")
+  end
+  if self.action_time then
+    self.action_time = self.action_time - dt
+    go.set_scale(1 + (0.55 - self.action_time) * 2, self.effect)
+    go.set("#sprite", "scale", vmath.vector3(2, 1.6, 1))
+    if self.action_time <= 0 then
+      self.action_time = nil
+      msg.post(msg.url(nil, self.effect, "sprite"), "disable")
+      go.set("#sprite", "scale", vmath.vector3(2, 2, 1))
+    end
+  end
+end
+function on_input(self, action_id, action)
+  for _, key in ipairs({ "up", "down", "left", "right" }) do
+    if action_id == hash(key) then self.keys[key] = not action.released end
+  end
+  if action.pressed and (action_id == hash("extract") or action_id == hash("garden_close")) then
+    if not Session.blocked() then
+      if action_id == hash("garden_close") then Garden.close(self.state)
+      else Garden.interact(self.state) end
+      self.keys = {}
+    end
+  end
+end
+function final(self)
+  msg.post(".", "release_input_focus")
+  if Garden.state == self.state then Garden.state = nil end
+end

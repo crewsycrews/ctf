@@ -70,7 +70,7 @@ function on_input(self, action_id, action)
     if action_id == hash("head_action_1") then maneuver(self, "dash")
     elseif action_id == hash("head_action_2") then maneuver(self, "jump")
     elseif action_id == hash("head_action_3") then maneuver(self, "backward_dash")
-    elseif action_id == hash("extract") and Combat.can_exit(w) then Runtime.finish(true) end
+    end
   end
 end
 

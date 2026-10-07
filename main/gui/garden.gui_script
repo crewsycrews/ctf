@@ -3,138 +3,171 @@ local UI = require("main.scripts.modules.ui")
 local C = require("main.scripts.modules.catalog")
 local Profile = require("main.scripts.modules.profile")
 local Session = require("main.scripts.modules.session")
+local Garden = require("main.scripts.modules.garden")
+local Expedition = require("main.scripts.modules.expedition")
 
-local function perform(self, operation, ...)
-  local ok, err = Session.change(operation, ...)
-  self.notice, self.dirty = ok and "Saved" or err, true
+local function perform(self, operation, element)
+  local state = Garden.state
+  if not Garden.can_use(state, state.context) or state.context.kind ~= "plot" then return end
+  local slot = state.context.slot
+  local ok, err = Session.change(operation, slot, element)
+  state.notice = ok and "Saved" or err
+  if ok and operation ~= "select" then
+    state.action, state.action_slot = state.action + 1, slot
+    Garden.close(state)
+  end
+  self.dirty = true
 end
-
+local function close()
+  if Garden.state then Garden.close(Garden.state) end
+end
+local function draw_plot(self, p, slot)
+  local tree = p.trees[slot]
+  UI.box(self.root, 778, 331, 340, 460, vmath.vector4(0.06, 0.12, 0.10, 0.96))
+  UI.text(self.root, 626, 532, tree and C.tree_name(tree) or ("Plant in plot " .. slot), 300, 1.15)
+  UI.button(self, 778, 124, 300, 32, "CLOSE / F / ESC", close)
+  if not tree then
+    UI.text(self.root, 626, 476, "Plant 1 element as a seed.\nCare: 1 Compost + 1 Minerals.", 300, 0.9)
+    for i, element in ipairs(C.elements) do
+      local key = element
+      UI.button(self, 778, 405 - (i - 1) * 54, 300, 40, C.names[key] .. " > " .. C.base[key],
+        function() perform(self, "plant", key) end,
+        (p.resources[key] or 0) > 0 and (p.tutorial == "done" or (p.tutorial == "plant" and key == "fire")))
+    end
+    return
+  end
+  local description = C.descriptions[tree.element]
+  if tree.secondary then description = description .. "\n" .. C.descriptions[tree.element .. "_" .. tree.secondary] end
+  UI.text(self.root, 626, 465, description, 300, 0.9)
+  if tree.stage == "seedling" then
+    UI.text(self.root, 626, 380, p.tutorial == "care" and "Your first Maple grows immediately." or
+      "After care: grows on your next victory.", 300, 0.9)
+    UI.button(self, 778, 320, 300, 44, "CARE: 1 Compost + 1 Minerals", function() perform(self, "care") end)
+  elseif tree.remaining then
+    UI.text(self.root, 626, 365, "Growing: " .. (tree.pending and C.recipes[tree.element][tree.pending] or C.tree_name(tree)) ..
+      "\nNeeds 1 level victory.", 300, 0.9)
+  elseif not tree.secondary then
+    UI.text(self.root, 626, 390, "Upgrade: element + Compost + Minerals", 300, 0.8)
+    local n = 0
+    for _, element in ipairs(C.elements) do
+      if element ~= tree.element then
+        n = n + 1
+        local key = element
+        local node = UI.button(self, 778, 350 - (n - 1) * 46, 300, 38,
+          C.names[key] .. " > " .. C.recipes[tree.element][key], function() perform(self, "upgrade", key) end)
+        self.tips[#self.tips + 1] = { node = node, text = C.descriptions[tree.element .. "_" .. key] }
+      end
+    end
+  end
+  if Profile.adult(tree) then
+    local can_select = Profile.can_select(p, slot)
+    UI.button(self, 778, 192, 300, 38, p.selected[tree.element] == slot and "REMOVE FROM TAIL" or "USE IN TAIL",
+      function() perform(self, "select") end, can_select)
+    local total, used = Profile.allocation(p, tree.element)
+    UI.text(self.root, 626, 157, C.names[tree.element] .. " trees assigned: " .. used .. "/" .. total ..
+      (can_select and " (head + tail)" or ". Release a head skill first."), 300, 0.75)
+  end
+end
+local function draw_gate(self, p)
+  UI.box(self.root, 622, 335, 636, 472, vmath.vector4(0.06, 0.12, 0.10, 0.96))
+  local level = Expedition.level(p.expedition_level or 1)
+  UI.text(self.root, 326, 541, "EXPEDITION / LEVEL " .. level.number, 590, 1.25)
+  UI.text(self.root, 326, 500, "Defeat " .. level.target .. " monsters" .. (level.boss and ", then the guardian." or ".") ..
+    " Victory returns you to the garden.", 585, 0.9)
+  UI.text(self.root, 326, 459, "Reward: " .. level.reward_count .. " " .. C.names[Expedition.reward_element(level.number)] .. " + " .. level.reward_count ..
+    " Compost + " .. level.reward_count .. " Minerals", 585, 0.9)
+  local tail = {}
+  for _, tree in ipairs(Profile.loadout(p)) do tail[#tail + 1] = C.tree_name(tree) end
+  UI.text(self.root, 326, 414, "TAIL: " .. (#tail > 0 and table.concat(tail, " > ") or "Visit a grown tree and select it"), 585, 0.9)
+  local capacity = {}
+  for _, element in ipairs(C.elements) do
+    local total, used = Profile.allocation(p, element)
+    capacity[#capacity + 1] = C.names[element] .. " " .. used .. "/" .. total
+  end
+  UI.text(self.root, 326, 384, "TREES USED (head + tail): " .. table.concat(capacity, "   "), 585, 0.75)
+  local labels = { dash = "SPACE / Dash", jump = "Q / Jump", backward_dash = "E / Backstep" }
+  for i, action in ipairs(C.actions) do
+    local key = action
+    local node = UI.button(self, 622, 354 - (i - 1) * 49, 590, 38,
+      labels[key] .. ": " .. (C.names[p.head[key]] or "None"), function()
+        local state = Garden.state
+        if not Garden.can_use(state, state.context) then return end
+        local options, index = { false }, 1
+        for _, element in ipairs(C.elements) do
+          if Profile.can_infuse(p, key, element) then options[#options + 1] = element end
+        end
+        for n, element in ipairs(options) do if element == (p.head[key] or false) then index = n end end
+        if #options == 1 then
+          state.notice, self.dirty = "No free grown trees. Each head skill or follower needs its own tree.", true
+          return
+        end
+        local ok, err = Session.change("infuse", key, options[index % #options + 1] or nil)
+        state.notice, self.dirty = ok and "Saved" or err, true
+      end)
+    self.tips[#self.tips + 1] = { node = node, text = C.head_help[p.head[key]] or
+      "Each head skill or follower uses one grown tree. Click to cycle free elements or None." }
+  end
+  UI.button(self, 622, 200, 590, 44, "START EXPEDITION", function()
+    if not Garden.can_use(Garden.state, Garden.state.context) then return end
+    local ok, err = Session.begin()
+    if ok then msg.post("main:/loader#script", "load_level", { level = 1 })
+    else Garden.state.notice, self.dirty = err, true end
+  end, #tail > 0 and p.tutorial == "done")
+  UI.button(self, 468, 130, 282, 34, "CLOSE / F / ESC", close)
+  UI.button(self, 775, 130, 282, 34, "MAIN MENU", function()
+    msg.post("main:/loader#script", "load_level", { level = "menu" })
+  end)
+end
 local function draw(self)
   if self.druid then self.druid:final() end
   if self.root then gui.delete_node(self.root) end
-  self.root, self.druid, self.dirty = UI.root(), druid.new(self), false
-  self.tips = {}
-  UI.box(self.root, 480, 320, 960, 640, vmath.vector4(0.055, 0.10, 0.09, 1))
-  UI.text(self.root, 24, 608, "THE GARDEN", 600, 1.6)
-  local p = Session.get()
-  if not p or Session.blocked() then
-    UI.text(self.root, 24, 530, Session.error or "Save unavailable", 880)
-    UI.button(self, 150, 465, 250, 40, "RETRY SAVE / LOAD", function()
-      local ok = Session.retry()
-      self.dirty = true
+  self.root, self.druid, self.dirty, self.tips = UI.root(), druid.new(self), false, {}
+  local p, state = Session.get(), Garden.state
+  self.profile, self.revision, self.blocked = p, state and state.revision, Session.blocked()
+  UI.box(self.root, 480, 617, 944, 32, vmath.vector4(0.04, 0.09, 0.06, 0.7))
+  UI.text(self.root, 22, 617, p and UI.bag(p.resources) or "THE GARDEN", 920, 0.85)
+  self.prompt = UI.text(self.root, 22, 26, "", 920, 0.9)
+  self.notice = UI.text(self.root, 22, 66, state and state.notice or "", 920, 0.85)
+  local tutorial = "WASD: walk   F: interact   ESC: close"
+  if p and p.tutorial == "plant" then tutorial = "Walk to a soil plot. Press F and plant Fire to grow your first Maple."
+  elseif p and p.tutorial == "care" then tutorial = "Press F beside your seedling and provide care. The first Maple grows immediately." end
+  UI.text(self.root, 22, 574, tutorial, 900, 0.85)
+  if Session.blocked() then
+    UI.box(self.root, 480, 320, 600, 190)
+    UI.text(self.root, 202, 366, Session.error or "Save unavailable", 560)
+    UI.button(self, 480, 278, 480, 42, "RETRY SAVE / LOAD", function()
+      local ok = Session.retry(); self.dirty = true
       if ok and Session.run and Session.run.active then
         msg.post("main:/loader#script", "load_level", { level = 1 })
       end
     end)
-    return
+  elseif state and state.context then
+    if state.context.kind == "plot" then draw_plot(self, p, state.context.slot)
+    else draw_gate(self, p) end
   end
-  UI.text(self.root, 24, 575, UI.bag(p.resources), 910)
-  local instruction = "Plant: 1 element. Care / upgrade: 1 Compost + 1 Minerals. Growth: 1 successful expedition."
-  if p.tutorial == "plant" then instruction = "Welcome! Choose an empty plot and plant Fire to create your first Maple."
-  elseif p.tutorial == "care" then instruction = "Select your Maple and provide care. This first tree grows instantly; later trees need a successful expedition." end
-  UI.text(self.root, 24, 536, instruction, 900)
-  for slot = 1, C.balance.plots do
-    local index = slot
-    local tree = p.trees[index]
-    local name = tree and C.tree_name(tree) or "Empty plot"
-    local stage = tree and tree.stage or "plant here"
-    if tree and tree.remaining then stage = stage .. " (1 run)" end
-    if tree and p.selected[tree.element] == index then stage = "TAIL / " .. stage end
-    UI.button(self, 95 + ((index - 1) % 4) * 148, 468 - math.floor((index - 1) / 4) * 72,
-      140, 64, index .. ". " .. name .. "\n" .. stage,
-      function() self.slot, self.dirty, self.notice = index, true, "" end, true, self.slot == index)
-  end
-  UI.box(self.root, 782, 360, 308, 280)
-  local tree = p.trees[self.slot]
-  UI.text(self.root, 642, 475, tree and C.tree_name(tree) or ("Plot " .. self.slot), 276, 1.25)
-  if tree then
-    local description = C.descriptions[tree.element]
-    if tree.secondary then description = description .. "\n" .. C.descriptions[tree.element .. "_" .. tree.secondary] end
-    UI.text(self.root, 642, 419, description, 278)
-    if tree.stage == "seedling" then
-      UI.button(self, 782, 345, 276, 36, "CARE: 1 Compost + 1 Minerals", function() perform(self, "care", self.slot) end)
-    elseif tree.stage == "growing" or tree.stage == "upgrading" then
-      local name = tree.pending and C.recipes[tree.element][tree.pending] or C.tree_name(tree)
-      UI.text(self.root, 642, 346, "Growing: " .. name .. "\nNeeds 1 successful expedition.", 275)
-    elseif not tree.secondary then
-      UI.text(self.root, 642, 365, "Upgrade: element + Compost + Minerals", 278)
-      local n = 0
-      for _, element in ipairs(C.elements) do
-        if element ~= tree.element then
-          n = n + 1
-          local added = element
-          local button = UI.button(self, 782, 337 - (n - 1) * 34, 276, 29,
-            C.names[added] .. " > " .. C.recipes[tree.element][added],
-            function() perform(self, "upgrade", self.slot, added) end)
-          self.tips[#self.tips + 1] = { node = button, text = C.descriptions[tree.element .. "_" .. added] }
-        end
-      end
-    end
-    if Profile.adult(tree) then
-      UI.button(self, 782, 232, 276, 30, p.selected[tree.element] == self.slot and "REMOVE FROM TAIL" or "USE IN TAIL",
-        function() perform(self, "select", self.slot) end)
-    end
-  else
-    UI.text(self.root, 642, 423, "Plant one elemental resource.\nThen add Compost and Minerals.", 278)
-    for n, element in ipairs(C.elements) do
-      local planted = element
-      UI.button(self, 782, 365 - (n - 1) * 35, 276, 30, C.names[planted] .. " > " .. C.base[planted],
-        function() perform(self, "plant", self.slot, planted) end,
-        p.tutorial == "done" or (p.tutorial == "plant" and planted == "fire"))
-    end
-  end
-  local tail = {}
-  for _, t in ipairs(Profile.loadout(p)) do tail[#tail + 1] = C.tree_name(t) end
-  UI.text(self.root, 24, 205, "TAIL: " .. (#tail > 0 and table.concat(tail, " > ") or "Select a grown tree"), 900)
-  local labels = { dash = "SPACE / Dash", jump = "Q / Jump", backward_dash = "E / Backstep" }
-  for n, action in ipairs(C.actions) do
-    local key = action
-    local x = 165 + (n - 1) * 310
-    local button = UI.button(self, x, 156, 292, 36, labels[key] .. ": " .. (C.names[p.head[key]] or "None"), function()
-      local options = { false }
-      for _, element in ipairs(C.elements) do if Profile.available(p, element) then options[#options + 1] = element end end
-      local index = 1
-      for i, element in ipairs(options) do if element == (p.head[key] or false) then index = i end end
-      perform(self, "infuse", key, options[index % #options + 1] or nil)
-    end)
-    local element = p.head[key]
-    self.tips[#self.tips + 1] = { node = button, text = element and C.head_help[element] or
-      "Click to cycle grown elements. Dash leaves a trail; jump lands an area; backstep leaves an area behind." }
-    local help = "Click to choose a grown element"
-    if element then
-      help = C.combos[element]
-      if not p.selected[C.finishers[element]] then help = help .. "\nFinisher missing from tail" end
-    end
-    UI.text(self.root, x - 142, 111, help, 284, 0.85, UI.muted)
-  end
-  self.notice_node = UI.text(self.root, 24, 68, self.notice or "", 910, 0.9, UI.muted)
-  UI.button(self, 100, 27, 152, 38, "MAIN MENU", function()
-    msg.post("main:/loader#script", "load_level", { level = "menu" })
-  end)
-  UI.button(self, 800, 35, 272, 48, "START EXPEDITION", function()
-    local ok, err = Session.begin()
-    if ok then msg.post("main:/loader#script", "load_level", { level = 1 })
-    else self.notice, self.dirty = err, true end
-  end, #tail > 0 and p.tutorial == "done")
 end
-
 function init(self)
   msg.post(".", "acquire_input_focus")
-  self.slot, self.notice = 1, ""
   draw(self)
 end
 function update(self, dt)
-  if self.dirty then draw(self) end
+  local state = Garden.state
+  if state and Session.notice then
+    state.notice, Session.notice, self.dirty = Session.notice, nil, true
+  end
+  if self.dirty or self.profile ~= Session.get() or self.blocked ~= Session.blocked() or
+      (state and state.revision ~= self.revision) then draw(self) end
+  local near = state and Garden.near(state)
+  gui.set_text(self.prompt, (state and state.context) and "" or (near and (near.kind == "gate" and
+    "F / Prepare expedition" or "F / Tend plot " .. near.slot) or "WASD / Explore the garden   -   Expedition gate: south, center path"))
   UI.fit(self.root)
   self.druid:update(dt)
 end
 function on_input(self, action_id, action)
-  if action.x and action.y and self.notice_node and not Session.blocked() then
-    local text = self.notice or ""
-    for _, tip in ipairs(self.tips) do
-      if gui.pick_node(tip.node, action.x, action.y) then text = tip.text; break end
-    end
-    gui.set_text(self.notice_node, text)
+  if action.x and action.y then
+    local text = Garden.state and Garden.state.notice or ""
+    for _, tip in ipairs(self.tips) do if gui.pick_node(tip.node, action.x, action.y) then text = tip.text; break end end
+    gui.set_text(self.notice, text)
   end
   return self.druid:on_input(action_id, action)
 end

@@ -1,5 +1,6 @@
 local Runtime = require("main.scripts.modules.runtime")
 go.property("health", 100)
+go.property("boss", false)
 go.property("speed", 10)
 go.property("damage", 0)
 go.property("target_url", msg.url())
@@ -10,7 +11,8 @@ function init(self)
   local w, pos = Runtime.get(), go.get_position()
   if not w or not w.run.active then go.delete(); return end
   self.model = Combat.add_enemy(w, go.get_id(), pos.x, pos.y, self.health, self.speed, self.damage)
-  self.model.object = go.get_id()
+  self.model.object, self.model.boss = go.get_id(), self.boss
+  if self.boss then go.set_scale(1.5) end
 end
 
 function final(self)

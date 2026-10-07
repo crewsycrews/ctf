@@ -43,8 +43,34 @@ embedded_components {
   type: "factory"
   data: "prototype: \"/main/prefabs/effect.go\"\n"
 }
+
 embedded_components {
-  id: "loot_visuals"
+  id: "enemies"
   type: "factory"
-  data: "prototype: \"/main/prefabs/loot.go\"\n"
+  data: "prototype: \"/main/prefabs/enemies/bat.go\"\n"
+}
+embedded_components {
+  id: "boss"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/enemies/bomber.go\"\n"
+}
+embedded_components {
+  id: "fireball_visuals"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/visuals/fireball.go\"\n"
+}
+embedded_components {
+  id: "ice_barrage_visuals"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/visuals/ice_barrage.go\"\n"
+}
+embedded_components {
+  id: "thunderclap_visuals"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/visuals/thunderclap.go\"\n"
+}
+embedded_components {
+  id: "windwalker_visuals"
+  type: "factory"
+  data: "prototype: \"/main/prefabs/visuals/windwalker.go\"\n"
 }

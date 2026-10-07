@@ -1,48 +1,48 @@
 local UI = require("main.scripts.modules.ui")
 local C = require("main.scripts.modules.catalog")
 local Runtime = require("main.scripts.modules.runtime")
-local Combat = require("main.scripts.modules.combat")
 function init(self)
   self.root = UI.root()
-  UI.box(self.root, 480, 598, 944, 72, vmath.vector4(0.06, 0.1, 0.08, 0.9))
-  self.health = UI.text(self.root, 20, 618, "", 440)
-  self.exit = UI.text(self.root, 470, 618, "", 470)
-  self.bag = UI.text(self.root, 20, 583, "", 920)
-  UI.box(self.root, 480, 56, 944, 104, vmath.vector4(0.06, 0.1, 0.08, 0.9))
-  self.head = UI.text(self.root, 20, 86, "", 930)
-  self.tail = UI.text(self.root, 20, 54, "", 930)
-  self.combo = UI.text(self.root, 20, 22, "", 930, 1, vmath.vector4(1, 0.84, 0.4, 1))
+  UI.box(self.root, 132, 613, 244, 34, vmath.vector4(0.06, 0.1, 0.08, 0.7))
+  self.health = UI.text(self.root, 22, 613, "", 232, 0.9)
+  UI.box(self.root, 783, 613, 334, 34, vmath.vector4(0.06, 0.1, 0.08, 0.7))
+  self.objective = UI.text(self.root, 630, 613, "", 310, 0.9)
+  self.boss = UI.text(self.root, 630, 578, "", 310, 0.9)
+  self.head = UI.text(self.root, 20, 24, "", 410, 0.8)
+  self.tail = UI.text(self.root, 448, 24, "", 500, 0.8)
+  self.combo = UI.text(self.root, 280, 62, "", 620, 0.9, vmath.vector4(1, 0.84, 0.4, 1))
 end
 function update(self, dt)
   local w = Runtime.get()
   if not w then return end
   UI.fit(self.root)
-  gui.set_text(self.health, "HP " .. math.ceil(w.head.health) .. "/100  Shield " .. math.ceil(w.head.shield) .. "  Kills " .. w.run.kills)
-  local dx, dy = w.exit.x - w.head.x, w.exit.y - w.head.y
-  local angle = math.atan2(dy, dx)
-  local compass = { "E", "NE", "N", "NW", "W", "SW", "S", "SE" }
-  local direction = compass[(math.floor(angle / (math.pi / 4) + 0.5) % 8) + 1]
-  local exit = w.run.elapsed < C.balance.exit_time and ("Exit opens in " .. math.ceil(C.balance.exit_time - w.run.elapsed) .. "s") or
-    (Combat.can_exit(w) and "PRESS F TO RETURN" or "Exit OPEN")
-  gui.set_text(self.exit, exit .. "  " .. direction .. "  " .. math.floor(Combat.distance(w.head, w.exit)))
-  gui.set_text(self.bag, UI.bag(w.run.bag))
+  gui.set_text(self.health, "HP " .. math.ceil(w.head.health) .. "/100" ..
+    (w.head.shield > 0 and ("   Shield " .. math.ceil(w.head.shield)) or ""))
+  local level = w.run.level
+  gui.set_text(self.objective, "Level " .. level.number .. "   " .. math.min(w.run.kills, level.target) .. "/" .. level.target ..
+    (level.boss and " + Boss" or " monsters"))
+  local boss = ""
+  for _, enemy in pairs(w.enemies) do
+    if enemy.boss and not enemy.dead then boss = "GUARDIAN   HP " .. math.ceil(enemy.health) end
+  end
+  gui.set_text(self.boss, boss)
   local heads, tails = {}, {}
   local keys = { dash = "SPACE", jump = "Q", backward_dash = "E" }
   for _, action in ipairs(C.actions) do
     local ready = math.max(0, ((w.head.ready or {})[action] or 0) - w.time)
-    heads[#heads + 1] = keys[action] .. ": " .. (C.names[w.run.head[action]] or "None") .. (ready > 0 and string.format(" %.1fs", ready) or " ready")
+    heads[#heads + 1] = keys[action] .. (w.run.head[action] and (":" .. C.names[w.run.head[action]]) or "") ..
+      (ready > 0 and string.format(" %.1f", ready) or "")
   end
-  local binds = { fire = "LMB", water = "Wheel down", wind = "RMB", earth = "Wheel up" }
+  local binds = { fire = "LMB", water = "Wheel-", wind = "RMB", earth = "Wheel+" }
   for _, element in ipairs(C.elements) do
     for _, follower in pairs(w.followers) do
       if follower.element == element then
         local ready = math.max(0, (follower.ready or 0) - w.time)
-        tails[#tails + 1] = binds[element] .. ": " .. C.names[element] .. (follower.secondary and "+" .. C.names[follower.secondary] or "") ..
-          (ready > 0 and string.format(" %.1fs", ready) or " ready")
+        tails[#tails + 1] = binds[element] .. ":" .. C.names[element] .. (ready > 0 and string.format(" %.1f", ready) or "")
       end
     end
   end
-  gui.set_text(self.head, table.concat(heads, "     "))
+  gui.set_text(self.head, table.concat(heads, "   "))
   gui.set_text(self.tail, table.concat(tails, "   "))
-  gui.set_text(self.combo, w.reaction_until > w.time and w.reaction or "Head prepares a field or mark. A matching tail skill completes the combo.")
+  gui.set_text(self.combo, w.reaction_until > w.time and w.reaction or "")
 end

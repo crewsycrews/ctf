@@ -3,6 +3,8 @@ local Session = require("main.scripts.modules.session")
 local proxies = { menu = "/loader#menu", garden = "/loader#garden",
   game_over = "/loader#game_over", [1] = "/loader#level1" }
 function init(self)
+  -- Seed once per application launch, never when starting a level or rolling loot.
+  math.randomseed(os.time())
   -- The proxy owner must be in the input stack to forward input to loaded scenes.
   msg.post(".", "acquire_input_focus")
   self.current, self.target, self.busy = nil, nil, false

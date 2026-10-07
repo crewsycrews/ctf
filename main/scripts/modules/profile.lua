@@ -1,9 +1,10 @@
 local C = require("main.scripts.modules.catalog")
+local Expedition = require("main.scripts.modules.expedition")
 local M = {}
 
 function M.new()
-  local p = { version = 1, resources = C.resource_bag(), trees = {}, selected = {},
-    head = {}, tutorial = "plant", successful_runs = 0, next_run = 1, last_result = 0 }
+  local p = { version = 2, resources = C.resource_bag(), trees = {}, selected = {},
+    head = {}, tutorial = "plant", successful_runs = 0, expedition_level = 1, next_run = 1, last_result = 0 }
   p.resources.fire, p.resources.compost, p.resources.minerals = 1, 1, 1
   return p
 end
@@ -12,11 +13,71 @@ function M.adult(tree)
   return tree and (tree.stage == "adult" or tree.stage == "upgrading")
 end
 
-function M.available(p, element)
+function M.tree_count(p, element)
+  local count = 0
   for _, tree in pairs(p.trees) do
-    if M.adult(tree) and tree.element == element then return true end
+    if M.adult(tree) and tree.element == element then count = count + 1 end
   end
-  return false
+  return count
+end
+
+function M.available(p, element)
+  return M.tree_count(p, element) > 0
+end
+
+function M.allocation(p, element, excluding_action)
+  local total, used = M.tree_count(p, element), p.selected[element] and 1 or 0
+  for action, assigned in pairs(p.head) do
+    if action ~= excluding_action and assigned == element then used = used + 1 end
+  end
+  return total, used, total - used
+end
+
+function M.allocation_valid(p)
+  for _, element in ipairs(C.elements) do
+    local _, _, free = M.allocation(p, element)
+    if free < 0 then return false, "Too many " .. C.names[element] .. " assignments. Grow another tree or release an assignment." end
+  end
+  return true
+end
+
+function M.can_infuse(p, action, element)
+  local valid = false
+  for _, name in ipairs(C.actions) do if name == action then valid = true end end
+  if not valid then return false, "Unknown movement" end
+  if not element then return true end
+  if not C.base[element] then return false, "Unknown element" end
+  local total, _, free = M.allocation(p, element, action)
+  if total == 0 then return false, "Grow this element first" end
+  if free < 1 then return false, "No free " .. C.names[element] .. " tree. Release a head or tail assignment." end
+  return true
+end
+
+function M.can_select(p, slot)
+  local tree = p.trees[slot]
+  if not M.adult(tree) then return false, "Only grown trees can join the tail" end
+  -- Removing or replacing a follower of the same family costs no extra tree.
+  if p.selected[tree.element] then return true end
+  local _, _, free = M.allocation(p, tree.element)
+  if free < 1 then return false, "No free " .. C.names[tree.element] .. " tree. Release a head assignment." end
+  return true
+end
+
+-- Keep the old tail and the earliest head assignments that fit the new budget.
+function M.migrate(p)
+  local result, removed = C.copy(p), {}
+  if result.version == 1 then
+    result.head = {}
+    for _, action in ipairs(C.actions) do
+      local element = p.head[action]
+      if element then
+        if M.can_infuse(result, action, element) then result.head[action] = element
+        else removed[#removed + 1] = action end
+      end
+    end
+    result.version = 2
+  end
+  return result, removed
 end
 
 local function pay(p, cost)
@@ -71,18 +132,17 @@ function M.upgrade(p, slot, element)
 end
 
 function M.select(p, slot)
+  local ok, err = M.can_select(p, slot)
+  if not ok then return false, err end
   local tree = p.trees[slot]
-  if not M.adult(tree) then return false, "Only grown trees can join the tail" end
   if p.selected[tree.element] == slot then p.selected[tree.element] = nil
   else p.selected[tree.element] = slot end
   return true
 end
 
 function M.infuse(p, action, element)
-  local valid = false
-  for _, name in ipairs(C.actions) do if name == action then valid = true end end
-  if not valid then return false, "Unknown movement" end
-  if element and not M.available(p, element) then return false, "Grow this element first" end
+  local ok, err = M.can_infuse(p, action, element)
+  if not ok then return false, err end
   p.head[action] = element
   return true
 end
@@ -98,21 +158,28 @@ end
 
 function M.begin_run(p)
   if p.tutorial ~= "done" then return false, "Finish planting your first Maple" end
+  local ok, err = M.allocation_valid(p)
+  if not ok then return false, err end
   local tail = M.loadout(p)
   if #tail == 0 then return false, "Select at least one grown tree" end
   local run = { id = p.next_run, tail = tail, head = C.copy(p.head),
-    bag = C.resource_bag(), elapsed = 0, kills = 0, active = true }
+    bag = C.resource_bag(), elapsed = 0, kills = 0, active = true,
+    level = Expedition.level(p.expedition_level or 1),
+    reward_element = Expedition.reward_element(p.expedition_level) }
   p.next_run = p.next_run + 1
   return true, run
 end
 
 function M.finish(p, run, success)
   if run.id <= p.last_result then return false, "This expedition is already settled" end
-  local result = { id = run.id, success = success, bag = C.copy(run.bag),
+  if success and not Expedition.complete(run) then return false, "Finish the level objective first" end
+  local reward = success and Expedition.reward(run) or C.resource_bag()
+  local result = { id = run.id, success = success, bag = reward, level = run.level.number,
     kills = run.kills, elapsed = run.elapsed, grown = {} }
   if success then
-    for key, amount in pairs(run.bag) do p.resources[key] = p.resources[key] + amount end
+    for key, amount in pairs(reward) do p.resources[key] = p.resources[key] + amount end
     p.successful_runs = p.successful_runs + 1
+    p.expedition_level = run.level.number + 1
     for slot = 1, C.balance.plots do
       local tree = p.trees[slot]
       if tree and (tree.stage == "growing" or tree.stage == "upgrading") then
@@ -130,7 +197,7 @@ function M.finish(p, run, success)
 end
 
 function M.valid(p)
-  if type(p) ~= "table" or p.version ~= 1 then return false end
+  if type(p) ~= "table" or (p.version ~= 1 and p.version ~= 2) then return false end
   if type(p.resources) ~= "table" or type(p.trees) ~= "table" or
       type(p.selected) ~= "table" or type(p.head) ~= "table" then return false end
   for _, key in ipairs(C.resources) do
@@ -151,6 +218,8 @@ function M.valid(p)
   for _, key in ipairs({ "next_run", "last_result", "successful_runs" }) do
     if type(p[key]) ~= "number" or p[key] < 0 or p[key] % 1 ~= 0 then return false end
   end
+  if p.expedition_level ~= nil and (type(p.expedition_level) ~= "number" or
+      p.expedition_level < 1 or p.expedition_level % 1 ~= 0) then return false end
   if p.next_run <= p.last_result then return false end
   if p.tutorial ~= "plant" and p.tutorial ~= "care" and p.tutorial ~= "done" then return false end
   if p.tutorial == "care" and (not p.trees[p.tutorial_slot] or
@@ -163,6 +232,7 @@ function M.valid(p)
     if action ~= "dash" and action ~= "jump" and action ~= "backward_dash" then return false end
     if not M.available(p, element) then return false end
   end
+  if p.version == 2 then return M.allocation_valid(p) end
   return true
 end
 

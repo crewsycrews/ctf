@@ -17,7 +17,7 @@ M.recipes = {
 }
 M.descriptions = {
   fire = "Fireball: 20 damage. Left mouse.",
-  water = "Ice barrage: 10 damage, freeze 2s. Wheel down.",
+  water = "Ice stream toward cursor for 3s. 10 damage, freeze 2s. Wheel down.",
   earth = "Earth strike: 10 damage, slow 3s. Wheel up.",
   wind = "Wind projectile: 25 damage. Right mouse.",
   water_fire = "Thawing enemies explode for 10 damage.",
@@ -45,7 +45,7 @@ M.head_help = {
 }
 M.finishers = { fire = "water", water = "earth", earth = "wind", wind = "fire" }
 M.balance = {
-  plots = 16, exit_time = 90, exit_radius = 80, pickup_radius = 30,
+  plots = 16,
   growth_cost = { compost = 1, minerals = 1 }, growth_runs = 1,
   max_health = 100, shield = 20, shield_duration = 3,
   head_radius = 60, head_duration = 3, mark_duration = 3,
@@ -59,9 +59,15 @@ M.balance = {
   head_cooldown = 3, dash_duration = 0.4, jump_duration = 0.8,
   dash_distance = 216, move_speed = 200, spawn_interval = 5, enemy_limit = 120
 }
+M.expedition = { reward_rotation = { "fire", "water", "wind", "earth" },
+  first_target = 12, target_step = 4, max_target = 60,
+  boss_every = 5, reward_every = 5, max_reward = 5, max_alive = 6, spawn_interval = 1.5,
+  enemy_health = 20, health_step = 2, enemy_speed = 75, speed_step = 2, max_speed = 115,
+  boss_health_multiplier = 10, boss_damage = 20, boss_speed = 65 }
 M.spells = {
   fire = { cooldown = 0.3, damage = 20, duration = 2 },
-  water = { cooldown = 6, damage = 10, duration = 3, radius = 60, freeze = 2 },
+  water = { cooldown = 6, damage = 10, duration = 3, radius = 60, freeze = 2,
+    length = 300, near_width = 18, far_width = 70 },
   earth = { cooldown = 5, damage = 10, duration = 0.5, radius = 80, slow = 3 },
   wind = { cooldown = 5, damage = 25, duration = 0.5 }
 }

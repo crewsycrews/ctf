@@ -8,10 +8,10 @@ local function draw(self)
   self.root, self.druid, self.dirty = UI.root(), druid.new(self), false
   UI.box(self.root, 480, 320, 960, 640, vmath.vector4(0.055, 0.10, 0.09, 1))
   local result = Session.result
-  UI.text(self.root, 60, 556, result and result.success and "RETURNED SAFELY" or "EXPEDITION LOST", 850, 1.7)
+  UI.text(self.root, 60, 556, result and result.success and "LEVEL COMPLETE" or "EXPEDITION LOST", 850, 1.7)
   if result then
-    UI.text(self.root, 60, 485, "Kills: " .. result.kills .. "    Time: " .. math.floor(result.elapsed) .. "s", 850)
-    UI.text(self.root, 60, 426, result.success and "Resources brought home:" or "Lost backpack:", 850)
+    UI.text(self.root, 60, 485, "Level " .. (result.level or 1) .. "    Kills: " .. result.kills .. "    Time: " .. math.floor(result.elapsed) .. "s", 850)
+    UI.text(self.root, 60, 426, result.success and "Level reward:" or "No reward. Try this level again.", 850)
     UI.text(self.root, 60, 388, UI.bag(result.bag), 830)
     UI.text(self.root, 60, 306, #result.grown > 0 and ("Grown: " .. table.concat(result.grown, ", ")) or
       (result.success and "No trees were ready to grow." or "Garden growth did not advance. Your trees and stored resources are safe."), 830)

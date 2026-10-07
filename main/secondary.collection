@@ -11,62 +11,6 @@ instances {
     y: 1264.0
   }
 }
-instances {
-  id: "bomber"
-  prototype: "/main/prefabs/enemies/bomber.go"
-  position {
-    x: 1453.0
-    y: 656.0
-  }
-}
-instances {
-  id: "bomber1"
-  prototype: "/main/prefabs/enemies/bomber.go"
-  position {
-    x: 630.0
-    y: 656.0
-  }
-}
-instances {
-  id: "bomber2"
-  prototype: "/main/prefabs/enemies/bomber.go"
-  position {
-    x: 630.0
-    y: 1523.0
-  }
-}
-instances {
-  id: "bat-spawn"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
-  position {
-    x: 1764.0
-    y: 1927.0
-  }
-}
-instances {
-  id: "bat-spawn1"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
-  position {
-    x: 271.0
-    y: 1762.0
-  }
-}
-instances {
-  id: "bat-spawn2"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
-  position {
-    x: 2032.0
-    y: 769.0
-  }
-}
-instances {
-  id: "bat-spawn3"
-  prototype: "/main/prefabs/enemies/bat-spawn.go"
-  position {
-    x: 558.0
-    y: 378.0
-  }
-}
 collection_instances {
   id: "gui"
   collection: "/main/gui/gui.collection"

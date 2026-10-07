@@ -31,9 +31,9 @@ end
 
 function M.new(run, random)
   return { run = run, time = 0, enemies = {}, followers = {}, projectiles = {},
-    fields = {}, drops = {}, flashes = {}, loot = {}, serial = 0, random = random or math.random,
+    fields = {}, flashes = {}, serial = 0, random = random or math.random,
     head = { x = 1133, y = 1080, health = B.max_health, shield = 0 },
-    exit = { x = 1118, y = 1264 }, reaction = "", reaction_until = 0 }
+    reaction = "", reaction_until = 0 }
 end
 
 local function id(w)
@@ -73,23 +73,12 @@ function M.hurt_head(w, damage)
   w.head.health = math.max(0, w.head.health - damage + absorbed)
 end
 
-local function next_loot(w)
-  if #w.loot == 0 then
-    for _, key in ipairs(C.resources) do w.loot[#w.loot + 1] = key end
-    for i = #w.loot, 2, -1 do
-      local j = w.random(i)
-      w.loot[i], w.loot[j] = w.loot[j], w.loot[i]
-    end
-  end
-  return table.remove(w.loot)
-end
-
 function M.kill(w, enemy, ability)
   if enemy.dead then return end
   enemy.dead = true
   if ability then
-    w.run.kills = w.run.kills + 1
-    w.drops[#w.drops + 1] = { id = id(w), x = enemy.x, y = enemy.y, resource = next_loot(w) }
+    if enemy.boss then w.run.boss_defeated = true
+    else w.run.kills = w.run.kills + 1 end
   end
 end
 
@@ -204,8 +193,15 @@ local function projectile(w, cast, x, y, dx, dy, frost)
   return p
 end
 
+function M.aim(follower, dx, dy)
+  local length = math.sqrt(dx * dx + dy * dy)
+  if length == 0 then dx, dy, length = 0, 1, 1 end
+  follower.dx, follower.dy = dx / length, dy / length
+end
+
 function M.cast(w, follower, dx, dy)
   if not w.run.active or (follower.ready or 0) > w.time then return false end
+  M.aim(follower, dx, dy)
   local spec = C.spells[follower.element]
   follower.ready = w.time + spec.cooldown
   local cast = { id = id(w), element = follower.element, secondary = follower.secondary,
@@ -213,6 +209,10 @@ function M.cast(w, follower, dx, dy)
   if cast.element == "water" or cast.element == "earth" then
     local f = field(w, "spell", follower.x, follower.y, spec.radius, spec.duration)
     f.cast, f.follower = cast, follower
+    if cast.element == "water" then
+      f.dx, f.dy, f.length = follower.dx, follower.dy, spec.length
+      f.near_width, f.far_width = spec.near_width, spec.far_width
+    end
     if cast.element == "water" and cast.secondary == "earth" then M.shield(w) end
     if cast.element == "water" and cast.secondary == "wind" then
       -- Separate hit ledger: the extra bolt is a distinct primary projectile,
@@ -228,6 +228,13 @@ function M.cast(w, follower, dx, dy)
 end
 
 local function in_field(f, entity)
+  if f.length then
+    local x, y = entity.x - f.x, entity.y - f.y
+    local forward, side = x * f.dx + y * f.dy, -x * f.dy + y * f.dx
+    if forward < 0 or forward > f.length then return false end
+    local width = f.near_width + (f.far_width - f.near_width) * forward / f.length
+    return math.abs(side) <= width
+  end
   return segment_distance(entity, f, { x = f.x2 or f.x, y = f.y2 or f.y }) <= f.radius
 end
 
@@ -305,11 +312,6 @@ local function update_projectile(w, p, dt)
   if not p.dead and (w.time >= p.expires or blocked) then finish_projectile(w, p) end
 end
 
-function M.can_exit(w)
-  return w.run.active and w.head.health > 0 and w.run.elapsed >= B.exit_time and
-    distance(w.head, w.exit) <= B.exit_radius
-end
-
 function M.update(w, dt)
   if not w.run.active then return end
   -- The runtime advances in small steps; tests may advance by arbitrary intervals.
@@ -329,7 +331,10 @@ function M.update(w, dt)
   for i = 1, field_count do
     local f = w.fields[i]
     if f.expires > w.time then
-      if f.follower then f.x, f.y = f.follower.x, f.follower.y end
+      if f.follower then
+        f.x, f.y = f.follower.x, f.follower.y
+        if f.length then f.dx, f.dy = f.follower.dx, f.follower.dy end
+      end
       for _, enemy in pairs(w.enemies) do
         if not enemy.dead and in_field(f, enemy) then
           if f.kind == "spell" then
@@ -368,21 +373,17 @@ function M.update(w, dt)
       if not enemy.dead then
         local d = distance(enemy, w.head)
         if d <= B.enemy_radius + 15 then
-          M.hurt_head(w, enemy.damage)
-          M.kill(w, enemy, false)
+          if not enemy.boss or (enemy.contact_ready or 0) <= w.time then
+            M.hurt_head(w, enemy.damage)
+            enemy.contact_ready = w.time + 1
+          end
+          if not enemy.boss then M.kill(w, enemy, false) end
         elseif d > 0 then
           local amount = math.min(d, M.speed(w, enemy) * dt)
           move(w, enemy, enemy.x + (w.head.x - enemy.x) / d * amount,
             enemy.y + (w.head.y - enemy.y) / d * amount)
         end
       end
-    end
-  end
-  for i = #w.drops, 1, -1 do
-    local drop = w.drops[i]
-    if distance(drop, w.head) <= B.pickup_radius then
-      w.run.bag[drop.resource] = w.run.bag[drop.resource] + 1
-      table.remove(w.drops, i)
     end
   end
   for i = #w.projectiles, 1, -1 do if w.projectiles[i].dead then table.remove(w.projectiles, i) end end

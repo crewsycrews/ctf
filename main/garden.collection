@@ -1,5 +1,50 @@
 name: "garden"
-embedded_instances {
-  id: "garden"
-  data: "components {\n  id: \"gui\"\n  component: \"/main/gui/garden.gui\"\n}\n"
-}
+instances { id: "camera" prototype: "/orthographic/camera.go" position { x: 320 y: 214 } }
+instances { id: "druid" prototype: "/main/prefabs/garden/druid.go" position { x: 320 y: 214 } }
+instances { id: "gate" prototype: "/main/prefabs/garden/gate.go" position { x: 640 y: 130 z: 0.23 } }
+embedded_instances { id: "garden" data: "components { id: \"gui\" component: \"/main/gui/garden.gui\" }\n" }
+embedded_instances { id: "ground" data: "embedded_components {\n  id: \"sprite\"\n  type: \"sprite\"\n  data: \"tile_set: \\\"/main/atlases/garden.atlas\\\"\\ndefault_animation: \\\"tile-texture-new\\\"\\nmaterial: \\\"/builtins/materials/sprite.material\\\"\\nblend_mode: BLEND_MODE_ALPHA\\n\"\n  \n}\n" position { x: 640 y: 540 z: -0.8 } scale3 { x: 1.5 y: 1.5 z: 1 } }
+instances { id: "border_0" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_1" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_2" prototype: "/main/prefabs/garden/tree.go" position { x: 150 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_3" prototype: "/main/prefabs/garden/tree.go" position { x: 150 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_4" prototype: "/main/prefabs/garden/tree.go" position { x: 250 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_5" prototype: "/main/prefabs/garden/tree.go" position { x: 250 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_6" prototype: "/main/prefabs/garden/tree.go" position { x: 350 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_7" prototype: "/main/prefabs/garden/tree.go" position { x: 350 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_8" prototype: "/main/prefabs/garden/tree.go" position { x: 450 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_9" prototype: "/main/prefabs/garden/tree.go" position { x: 450 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_10" prototype: "/main/prefabs/garden/tree.go" position { x: 550 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_11" prototype: "/main/prefabs/garden/tree.go" position { x: 550 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_12" prototype: "/main/prefabs/garden/tree.go" position { x: 650 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_13" prototype: "/main/prefabs/garden/tree.go" position { x: 650 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_14" prototype: "/main/prefabs/garden/tree.go" position { x: 750 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_15" prototype: "/main/prefabs/garden/tree.go" position { x: 750 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_16" prototype: "/main/prefabs/garden/tree.go" position { x: 850 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_17" prototype: "/main/prefabs/garden/tree.go" position { x: 850 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_18" prototype: "/main/prefabs/garden/tree.go" position { x: 950 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_19" prototype: "/main/prefabs/garden/tree.go" position { x: 950 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_20" prototype: "/main/prefabs/garden/tree.go" position { x: 1050 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_21" prototype: "/main/prefabs/garden/tree.go" position { x: 1050 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_22" prototype: "/main/prefabs/garden/tree.go" position { x: 1150 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_23" prototype: "/main/prefabs/garden/tree.go" position { x: 1150 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_24" prototype: "/main/prefabs/garden/tree.go" position { x: 1250 y: 35 z: 0.2612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_25" prototype: "/main/prefabs/garden/tree.go" position { x: 1250 y: 1035 z: 0.0112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_26" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 135 z: 0.2362 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_27" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 135 z: 0.2362 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_28" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 235 z: 0.2112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_29" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 235 z: 0.2112 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_30" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 335 z: 0.1862 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_31" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 335 z: 0.1862 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_32" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 435 z: 0.1613 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_33" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 435 z: 0.1613 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_34" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 535 z: 0.1363 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_35" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 535 z: 0.1363 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_36" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 635 z: 0.1113 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_37" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 635 z: 0.1113 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_38" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 735 z: 0.0862 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_39" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 735 z: 0.0862 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_40" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 835 z: 0.0612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_41" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 835 z: 0.0612 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_42" prototype: "/main/prefabs/garden/tree.go" position { x: 50 y: 935 z: 0.0362 } scale3 { x: 1.9 y: 1.9 z: 1 } }
+instances { id: "border_43" prototype: "/main/prefabs/garden/tree.go" position { x: 1230 y: 935 z: 0.0362 } scale3 { x: 1.9 y: 1.9 z: 1 } }
