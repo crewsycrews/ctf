@@ -46,10 +46,18 @@ function update(self, dt)
   checkRotation(self)
 end
 
+function final(self)
+  msg.post(".", "release_input_focus")
+end
+
 function on_input(self, action_id, action)
-  if not action_id then
-    self.pointer.x = action.x
-    self.pointer.y = action.y
+  -- The native camera API expects window pixels, not logical game coordinates.
+  local screen_x = action.screen_x
+  local screen_y = action.screen_y
+  if screen_x ~= nil and screen_y ~= nil then
+    self.pointer.x = screen_x
+    self.pointer.y = screen_y
+    checkRotation(self)
   end
   if action_id == hash("scroll_down") and ELEMENTS[self.type] == "water" then
     skills.ice_barrage(self)

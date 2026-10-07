@@ -10,11 +10,14 @@ if os.getenv('LOCAL_LUA_DEBUGGER_VSCODE') ~= '1' then
   return dummy
 end
 
-local debugger_path
+local debugger_path = os.getenv('LOCAL_LUA_DEBUGGER_FILEPATH')
 
-for path in package.path:gmatch('([^;]+)') do
-  if path:find('local%-lua%-debugger') then
-    debugger_path = path:gsub('?.lua', 'lldebugger.lua')
+if not debugger_path or debugger_path == '' then
+  debugger_path = nil
+  for path in package.path:gmatch('([^;]+)') do
+    if path:find('local%-lua%-debugger') then
+      debugger_path = path:gsub('?.lua', 'lldebugger.lua')
+    end
   end
 end
 
@@ -45,4 +48,3 @@ elseif error then
   dummy.error = 'Loading file error, ' .. error
   return dummy
 end
-

@@ -141,16 +141,16 @@ function bundle {
 
     case $target_os in
         "iOS")
-            platform="armv7-darwin"
-            architectures="armv7-darwin,arm64-darwin"
+            platform="arm64-ios"
+            architectures="arm64-ios"
             ;;
         "Android")
             platform="armv7-android"
             architectures="armv7-android,arm64-android"
             ;;
         "macOS")
-            platform="x86_64-darwin"
-            architectures="x86_64-darwin"
+            platform="x86_64-macos"
+            architectures="x86_64-macos,arm64-macos"
             ;;
         "Windows")
             platform="x86_64-win32"
@@ -161,8 +161,8 @@ function bundle {
             architectures="x86_64-linux"
             ;;
         "HTML5")
-            platform="js-web"
-            architectures="js-web,wasm-web"
+            platform="wasm-web"
+            architectures="wasm-web"
             ;;
         *)  ;;
     esac

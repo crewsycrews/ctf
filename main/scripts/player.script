@@ -13,7 +13,6 @@
 ---@field dash_on_cooldown bool
 ---@field backward_dash_on_cooldown bool
 ---@field score number
-go.property('speed', 200)
 local followersManipulator = require('main.scripts.modules.followers')
 local camera = require("orthographic.camera")
 local skills = require("main.scripts.modules.skills")

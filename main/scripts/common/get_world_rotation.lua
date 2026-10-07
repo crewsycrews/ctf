@@ -1,12 +1,12 @@
 local camera = require("orthographic.camera")
 
 ---Function to get rotation taking into account current camera position in the world
----@param x integer x coordinate on screen
----@param y integer y coordinate on screen
+---@param x number Window pixel coordinate from action.screen_x
+---@param y number Window pixel coordinate from action.screen_y
 ---@return quaternion
 function get_world_rotation(x, y)
   -- the position to look at (mouse/finger)
-  local cursor_world = camera.screen_to_world(go.get_id("camera"),
+  local cursor_world = camera.screen_to_world(go.get_id("/camera"),
                                               vmath.vector3(x, y, 0))
   local player_world = go.get_world_position()
   local angle = math.atan2(player_world.x - cursor_world.x,
