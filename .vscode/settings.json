@@ -1,4 +1,7 @@
 {
+  // Defold Editor installed through Steam (not the shortcut in ~/Applications).
+  "defoldKit.general.editorPath": "/Users/crews/Library/Application Support/Steam/steamapps/common/Defold/Defold.app",
+
   // Editor
   "editor.suggest.localityBonus": true,
   "editor.suggestSelection": "recentlyUsedByPrefix",
