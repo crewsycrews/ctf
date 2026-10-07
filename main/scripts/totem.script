@@ -1,16 +1,11 @@
-go.property("health", 500)
-
-function on_message(self, message_id, message)
-  if message_id == hash(MESSAGES.TOTEM.TAKE_DAMAGE) then
-    local damage = message.damage
-    self.health = self.health - damage
-    msg.post("/gui/gui", MESSAGES.TOTEM.SET_HEALTH,
-             { health_percent = self.health / self.health })
-  end
+local Runtime = require("main.scripts.modules.runtime")
+local C = require("main.scripts.modules.catalog")
+function init(self)
+  local pos = go.get_position()
+  Runtime.get().exit = { x = pos.x, y = pos.y }
 end
-
 function update(self, dt)
-  if self.health <= 0 then
-    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
-  end
+  Runtime.tick(dt)
+  local w = Runtime.get()
+  go.set("#sprite", "tint", Runtime.color(w.run.elapsed >= C.balance.exit_time and "wind" or "earth"))
 end

@@ -1,8 +1,14 @@
-go.property("timeout", 1)
+local Runtime = require("main.scripts.modules.runtime")
+local C = require("main.scripts.modules.catalog")
+go.property("timeout", 5)
 go.property("finishSpawnSeconds", 60)
-
 function init(self)
-  timer.delay(self.timeout, true, function(self, handle, time_elapsed)
-    factory.create("#factory", go.get_position(), go.get_rotation())
+  self.timer = timer.delay(C.balance.spawn_interval, true, function()
+    local w = Runtime.get()
+    if not w or not w.run.active then return end
+    local count = 0
+    for _ in pairs(w.enemies) do count = count + 1 end
+    if count < C.balance.enemy_limit then factory.create("#factory", go.get_position(), go.get_rotation()) end
   end)
 end
+function final(self) timer.cancel(self.timer) end

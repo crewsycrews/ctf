@@ -1,33 +1,36 @@
-require("main.scripts.modules.constants")
 local druid = require("druid.druid")
+local UI = require("main.scripts.modules.ui")
+local Session = require("main.scripts.modules.session")
 
-local function restart_click(self)
-  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = 1 })
+local function draw(self)
+  if self.druid then self.druid:final() end
+  if self.root then gui.delete_node(self.root) end
+  self.root, self.druid, self.dirty = UI.root(), druid.new(self), false
+  UI.box(self.root, 480, 320, 960, 640, vmath.vector4(0.055, 0.10, 0.09, 1))
+  local result = Session.result
+  UI.text(self.root, 60, 556, result and result.success and "RETURNED SAFELY" or "EXPEDITION LOST", 850, 1.7)
+  if result then
+    UI.text(self.root, 60, 485, "Kills: " .. result.kills .. "    Time: " .. math.floor(result.elapsed) .. "s", 850)
+    UI.text(self.root, 60, 426, result.success and "Resources brought home:" or "Lost backpack:", 850)
+    UI.text(self.root, 60, 388, UI.bag(result.bag), 830)
+    UI.text(self.root, 60, 306, #result.grown > 0 and ("Grown: " .. table.concat(result.grown, ", ")) or
+      (result.success and "No trees were ready to grow." or "Garden growth did not advance. Your trees and stored resources are safe."), 830)
+  end
+  if Session.blocked() then
+    UI.text(self.root, 60, 206, Session.error, 830)
+    UI.button(self, 480, 114, 330, 48, "RETRY SAVE", function() Session.retry(); self.dirty = true end)
+  else
+    UI.button(self, 480, 114, 330, 48, "RETURN TO GARDEN", function()
+      msg.post("main:/loader#script", "load_level", { level = "garden" })
+    end)
+  end
 end
-
-local function menu_click(self)
-  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "menu" })
+function init(self) msg.post(".", "acquire_input_focus"); draw(self) end
+function update(self, dt)
+  if self.dirty then draw(self) end
+  UI.fit(self.root)
+  self.druid:update(dt)
 end
-
-function init(self)
-  msg.post(".", "acquire_input_focus")
-  self.druid = druid.new(self)
-  self.druid:new_button("restart", restart_click)
-  self.druid:new_button("menu", menu_click)
-  sound.play("music#sound")
-end
-
-function final(self)
-  msg.post(".", "release_input_focus")
-  self.druid:final()
-  sound.stop("music#sound")
-end
-
-function on_message(self, message_id, message, sender)
-  self.druid:on_message(message_id, message, sender)
-end
-
-function on_input(self, action_id, action)
-  return self.druid:on_input(action_id, action)
-end
-
+function on_input(self, action_id, action) return self.druid:on_input(action_id, action) end
+function on_message(self, message_id, message, sender) self.druid:on_message(message_id, message, sender) end
+function final(self) msg.post(".", "release_input_focus"); self.druid:final() end

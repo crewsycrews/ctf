@@ -1,166 +1,21 @@
-local buffs = require("main.scripts.modules.buffs")
-local defold_extend = require("main.scripts.common.defold_extend")
-local followersManipulator = require('main.scripts.modules.followers')
+local C = require("main.scripts.modules.catalog")
+local Combat = require("main.scripts.modules.combat")
+local M = {}
 
-local skills = {}
-
----Push unit forward in current direction
----@param performer Head
-skills.dash = function(performer)
-  if performer.dash_on_cooldown or performer.dashing then return end
-  performer.dash_on_cooldown = true
-  performer.dashing = true
-  local target_position = go.get_position()
-  target_position = target_position + performer.dir * performer.speed * 1.08
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = "head_" .. ELEMENTS[1] })
-  timer.delay(SKILLS.COOLDOWNS.dash, false, function(self, handle, time_elapsed)
-    performer.dash_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = "head_" .. ELEMENTS[1] })
-  end)
-  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_LINEAR, SKILLS.DURATIONS.dash, 0,
-             function(self, url, property)
-    performer.dashing = false
-    buffs.remove_status(performer, STATUSES.invulnerability)
-  end)
-
-  buffs.add_status(performer, STATUSES.invulnerability)
-end
---- Animate scale increse and decrease
----@param performer { followers: table }
-skills.jump = function(performer)
-  if performer.jump_on_cooldown or performer.jumping then return end
-
-  performer.jumping = true
-  performer.jump_on_cooldown = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = "head_" .. ELEMENTS[3] })
-  timer.delay(SKILLS.COOLDOWNS.jump, false, function(self, handle, time_elapsed)
-    performer.jump_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = "head_" .. ELEMENTS[3] })
-  end)
-  go.animate(go.get_id(), 'scale', go.PLAYBACK_ONCE_PINGPONG,
-             go.get_scale() * 2, go.EASING_LINEAR, SKILLS.DURATIONS.jump, 0,
-             function(self, url, property) self.jumping = false end)
-  followersManipulator.animate_jump(performer)
-end
-
----Push unit backward from current direction
----@param performer Head
-skills.backward_dash = function(performer)
-  if performer.backward_dash_on_cooldown or performer.dashing then return end
-  performer.dashing = true
-  performer.backward_dash_on_cooldown = true
-  local target_position = go.get_position()
-  target_position = target_position - performer.dir * performer.speed * 1.08
-
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = "head_" .. ELEMENTS[2] })
-  timer.delay(SKILLS.COOLDOWNS.backward_dash, false,
-              function(self, handle, time_elapsed)
-    performer.backward_dash_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = "head_" .. ELEMENTS[2] })
-  end)
-
-  go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target_position,
-             go.EASING_LINEAR, SKILLS.DURATIONS.backward_dash, 0,
-             function(self, url, property) self.dashing = false end)
-end
-
----@param performer Follower
-skills.ice_barrage = function(performer)
-  if performer.ice_barrage_on_cooldown or performer.ice_barrage_active then
-    return
+-- The Defold player owns movement; combat owns the attached elemental effects.
+function M.start_head(world, action, ready, direction)
+  if not world.run.active or (ready[action] or 0) > world.time then return nil end
+  ready[action] = world.time + C.balance.head_cooldown
+  world.head.ready = ready
+  local movement = { action = action, elapsed = 0,
+    group = Combat.head_action(world, action, world.head.x, world.head.y),
+    direction = { x = direction.x, y = direction.y },
+    duration = action == "jump" and C.balance.jump_duration or C.balance.dash_duration }
+  if action == "dash" or action == "jump" then
+    world.head.invulnerable_until = world.time + movement.duration
   end
-
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
-  local spellGO = factory.create("#ice-spell-factory")
-  msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
-  performer.ice_barrage_on_cooldown = true
-  performer.ice_barrage_active = true
-  timer.delay(SKILLS.COOLDOWNS.ice_barrage, false,
-              function(self, handle, time_elapsed)
-    performer.ice_barrage_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
-  end)
-  timer.delay(SKILLS.DURATIONS.ice_barrage, false,
-              function(self, handle, time_elapsed)
-    performer.ice_barrage_active = false
-    go.delete(spellGO)
-  end)
+  return movement
 end
 
----@param performer Follower
-skills.fireball = function(performer)
-  if performer.fireball_on_cooldown then return end
-  performer.fireball_on_cooldown = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
-  local spellGO = factory.create("#fireball-spell-factory")
-  go.set_rotation(go.get_rotation(), spellGO)
-  timer.delay(SKILLS.COOLDOWNS.fireball, false,
-              function(self, handle, time_elapsed)
-    performer.fireball_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
-  end)
-end
-
----@param performer Follower
-skills.thunderclap = function(performer)
-  if performer.thunderclap_on_cooldown or performer.thunderclap_active then
-    return
-  end
-  performer.thunderclap_on_cooldown = true
-  performer.thunderclap_active = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
-
-  local spellGO = factory.create("#thunderclap-spell-factory")
-  msg.post(spellGO, "set_parent", { parent_id = go.get_id() })
-  timer.delay(SKILLS.DURATIONS.thunderclap, false,
-              function(self, handle, time_elapsed)
-    performer.thunderclap_active = false
-    go.delete(spellGO)
-  end)
-  timer.delay(SKILLS.COOLDOWNS.thunderclap, false,
-              function(self, handle, time_elapsed)
-    performer.thunderclap_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
-  end)
-end
-
----@param performer Follower
-skills.windwalk = function(performer)
-  if performer.windwalk_on_cooldown or performer.windwalk_active then return end
-  performer.windwalk_on_cooldown = true
-  msg.post("/gui/gui", MESSAGES.SKILLS.COOLDOWN,
-           { type = ELEMENTS[performer.type] })
-  local spellGO = factory.create("#windwalk-spell-factory")
-
-  go.set_rotation(go.get_rotation(), spellGO)
-  go.set_scale(1.6, spellGO)
-  timer.delay(SKILLS.DURATIONS.windwalk, false,
-              function(self, handle, time_elapsed)
-    performer.windwalk_active = false
-    go.set_scale(1)
-    if (defold_extend.go_exists(spellGO)) then go.delete(spellGO) end
-  end)
-  timer.delay(SKILLS.COOLDOWNS.windwalk, false,
-              function(self, handle, time_elapsed)
-    performer.windwalk_on_cooldown = false
-    msg.post("/gui/gui", MESSAGES.SKILLS.NORMAL,
-             { type = ELEMENTS[performer.type] })
-  end)
-  -- making the walker small, like he's disappeared
-  go.set_scale(0.0000001)
-end
-
-return skills
+M.cast_tail = Combat.cast
+return M

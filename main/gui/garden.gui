@@ -1,4 +1,4 @@
-script: "/main/gui/game_over.gui_script"
+script: "/main/gui/garden.gui_script"
 fonts {
   name: "PixelFont"
   font: "/assets/fonts/PixelFont.font"

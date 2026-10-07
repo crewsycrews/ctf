@@ -114,3 +114,10 @@ embedded_components {
     w: 1.0
   }
 }
+embedded_components {
+  id: "variant"
+  type: "label"
+  data: "size { x: 120 y: 24 }\nfont: \"/assets/fonts/PixelFont.font\"\ntext: \"\"\nmaterial: \"/builtins/fonts/label.material\"\n"
+  position { y: 32 z: 0.2 }
+  scale { x: 0.7 y: 0.7 z: 1 }
+}

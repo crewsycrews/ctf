@@ -1,4 +1,4 @@
-local buffs = require("main.scripts.modules.buffs")
+local Runtime = require("main.scripts.modules.runtime")
 go.property("health", 100)
 go.property("speed", 10)
 go.property("damage", 0)
@@ -6,76 +6,14 @@ go.property("target_url", msg.url())
 go.property("score_points", 1)
 
 function init(self)
-  self.buffs = {}
-  self.initial_speed = self.speed
+  local Combat = require("main.scripts.modules.combat")
+  local w, pos = Runtime.get(), go.get_position()
+  if not w or not w.run.active then go.delete(); return end
+  self.model = Combat.add_enemy(w, go.get_id(), pos.x, pos.y, self.health, self.speed, self.damage)
+  self.model.object = go.get_id()
 end
 
-local function handle_damage_input(self, message)
-  local damage_done = go.get(msg.url(nil, message.other_id, 'script'), 'damage')
-  self.health = self.health - damage_done
-end
-
-function update(self, dt)
-  local oldpos = go.get_position()
-  local diff = vmath.normalize(go.get_position(self.target_url) - oldpos)
-  local newpos = go.get_position() + diff * self.speed * dt
-  go.set_position(newpos)
-  sprite.set_hflip("#sprite", diff.x > 0)
-end
-
-local function handle_one_time_buff_apply(self, message, buff)
-  if (not buffs.check_status(self, buff)) then
-    handle_damage_input(self, message)
-    buffs.add_status(self, buff)
-    if (buff == STATUSES.slow) then
-      self.speed = self.speed * 0.5
-    elseif (buff == STATUSES.frozen) then
-      self.speed = 0
-    end
-    local buff_duration = go.get(msg.url(nil, message.other_id,
-                                         'one_time_buff_applier'),
-                                 'buff_duration')
-    timer.delay(buff_duration, false, function(self, handle, time_elapsed)
-      buffs.remove_status(self, buff)
-      self.speed = self.initial_speed
-    end)
-  end
-end
-
--- TODO explode animation
-local function handle_destroy(self)
-  go.delete(go.get_id())
-  msg.post("/gui/gui", MESSAGES.PLAYER.COUNT_SCORE,
-           { score = self.score_points })
-end
-
-function on_message(self, message_id, message, sender)
-  if message_id == hash("collision_response") then
-    if message.other_group == COLLISION_GROUPS.head then
-      msg.post("/snake/head", MESSAGES.PLAYER.TAKE_DAMAGE,
-               { damage = self.damage })
-      
-      handle_destroy(self)
-    end
-
-    if message.other_group == COLLISION_GROUPS.totem then
-      msg.post("/totem", MESSAGES.TOTEM.TAKE_DAMAGE, { damage = self.damage })
-      handle_destroy(self)
-    end
-  end
-  if message_id == hash("trigger_response") then
-    if message.other_group == COLLISION_GROUPS.projectiles and message.enter then
-      handle_damage_input(self, message)
-    end
-    if message.other_group == COLLISION_GROUPS.ice_barrage and message.enter then
-      handle_one_time_buff_apply(self, message, STATUSES.frozen)
-    end
-    if message.other_group == COLLISION_GROUPS.thunderclap and message.enter then
-      handle_one_time_buff_apply(self, message, STATUSES.slow)
-    end
-  end
-  if self.health <= 0 then
-    handle_destroy(self)
-  end
-
+function final(self)
+  local w = Runtime.get()
+  if w then w.enemies[go.get_id()] = nil end
 end

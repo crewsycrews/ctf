@@ -1,47 +1,28 @@
-local followers = {}
-local random = require("main.scripts.common.random")
-math.randomseed(os.time())
+local C = require("main.scripts.modules.catalog")
+local Session = require("main.scripts.modules.session")
+local M = {}
 
----Deploy followers that will go behind each others back
----@param holder {followers_amount: number, followers: table, dir: quaternion|vector3|vector4 }
-followers.spawn_followers = function(holder)
-  holder.followers_amount = 4
-  holder.followers_types = {}
-  if #holder.followers == holder.followers_amount then return end
-  for i = 1, holder.followers_amount do
-    local typeIndex = random.uniq_random(holder.followers_types, 1, #ELEMENTS)
-    local follower
-    if #holder.followers == 0 then
-      follower = factory.create("tail#followers", go.get_position(),
-                                go.get_rotation(), {
-        parent = msg.url(nil, go.get_id(), 'main'),
-        type = typeIndex
-      })
-    elseif #holder.followers <= holder.followers_amount then
-      follower = factory.create("tail#followers",
-                                go.get_position(holder.followers[i - 1]),
-                                go.get_rotation(holder.followers[i - 1]), {
-        parent = msg.url(nil, holder.followers[i - 1], 'main'),
-        type = typeIndex
-      })
+function M.spawn_followers(holder)
+  for i, tree in ipairs(Session.run.tail) do
+    local type_index, secondary = 1, 0
+    for n, element in ipairs(C.elements) do
+      if tree.element == element then type_index = n end
+      if tree.secondary == element then secondary = n end
     end
-    table.insert(holder.followers, i, follower)
-    msg.post(follower, "look_at", { dir = holder.dir })
+    local parent = i == 1 and go.get_id() or holder.followers[i - 1]
+    local pos = go.get_position(parent)
+    pos.x = pos.x - 40
+    local follower = factory.create("tail#followers", pos, go.get_rotation(), {
+      parent = msg.url(nil, parent, "main"), type = type_index, secondary = secondary
+    })
+    holder.followers[i] = follower
   end
 end
 
-followers.send_message_to_all = function(holder, message, data)
+function M.animate_jump(holder)
   for index, follower in ipairs(holder.followers) do
-    msg.post(follower, message, data)
+    go.animate(follower, "scale", go.PLAYBACK_ONCE_PINGPONG, vmath.vector3(1.5),
+      go.EASING_LINEAR, C.balance.jump_duration, 0.1 * index)
   end
 end
-
----@param holder { followers: table }
-followers.animate_jump = function(holder)
-  for index, follower in ipairs(holder.followers) do
-    go.animate(msg.url(nil, follower, nil), 'scale', go.PLAYBACK_ONCE_PINGPONG,
-               go.get_scale() * 2, go.EASING_LINEAR, 0.8, 0.2 * index)
-  end
-end
-
-return followers
+return M

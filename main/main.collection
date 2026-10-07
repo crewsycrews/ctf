@@ -19,6 +19,7 @@ embedded_instances {
   "  property_decls {\n"
   "  }\n"
   "}\n"
+  "components {\n  id: \"garden\"\n  component: \"/main/gui/proxy/garden.collectionproxy\"\n}\n"
   "components {\n"
   "  id: \"menu\"\n"
   "  component: \"/main/gui/proxy/start_menu.collectionproxy\"\n"

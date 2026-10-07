@@ -1,30 +1,20 @@
 local druid = require("druid.druid")
-
-local function play_click(self)
-  msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = 1 })
-end
-
-local function quit_click(self) msg.post("@system:", "exit", { code = 0 }) end
-
 function init(self)
   msg.post(".", "acquire_input_focus")
   self.druid = druid.new(self)
-  self.druid:new_button("play", play_click)
-  self.druid:new_button("quit", quit_click)
+  gui.set_text(gui.get_node("text"), "ENTER GARDEN")
+  gui.set_text(gui.get_node("text2"), "Grow elemental trees and prepare your tail.\n\nCollect resources from defeated enemies.\nThe exit opens after 90 seconds.\nReturn to the totem and press F to keep your loot.\n\nWASD: steer. SPACE / Q / E: head skills.\nMouse buttons / wheel: tail skills.\nA lost expedition gives no resources or growth.")
+  self.druid:new_button("play", function()
+    msg.post("main:/loader#script", "load_level", { level = "garden" })
+  end)
+  self.druid:new_button("quit", function() msg.post("@system:", "exit", { code = 0 }) end)
   sound.play("title#sound")
 end
-
+function update(self, dt) self.druid:update(dt) end
 function final(self)
   msg.post(".", "release_input_focus")
   self.druid:final()
   sound.stop("title#sound")
 end
-
-function on_message(self, message_id, message, sender)
-  self.druid:on_message(message_id, message, sender)
-end
-
-function on_input(self, action_id, action)
-  return self.druid:on_input(action_id, action)
-end
-
+function on_message(self, message_id, message, sender) self.druid:on_message(message_id, message, sender) end
+function on_input(self, action_id, action) return self.druid:on_input(action_id, action) end

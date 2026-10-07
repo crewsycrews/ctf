@@ -1,98 +1,77 @@
----@class Head
----@field moving bool
----@field dashing bool
----@field jumping bool
----@field max_health number Set via go.property
----@field current_health number
----@field input quaternion|vector3|vector4
----@field dir quaternion|vector3|vector4
----@field speed number
----@field followers table
----@field followers_amount number
----@field buffs table
----@field dash_on_cooldown bool
----@field backward_dash_on_cooldown bool
----@field score number
-local followersManipulator = require('main.scripts.modules.followers')
+local C = require("main.scripts.modules.catalog")
+local Combat = require("main.scripts.modules.combat")
+local Runtime = require("main.scripts.modules.runtime")
+local Skills = require("main.scripts.modules.skills")
+local Followers = require("main.scripts.modules.followers")
 local camera = require("orthographic.camera")
-local skills = require("main.scripts.modules.skills")
-go.property('speed', 200)
+go.property("speed", 200)
 go.property("max_health", 100)
 
----@param self Head
 function init(self)
   msg.post(".", "acquire_input_focus")
   camera.follow(nil, go.get_id())
-
-  self.moving = false
-  self.dashing = false
+  self.dir, self.keys, self.ready = vmath.vector3(1, 0, 0), {}, {}
   self.followers = {}
-  self.buffs = {}
-  self.input = vmath.vector3(0, 0, 0)
-  self.dir = vmath.vector3(1, 0, 0)
-  self.score = 0
-
-  self.current_health = self.max_health
-  followersManipulator.spawn_followers(self)
+  local w = Runtime.get()
+  local pos = go.get_position()
+  w.head.x, w.head.y = pos.x, pos.y
+  Followers.spawn_followers(self)
 end
 
----@param self Head
-function final(self) msg.post(".", "release_input_focus") end
+local function maneuver(self, action)
+  local w = Runtime.get()
+  if self.movement then return end
+  self.movement = Skills.start_head(w, action, self.ready, self.dir)
+  if not self.movement then return end
+  if action == "jump" then Followers.animate_jump(self) end
+end
 
----@param self Head
 function update(self, dt)
-  if not self.dashing then
-    local target_position = go.get_position()
-    target_position = target_position + self.dir * self.speed * dt
-    go.set_position(target_position)
+  local w = Runtime.get()
+  if not w or not w.run.active then return end
+  local input = vmath.vector3((self.keys.right and 1 or 0) - (self.keys.left and 1 or 0),
+    (self.keys.up and 1 or 0) - (self.keys.down and 1 or 0), 0)
+  if vmath.length(input) > 0 then
+    self.dir = vmath.normalize(input)
+    msg.post("sprite", "look_at", { dir = self.dir })
   end
-  self.input.x = 0
-  self.input.y = 0
-  self.dir = vmath.normalize(self.dir)
-
-  if self.current_health <= 0 then
-    msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL, { level = "game_over" })
+  local pos = go.get_position()
+  local x, y = pos.x, pos.y
+  local m = self.movement
+  local speed, direction = self.speed, self.dir
+  if m and m.action ~= "jump" then
+    speed = C.balance.dash_distance / m.duration
+    direction = vmath.vector3(m.direction.x, m.direction.y, 0) * (m.action == "backward_dash" and -1 or 1)
   end
-end
-
----@param self Head
-function on_input(self, action_id, action)
-  if action_id == hash("up") then
-    self.input.y = 1
-  elseif action_id == hash("down") then
-    self.input.y = -1
-  elseif action_id == hash("left") then
-    self.input.x = -1
-  elseif action_id == hash("right") then
-    self.input.x = 1
-  elseif action_id == hash("head_action_1") and action.pressed then
-    skills.dash(self)
-  elseif action_id == hash("head_action_2") and action.pressed and
-      not self.jumping then
-    skills.jump(self)
-  elseif action_id == hash("head_action_3") and action.pressed then
-    skills.backward_dash(self)
-  end
-
-  if vmath.length(self.input) > 0 then
-    self.dir = vmath.normalize(self.input)
-    msg.post('sprite', "look_at", { dir = self.dir })
-  end
-end
-
----@param self Head
-function on_message(self, message_id, message)
-  if message_id == hash(MESSAGES.PLAYER.TAKE_DAMAGE) then
-    local damage = message.damage
-    self.current_health = self.current_health - damage
-    -- max health(100 number) is a subject to initialize at load time on level init. So we'll need to change next line later
-    msg.post("/gui/gui", MESSAGES.PLAYER.SET_HEALTH,
-             { health_percent = self.current_health / self.max_health })
-
-    if self.current_health <= 0 then
-      msg.post("main:/loader#script", MESSAGES.LOAD_LEVEL,
-               { level = "game_over" })
+  local step = dt
+  if m then step = math.min(dt, m.duration - m.elapsed) end
+  local nx, ny = Runtime.constrain({ x = x, y = y }, x + direction.x * speed * step, y + direction.y * speed * step)
+  go.set_position(vmath.vector3(nx, ny, pos.z))
+  w.head.x, w.head.y = nx, ny
+  if m then
+    m.elapsed = m.elapsed + step
+    if m.action == "dash" then Combat.head_trace(w, m.group, x, y, nx, ny) end
+    if m.action == "jump" then go.set_scale(1 + math.sin(math.pi * m.elapsed / m.duration)) end
+    if m.elapsed >= m.duration then
+      if m.action == "jump" then Combat.head_land(w, m.group, nx, ny); go.set_scale(1) end
+      self.movement = nil
     end
   end
-
+  go.set("sprite#sprite", "tint", Runtime.color(w.head.shield > 0 and "earth" or ""))
 end
+
+function on_input(self, action_id, action)
+  local w = Runtime.get()
+  if not w or not w.run.active then return end
+  for _, key in ipairs({ "up", "down", "left", "right" }) do
+    if action_id == hash(key) then self.keys[key] = not action.released end
+  end
+  if action.pressed then
+    if action_id == hash("head_action_1") then maneuver(self, "dash")
+    elseif action_id == hash("head_action_2") then maneuver(self, "jump")
+    elseif action_id == hash("head_action_3") then maneuver(self, "backward_dash")
+    elseif action_id == hash("extract") and Combat.can_exit(w) then Runtime.finish(true) end
+  end
+end
+
+function final(self) msg.post(".", "release_input_focus") end
